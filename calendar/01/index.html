@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+body {
+  shape-rendering: crispEdges;
+}
+
+.arrow_box {
+	position: relative;
+	background: #ffffff;
+	border: 4px solid #60646b;
+	width:160px;
+	height: 160px;
+	padding:10px;
+}
+.arrow_box:after, .arrow_box:before {
+	bottom: 100%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
+
+.arrow_box:after {
+	border-color: rgba(255, 255, 255, 0);
+	border-bottom-color: #ffffff;
+	border-width: 6px;
+	left: 50%;
+	margin-left: -6px;
+}
+.arrow_box:before {
+	border-color: rgba(96, 100, 107, 0);
+	border-bottom-color: #60646b;
+	border-width: 12px;
+	left: 50%;
+	margin-left: -12px;
+}
+</style>
+<body>
+
+
+<script src="../../d3.v3.min.js"></script>
+<script>
+
+var width = 960,
+	height = 136,
+	cellSize = 17; // セルのサイズ指定
+
+//ツールチップ要素	
+var tooltip = d3.select("body")
+	.append('div')
+	.attr('class', 'arrow_box')
+	.style("position", "absolute")
+	.style("z-index", "10")
+	.style("visibility", "hidden")
+	.text("a simple tooltip");	
+	
+//string→dateオブジェクト変換関数
+var day = d3.time.format("%w"),
+	week = d3.time.format("%U"),
+	percent = d3.format(".1%"),
+	format = d3.time.format("%Y-%m-%d");
+
+
+//カレンダーの数(年毎)だけsvgタグを生成
+var svg = d3.select("body").selectAll("svg")
+	.data(d3.range(1990, 1991)) //1990年〜1999年までの日データ
+	.enter()
+	.append("svg")
+	.attr("width", width)
+	.attr("height", height)
+	.attr("class", "RdYlGn")
+	.append("g")
+	.attr("transform", "translate(" + ((width - cellSize * 53) / 2) + "," + (height - cellSize * 7 - 1) + ")"); //カレンダ―マージン指定
+
+//年タイトル 生成 
+svg.append("text")
+	.attr("transform", "translate(-6," + cellSize * 3.5 + ")rotate(-90)")
+	.style("text-anchor", "middle")
+	.text(function(d) { return d; });
+
+
+//日付セル生成
+var cell = svg.selectAll(".day") 
+	.data(function(d) { return  d3.time.days(new Date(d, 0, 1), new Date(d + 1, 0, 1));})
+	.enter().append("rect")
+	.attr({
+		"class": "day",
+		"width": cellSize,
+		"height": cellSize,
+		"x": function(d) { return week(d) * cellSize; },
+		"y": function(d) { return day(d) * cellSize; },
+		"fill": "#fff",
+		"stroke": "#ccc"
+    })
+	.datum(format);
+
+
+//日付セルを月毎にpathで分類
+svg.selectAll(".month")
+	.data(function(d) {
+		var tmp = d3.time.months(new Date(d, 0, 1), new Date(d + 1, 0, 1));
+		//console.log(tmp);
+		return tmp;
+	})
+	.enter()
+	.append("path")
+	.attr({
+		"class": "month",
+		"d": monthPath,
+		"fill": "none",
+		"stroke": "#000",
+		"stroke-width": "2px"
+	});
+
+//データ読み込み
+d3.csv("dji.csv", function(error, csv) {
+	//データ整形
+	var data = d3.nest()
+		.key(function(d) { return d.Date; }) //日付でネスト
+		.rollup(function(d) { return (d[0].Close - d[0].Open) / d[0].Open; })
+		.map(csv);
+
+	//データにもと付きセルをカラーリング
+	cell.filter(function(d) { return d in data; }) //データが存在するかチェック
+		.attr("fill", "#999")　// データが存在するセルに色付け
+		.on("mouseover", function(){
+			return tooltip.style("visibility", "visible");
+		})
+		.on("mousemove", function(d){
+			return tooltip
+				.style("top", (d3.event.pageY+30)+"px")
+				.style("left",(d3.event.pageX-90)+"px")
+				.html(d + ": " + percent(data[d]));
+				
+		})
+		.on("mouseout", function(){
+			return tooltip.style("visibility", "hidden");
+		})
+
+});
+
+//pathジェネレーター
+function monthPath(t0) {
+	var t1 = new Date(t0.getFullYear(), t0.getMonth() + 1, 0),
+		d0 = +day(t0), w0 = +week(t0),
+		d1 = +day(t1), w1 = +week(t1);
+	//console.log("d0:"+d0+"/d1:"+d1+"/w0:"+w0+"/w1"+w1);
+	var path = "M" + (w0 + 1) * cellSize + "," + d0 * cellSize
+		+ "H" + w0 * cellSize + "V" + 7 * cellSize
+		+ "H" + w1 * cellSize + "V" + (d1 + 1) * cellSize
+		+ "H" + (w1 + 1) * cellSize + "V" + 0
+		+ "H" + (w0 + 1) * cellSize + "Z";
+	//console.log(path); 
+	return path;
+}
+
+
+</script>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>世界の主要20言語　使用人口／使用国数</title>
+<style>
+body {
+    background-color:black;
+    background-image:url("http://shimz.me/index_resource/bg.gif");
+}
+svg {
+    width: 800px;
+    height: 800px;
+}
+</style>
+
+</head>
+<body>
+<h2>世界の主要20言語　使用人口／使用国数(クリックで切り替え)</h2>
+<svg></svg><br>
+データ元:<a href="http://www.ethnologue.com/statistics/size" target="_blank">Summary by language size | Ethnologue</a>
+
+
+
+<script src="../d3.v3.min.js"></script>
+<script src="../d3helper.js"></script>
+<script>
+d3.csv('Language.csv', function(csv){
+    d3main(d3, csv);  
+})
+
+function d3main(d3, csv){
+    
+    var w = 800;
+    var h = 800;
+    
+    var svg = d3.select('svg');
+    
+    var data = { //csvデータを一つのchidrenとしてデータセットを作成
+        children:csv
+    };
+    
+    
+    //各要素のattrの内容（変数にしておくとアップデートを行うときに便利)
+    var circleAttr = {
+        cx: F('x'),
+        cy: F('y'),
+        r: F('r')   
+    };
+    var labelAttr = {
+        x: F('x'),
+        y: F('y')
+    };
+    var countAttr = {
+        x: F('x'),
+        y: F('y', ' + 20')
+    };
+    
+    var pack = d3.layout.pack().size([w,h]);  //バブルチャートで使用するpackレイアウトオブジェクトを作成
+
+    var retSpeakers  = function(d){ return d.Speakers };   //Speakersの値を返す関数
+    var reTotalCountries = function(d){ return d.TotalCountries };　//TotalCountriesの値を返す関数
+    
+    var circleGroup = svg.selectAll("g")
+            .data(pack.value(retSpeakers).nodes(data))
+            .enter()
+            .append("g")
+            .filter(function(d){
+                return d.Speakers > 0;
+            }) ;
+    
+
+    var circle = circleGroup.append('circle')
+            .attr({
+                class:F('name'),
+                "fill-opacity":0.8,
+                "stroke-width":1,            
+                fill: function(d){return (d.LangName==='日本語') ? "red" : " blue " ; },
+                stroke:function(d){return "white";},
+            })
+            .attr(circleAttr)
+
+    var label = circleGroup.append('text')
+        .attr({
+            fill: "white",
+            "font-size": "12px",
+            "text-anchor": "middle",
+            "alignment-baseline": "middle"
+        })
+        .attr(labelAttr)
+        .text(F('LangName'))
+    
+    var count = circleGroup.append('text')
+        .attr({
+            fill: "white",
+            "font-size": "12px",
+            "text-anchor": "middle",
+            "alignment-baseline": "middle",
+        })
+        .attr(countAttr)
+        .text(F('Speakers', " / 1000000000 + '億人'"))
+        
+       
+    var title =  svg.append('text')
+        .attr({
+            fill:'black',
+            'font-size':'24',
+            x: 40,
+            y: 100
+        })
+        .text('Speakers')
+    
+    
+    var style1 = function() {
+        circleGroup.data(pack.value(retSpeakers).nodes(data));
+        circle.transition().attr(circleAttr).duration(1000);
+        label.transition().attr(labelAttr).duration(1000);    
+        count.transition().attr(countAttr).text(F('Speakers', " / 1000000000 + '億人'")).duration(1000);
+        title.text('Speakers')
+    }
+    var style2 = function() {
+        circleGroup.data(pack.value(reTotalCountries).nodes(data));
+        circle.transition().attr(circleAttr).duration(1000);
+        label.transition().attr(labelAttr).duration(1000);    
+        count.transition().attr(countAttr).text(F('TotalCountries', "  + 'ヶ国'")).duration(1000);
+        title.text('Total Countries')
+    }
+    
+    d3.select('body').on('click', toggle(style2, style1) );
+
+}
+
+
+
+</script>
+
+
+
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-27276322-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+</body>
+</html>

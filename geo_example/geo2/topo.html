@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>D3.js 群馬県SVG(topoJSON)</title>
+<style>
+
+</style>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/d3.geo.projection.v0.min.js"></script>
+<script src="http://d3js.org/topojson.v0.min.js"></script>
+</head>
+<body>
+
+
+
+
+
+<script>
+
+
+var svg = d3.select("body").append("svg") //ステージとなるsvgを追加
+
+d3.json("gunma.topojson", function(error, japan) { //topjson読み込み	
+	console.log(japan);
+	//topojsonオブジェクトの作成
+	var gunma = topojson.object(japan, japan.objects.gunma);
+	
+	var projection = d3.geo.mercator()
+					   .center([139.0032936, 36.3219088])
+					   .rotate([0, 0.5, 0])
+					   .scale(20000)
+	
+	var path = d3.geo.path().projection(projection);
+
+	
+	//パスの描画
+	svg.selectAll(".gunma")
+    .data(topojson.object(japan, japan.objects.gunma).geometries) //topojson、geometriesデータを読み込み
+	.enter().append("path")
+    .attr("class", function(d) { return "gunma" + d.id; })
+    .attr("d", path);
+	
+	
+	//色塗り
+	var grad = d3.scale.linear().domain([0, 38]).range(["#0000FF", "#FFFFFF"]);
+	for(var i=0; i < 36+1; i++){
+		d3.select(".gunma"+i).attr("fill", grad(i));
+	}
+	
+});
+
+
+
+</script>
+
+</body>
+</html>

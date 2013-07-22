@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+<head>
+<title>D3 Time Zones Map</title>
+<style>
+body {
+    background-color: black;
+    color:white;
+}
+
+.axis path, .axis line{
+    fill:none;
+    stroke:white;
+}
+.axis text {
+    fill:white;
+}
+
+</style>
+
+</head>
+
+
+<body>
+<h1>D3 Time Zones Map</h1>
+<svg></svg>
+
+
+<script src="../../d3.v3.min.js"></script>
+<script src="../../topojson.v0.min.js"></script>
+<script src="../../d3helper.js"></script>
+<script>
+d3.json("timezones.topojson", function(json) {
+	d3main(json);
+});
+
+
+function d3main(json){
+	var width = 960;
+	var height = 600;
+	
+	var svg = d3.select("svg")
+	    .attr("width", width)
+	    .attr("height", height);
+	
+	var mapGroup = svg.append('g')
+	    .attr("transform", "translate (" + [0, 100] + ")" );
+
+	//投影法設定
+	var projection = d3.geo.equirectangular()
+	    .scale(153)
+	    .rotate([0,0,0])
+	    .precision(.1);
+
+	//パスジェネレーター
+	var path = d3.geo.path().projection(projection);
+
+	//カラースケール
+	var landColor = d3.scale.linear().domain([-10,   0,  11]).range(["blue", "white", "red"]);
+
+	//地図追加  
+	var map =  mapGroup.append("svg:g")
+		.selectAll("path")
+		.data(topojson.object(json, json.objects.timezones).geometries)
+		.enter()
+		.append("svg:path")
+		.attr({
+			"d": function(d){ return path(d) },
+			"fill": function(d){
+				return landColor(parseFloat(d.properties.Name.match(/.\d{1,2}|0/)[0]) ); //Nameプロパティから数値だけ抜き出して適用
+			    },
+			"fill-opacity": 1,
+			"stroke": "black"
+		})
+		.append('title')
+		.text(function(d){ return d.properties.Name});
+		
+	//ラベル用マージン
+	var lableMargin = {
+	    left:50,
+	    top:50
+	}
+
+	//ラベル作成    
+	var rectSize = 10;
+	var rect = svg.selectAll('rect')
+	    .data(d3.range(-10, 10))
+	    .enter()
+	    .append('rect')
+	    .attr({
+		x:function(d, i){ return i * rectSize + lableMargin.left},
+		y:lableMargin.top,
+		width:rectSize,
+		height:rectSize,
+		fill:function(d){ return landColor(d) }
+	    });
+		
+	    var xAxis = d3.svg.axis().scale( d3.scale.linear().domain([-10, 10]).range([0, 20*rectSize]) ).tickValues([-10, 0, 10]);
+	    
+	    var AxisGroup = svg.append('g')
+	    .attr({
+		class:"axis",
+		transform:"translate (" + [lableMargin.left, lableMargin.top+rectSize+2] + ")"
+	    })
+	    .call(xAxis);		
+}
+</script>
+
+<script type="text/javascript">
+
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-27276322-1']);
+_gaq.push(['_trackPageview']);
+
+	(function() {
+	var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') +'.google-analytics.com/ga.js';
+	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+</script>
+</body>
+</html>

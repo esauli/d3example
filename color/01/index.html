@@ -1,0 +1,164 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>D3 カラーマップ</title>
+<style>
+svg {
+	height: 2000px;
+	width:1000px;
+}
+</style>
+
+</head>
+<body>
+<h2>カラーマップ</h2>
+<p>Google アナリティクスからエクスポートしたデータを元に作成</P>
+<p>左端０時、右端２３時　色が濃いほどアクセスが多い時間帯</P>
+<p>マウスオーバー：詳細　　クリック：週ごと⇔曜日ごと表示切り替え</p>
+<svg></svg>
+
+
+
+
+<script src="../../d3.v3.min.js"></script>
+<script src="../../d3helper.js"></script>
+
+<script>
+
+d3main(d3);
+
+
+
+function d3main(d3){
+    var weekday = ["日","月","火","水","木","金","土"];
+/*
+	d3.csv('access.csv?1', function(csv){
+		var max = d3.max(csv, function(d){ return d.visitors });
+		data = d3.nest()
+				.key(function(d){  return d.date; })
+				.entries(csv);
+
+    d3.select('svg').append('text').text(JSON.stringify(data));
+*/
+
+
+	d3.json('access.json' ,function(data){
+
+		//visitorsの最大値を取得
+		var max = d3.max( 
+				data.map(function(d){
+					return parseInt(
+						d.values.map(function(dd){
+							return parseInt(dd.visitors)
+						})
+					)
+				})
+			 );
+		
+		var svg = d3.select('svg').data([data]);
+		
+		var colorScale = d3.scale.linear().domain([0,5, 15, max]).range(["#FFFFFF","#FF9999" ,"#FF0000","#990000"]);
+		
+		
+		var groupAttr = {
+				transform: function(){
+					var m = 10;
+					return function(d, i){
+							if((new Date(d.key)).getDay()==0) m += 40;  //日曜日ごとにY軸のマージンを増加
+							return "translate(" +[200, m + (i * 16)] + ")";
+						}
+					}(),
+				width:10,
+				height:10									
+		}
+		
+		
+		var group = svg.selectAll('g')	//日付ラベルと一日分のセルを囲むグループ
+				.data(D())
+				.enter()
+				.append('g')
+				.attr(groupAttr)
+		
+		
+		var ylabelAttr = {
+				x: -100,
+				y: 10,
+				"text-anchor": "middle",
+				"aligbment-baseline": "center",
+				fill: "black",
+				stroke: "none"																												
+			}
+		var ylabel = group.append('text')	//日付ラベル追加
+				.attr(ylabelAttr)
+				.text(function(d){ return d.key + ":" + weekday[(new Date(d.key)).getDay()] })
+		
+		
+		var rectAttr = {
+				x: F('hour', '* 20'),
+				y: 0,
+				width:10,
+				height:10,
+				fill: F('visitors', colorScale)					
+			}
+		var rect = group.selectAll('rect')	//カラーセル追加
+				.data(F('values'))
+				.enter()
+				.append('rect')
+				.attr(rectAttr)
+				
+		rect.append('title').text(function(d){ return d.date + " " + d.hour +"時 訪問者:" + d.visitors })
+		
+		
+		
+		svg.on("click", toggle(daySort, weekSort));	
+		
+		
+		//曜日ごと表示
+		function daySort(){
+			group.transition().duration(1000).attr({
+				transform:function(d, i){
+					var day = (new Date(d.key)).getDay();
+					return "translate(" + [200, day * 300 ] + ")"
+				}
+			});
+			rect.attr({
+				y:function(d, i){
+					var l = 0, preDate;
+					return function(d, i){
+						if(d.date != preDate){ l += 2.5; preDate = d.date}
+						return l
+					}
+				}()
+			});				
+			ylabel.attr("y", I('* 2.5+12'));
+		}
+		
+		//週ごと表示
+		function weekSort(){
+			group.transition().duration(1000).attr({
+				transform: function(){
+					var m = 10;
+					return function(d, i){
+						if((new Date(d.key)).getDay()==0) m += 40;
+						return "translate(" +[200, m + (i * 16)] + ")";
+					}
+				}(),				
+			});
+			rect.attr(rectAttr);
+			ylabel.attr(ylabelAttr)	;		
+		}
+
+	});
+
+
+
+	
+}
+    
+
+</script>
+
+</body>
+</html>

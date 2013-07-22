@@ -1,0 +1,409 @@
+﻿<!DOCTYPE html>
+<meta charset='utf-8'>
+<html>
+<head>
+<title>D3.js 路線図表示テスト</title>
+	
+<style>
+
+.しなの鉄道線 {
+	stroke:#ccc;
+}
+.わたらせ渓谷線 {
+	stroke:steelblue;
+	fill:steelblue;
+	color: steelblue ;
+}
+.伊奈線 {
+	stroke:#ccc;
+}
+.上信線 {
+	stroke:darkviolet;
+	fill:darkviolet;
+	color: darkviolet ;
+}
+.上毛線 {
+	stroke:fuchsia;
+	fill:fuchsia;
+	color: fuchsia ;
+}
+.西武秩父線 {
+	stroke:#ccc;
+}
+
+
+
+.秩父本線 {
+	stroke:#ccc;
+}
+.長野線 { 
+	stroke:#ccc;
+}
+.吾妻線 {
+	stroke:chocolate;
+	fill:chocolate;
+	color: chocolate ;
+
+}
+.高崎線 {
+	stroke:royalblue;
+
+	fill:royalblue;
+	color: royalblue ;
+
+}
+.小海線 {
+	stroke:#ccc;
+}
+.上越新幹線 {
+	stroke:orchid;
+
+	fill:orchid;
+	color: orchid ;
+
+}
+.上越線 {
+	stroke:goldenrod;
+
+	fill:goldenrod;
+	color: goldenrod ;
+
+}
+.信越線 {
+	stroke:plum;
+
+	fill:plum;
+	color: plum ;
+
+}
+.東北新幹線 {
+	stroke:#ccc;}
+.東北線 {
+	stroke:#ccc;}
+.日光線 {
+	stroke:#ccc;}
+.八高線 {
+
+	stroke:crimson;
+
+	fill:crimson;
+	color: crimson ;
+
+}
+.飯山線 {
+	stroke:#ccc;
+}
+.北陸新幹線 {
+	stroke:magenta;
+	fill:magenta;
+	color: magenta ;
+
+
+}
+.両毛線 {
+	stroke:yellowgreen;
+	fill:yellowgreen;
+	color: yellowgreen ;
+
+
+}
+.伊勢崎線 {
+	stroke:brown;
+	fill:brown;
+	color: brown ;
+
+
+}
+.越生線 {
+	stroke:#ccc;
+
+}
+
+.鬼怒川線 {
+	stroke:#ccc;
+}
+.桐生線 {
+	stroke:goldenrod;
+	fill:goldenrod;
+	color: goldenrod ;
+}
+.佐野線 {
+	stroke:slategray;
+
+	fill:slategray;
+	color: slategray ;
+
+
+}
+.小泉線 {
+	stroke:tomato;
+	fill:tomato;
+	color: tomato ;
+
+
+}
+.東上本線 {
+	stroke:#ccc;
+
+}
+.野田線 {
+	stroke:#ccc;
+}
+.会津鬼怒川線 {
+	stroke:#cccccc;
+}
+
+#route {
+ float:left;
+ margin-right:10px;
+}
+
+</style>
+
+</head>
+
+<body>
+<h2>路線図表示テスト</h2>
+<p>移動：ドラッグ　パン／ズーム：ホイール　強調：路線名クリック</p>
+<p id='load1'>ベースデータ読込中</p>
+<p id='load2'>バス停ポイントデータ読込中</p>
+<p id='load3'>パスルートデータ読込中</p>
+<svg id="base">
+<g id="gunma"></g>
+<g id="radiroad_group"></g>
+<g id="station_group"></g>
+<g id="station_name_group"></g>
+</svg>
+
+
+
+<script src="../../d3.v3.min.js"></script>
+<script src="../../topojson.v0.min.js"></script>
+<script>
+(function(){
+    
+	var path, map, xy;
+
+	var xy = d3.geo
+		.mercator()		//投影法の指定
+		.scale(150000)	//スケール（ズーム）の指定
+		.rotate([-1.5,0.7,0]) //x,y,z回転
+		.center([139.8032936, 36.7219088]); //中心の座標を指定
+	var path = d3.geo.path().projection(xy);　
+	
+
+	var width = 500;
+	var height = 500;
+	var vbox_x = -5000;
+	var vbox_y = 2500;
+	var vbox_default_width = vbox_width = 2000;
+	var vbox_default_height = vbox_height = 1000;
+
+	var map = d3.select('#base').attr('width', width).attr('height', height) //地図用のステージ(SVGタグ)を作成
+			.attr('viewBox', '' + vbox_x + ' ' + vbox_y + ' ' + vbox_width + ' ' + vbox_height); //viewBox属性を付加
+
+
+	//ドラッグイベントセット
+	var drag = d3.behavior.drag().on('drag', function(d) {
+		
+		vbox_x -= d3.event.dx*4 ;
+		vbox_y -= d3.event.dy*4 ;
+		return map.attr('translate', '' + vbox_x + ' ' + vbox_y); //基点の調整。svgタグのtranslate属性を更新
+	});
+	map.call(drag);
+
+	//パン・ズームイベントセット
+	var zoom = d3.behavior.zoom().on('zoom', function(d) {	
+		var befere_vbox_width, before_vbox_height, d_x, d_y;
+		befere_vbox_width = vbox_width;
+		before_vbox_height = vbox_height;
+		vbox_width = vbox_default_width / d3.event.scale;
+		vbox_height = vbox_default_height / d3.event.scale;
+		d_x = (befere_vbox_width - vbox_width) / 2;
+		d_y = (before_vbox_height - vbox_height) / 2;
+		vbox_x += d_x;
+		vbox_y += d_y;		
+		return map.attr('viewBox', '' + vbox_x + ' ' + vbox_y + ' ' + vbox_width + ' ' + vbox_height);  //svgタグのviewBox属性を更新
+	});
+	map.call(zoom);   
+
+
+
+
+	//ベースデータ読み込み
+	d3.json('gunma.geojson', function(json) {
+	  d3.select('#load1').remove();
+	  gunma_map_init(json);
+	});
+	
+	//路線データ読み込み
+	d3.json('radiroad.topojson', function(json) {		
+		//console.log(json);		
+		d3.select('#load3').remove();
+		gunma_radiroad_init(json);
+
+
+	});
+
+	//駅データ読み込み
+	d3.json('station.geojson', function(json) {
+		//console.log(json);	
+		d3.select('#load2').remove();
+		station_init(json);			
+				
+		ndata = d3.nest().key(function(d){return d.properties.N02_005 }).entries(json.features);
+		add_station_name(ndata);		
+		
+	})
+	
+
+	
+
+	
+function gunma_map_init(json){
+	  d3.select('#gunma')
+				.attr('class', 'gunma')
+				.selectAll('path')
+				.data(json.features)
+				.enter()
+				.append('svg:path')
+				.attr('d', path)  
+				.attr('fill-opacity', 1)
+				.attr('fill', '#ccffcc')
+				.attr('stroke-opacity', 1)
+				.attr('stroke-width', '3px')
+				.attr('stroke', '#FFFFFF');
+}	
+
+
+function gunma_radiroad_init(json){
+		var data = topojson.object(json, json.objects.radiroad).geometries;
+		
+		map.select('#radiroad_group')
+			.selectAll('path')
+			.data(data)
+			.enter()
+			.append('svg:path')
+			.attr('class', function(d){
+				return d.properties.N02_003;
+			})
+			.attr('d', path)  
+			.attr('fill-opacity', 0)
+			.attr('stroke-opacity', 1)
+			.attr('stroke-width', '6px');
+		
+		
+		d3.select('body').append('div').attr('id', 'route');		
+		var ndata = d3.nest().key(function(d){return d.properties.N02_003 }).entries(data);
+
+		//不要なデータを消しきれていなかったのでフィルタリング。後で元データの方を編集する
+		var ndata = ndata.filter(function(n) { 
+				return (
+						n.key === 'わたらせ渓谷線'		||				
+						n.key === '上毛線'		||
+						n.key === '上信線'		||
+						n.key === '吾妻線'		||
+						n.key === '高崎線' 		||
+						n.key === '上越新幹線'	||
+						n.key === '上越線'	||
+						n.key === '信越線'	||
+						n.key === '八高線'	||
+						n.key === '北陸新幹線'	||
+						n.key === '両毛線'	||
+						n.key === '伊勢崎線'	||
+						n.key === '桐生線'	||
+						n.key === '佐野線'	||
+						n.key === '小泉線'	||
+						n.key === '佐野線'	||
+						n.key === '小泉線'							
+						) ;
+			});
+	
+
+
+		d3.select('#route')
+		  .append('ul')
+		  .selectAll('li')
+		  .data(ndata)
+		  .enter()
+		  .append('li')
+		  .attr('class', function(d){
+
+				return d.key;
+		  })
+		  .text(function(d){ return d.key })
+		  .on('click', function(d){
+			d3.selectAll('.'+d3.select(this).attr('class'))
+			  .transition()
+			  .attr('stroke-width', '60px')
+			  .transition()
+			  .attr('stroke-width', '6px')			  
+			  .attr('stroke-opacity', 1)
+		  });
+			
+			
+			
+}
+
+function station_init(json){
+		var station_group = map.select('#station_group');
+		
+		station_group.selectAll('.station_g')
+		    .data(json.features)
+			.enter()
+			.append('svg:g')
+			.attr('class', 'station_g');
+
+	
+		station_group.selectAll('.station_g')
+			.append('svg:circle')
+			.attr('class', function(d){
+				return d.properties.N02_003;
+			})
+			.attr('cx', function(d){ 
+				return xy(d.geometry.coordinates[0])[0]; 
+			})
+			.attr('cy', function(d){ 
+				return xy(d.geometry.coordinates[0])[1]; 
+			})
+			.attr('r', '20px')
+			.attr('fill-opacity', 1)
+			.attr('stroke-opacity', 1)
+			.attr('stroke-width', '4px');
+			
+			
+}
+
+
+
+
+
+function add_station_name(ndata){
+		var station_name_group = map.select('#station_name_group');
+		
+		station_name_group.selectAll('text')
+				.data(ndata)
+				.enter()
+				.append('text')
+				.attr('class', 'station_name')
+				.attr('font-size', '30px')
+				.attr('x', function(d){ 
+					return xy(d.values[0].geometry.coordinates[0])[0];
+				})
+				.attr('y', function(d){ 
+					return xy(d.values[0].geometry.coordinates[0])[1]+5;
+				})
+				.text(function(d){ return d.key; })
+				.style('text-anchor', 'middle')
+				.style('alignment-baseline', 'middle');
+	
+	
+
+}	
+
+
+})(d3);
+	
+</script>
+</body>
+</html>

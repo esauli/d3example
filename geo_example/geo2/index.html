@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+<head>
+<title>D3.js 群馬県SVG</title>
+	<style>
+path {
+	stroke-width: 2px;
+}
+</style>
+</head>
+
+<body>
+
+<script src="../../d3.v3.min.js"></script>
+<script>
+var path, map, xy;
+
+xy = d3.geo
+	.mercator()		//投影法の指定
+	.scale(16000)	//スケール（ズーム）の指定
+	.center([139.0032936, 36.3219088]); //中心の座標を指定
+
+
+
+
+path = d3.geo.path().projection(xy);　//投影
+
+map = d3.select("body").append("svg:svg").attr("width", 960).attr("height", 600); //地図用のステージ(SVGタグ)を作成
+
+
+var gunma = d3.json("gunma.geojson", function(json) {
+  return map.append("svg:g")
+            .attr("class", "gunma")
+            .selectAll("path")
+            .data(json.features)
+            .enter()
+            .append("svg:path")
+            .attr("d", path)  //dataに投影法を適応
+            .attr("fill-opacity", 0.5)
+            .attr("fill", "green")
+            .attr("stroke", "#222");
+});
+
+
+
+</script>
+</body>
+</html>

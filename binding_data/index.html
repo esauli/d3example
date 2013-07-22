@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html debug="true">
+<head>
+<meta charset="utf-8" />
+<title>D3.js select,data,enter</title>
+</head>
+<body>
+<h2>D3.js select,data,enter</h2>
+<button>d3.select('body')</button><br>
+<button>d3.select('body').selectAll('p')</button><br>
+<button>d3.select('body').selectAll('p').data(dataSet)</button><br>
+<button>d3.select('body').selectAll('p').data(dataSet).enter()</button><br>
+<button>d3.select('body').selectAll('p').data(dataSet).enter().append('p')</button><br>
+<button>d3.selectAll('p').text(function(d){ return d })</button>
+
+
+
+<script src="../d3.v3.min.js"></script>
+<script type="text/javascript" src="https://getfirebug.com/firebug-lite.js"></script>
+<script>
+var dataSet = ["test","hoge","hello D3!"];
+
+window.onload = function(){
+
+	console.log("var dataSet = "+JSON.stringify(dataSet));
+	
+	
+	d3.selectAll('button').on('click', function(){
+		var sorce = d3.select(this).text();
+		console.log("run! => " + sorce.toString() );
+		console.log(eval(sorce.toString()));
+	});
+	
+}
+
+</script>
+
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-27276322-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</body>
+</html>

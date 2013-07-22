@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ja>
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="content-language" content="ja">
+<title>D3 Brushing</title>
+<script src="../d3.v3.min.js"></script>
+<script src="../d3helper.js"></script>
+<style>
+svg {
+  font: 10px sans-serif;
+}
+
+path {
+  fill: steelblue;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.brush .extent {
+  stroke: #fff;
+  fill:red;
+  fill-opacity: .125;
+  shape-rendering: crispEdges;
+}
+</style>
+
+
+
+</head>
+<body>
+<h2>アクセス数　2011/12/1-2013/4/29 </h2>
+
+
+
+<script> 
+d3.csv("access.csv", function(data){
+        d3main(d3, data);
+    })
+
+
+function d3main(d3, data){
+    var parseDate = d3.time.format("%Y/%m/%d").parse; 
+
+    //データセット型変換
+      data.forEach(function(d) {
+        d.date = parseDate(d.date);
+        d.access = parseInt(d.access);
+      });
+
+    var dateExtent = d3.extent( data.map( F('date') ) ); //dateの最小値・最大値取得
+    var accessMax =  d3.max( data.map( F('access') ) ); //accessの最大値取得
+
+    //上位グラフ用、margin, scale, axis設定
+    var margin = {top: 10, right: 10, bottom: 100, left: 40};
+    var width = 960 - margin.left - margin.right;
+    var height = 500 - margin.top - margin.bottom;
+    var xScale = d3.time.scale()
+      .domain(dateExtent)    
+      .range([0, width]);
+    var yScale = d3.scale.linear()
+    .domain([0, accessMax])
+    .range([height, 0]);
+    var xAxis = d3.svg.axis().scale(xScale).orient("bottom");
+    var yAxis = d3.svg.axis().scale(yScale).orient("left");
+
+    //下位グラフ用、margin, scale, axis設定
+    var margin2 = {top: 430, right: 10, bottom: 20, left: 40}; 
+    var height2 = 500 - margin2.top - margin2.bottom;     
+    var x2Scale = d3.time.scale()
+      .domain(xScale.domain())
+      .range([0, width]);  
+    var y2Scale = d3.scale.linear()
+      .domain(yScale.domain())
+      .range([height2, 0]);    
+    var xAxis2 = d3.svg.axis().scale(x2Scale).orient("bottom"); 
+    
+
+    //上位グラフareaオブジェクト
+    var area = d3.svg.area()
+        .interpolate("monotone")
+        .x(F('date', xScale))
+        .y0(height)
+        .y1(F('access', yScale));
+
+    //下位グラフareaオブジェクト    
+    var area2 = d3.svg.area()
+        .interpolate("monotone")
+        .x(F('date', x2Scale))
+        .y0(height2)
+        .y1(F('access', y2Scale));
+  
+    //ステージ作成
+    var svg = d3.select("body").append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom);
+    
+    //フォーカス時の上位グラフの表示位置調整のためにクリップパスを作成
+    svg.append("defs").append("clipPath")
+        .attr("id", "clip")
+      .append("rect")
+        .attr("width", width)
+        .attr("height", height);
+  
+  
+    
+    var focus = svg.append("g") //上位グラフグループ作成
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    
+    var context = svg.append("g") //下位グラフグループ作成
+        .attr("transform", "translate(" + margin2.left + "," + margin2.top + ")");
+    
+       
+      focus.append("path")
+          .datum(data)
+          .attr("clip-path", "url(#clip)") //クリップパスを適用
+          .attr("d", area);
+        
+      focus.append("g")  //x目盛軸
+          .attr("class", "x axis")
+          .attr("transform", "translate(0," + height + ")")
+          .call(xAxis);
+    
+      focus.append("g") //y目盛軸
+          .attr("class", "y axis")
+          .call(yAxis);
+ 
+ 
+      context.append("path") //下位グラフ
+          .datum(data)
+          .attr("d", area2);
+
+      context.append("g") //下位x目盛軸
+          .attr("class", "x axis")
+          .attr("transform", "translate(0," + height2 + ")")
+          .call(xAxis2);
+ 
+ 
+    /*
+     *brushは透明なrectをグループ上設置しマウスイベントを取得する。
+     *設置したrect上ではドラッグで範囲選択が可能
+     *範囲が選択されている状態でbrush.extent()メソッドを実行するとその範囲のデータ値を返す
+     */
+    
+     var brush = d3.svg.brush() //brushオブジェクト作成
+        .x(x2Scale) //x軸を選択可能範囲に指定
+        .on("brush", brushed);
+    
+      context.append("g") //brushグループを作成
+        .attr("class", "brush")
+        .call(brush)
+        .selectAll("rect")
+        .attr("y", -6)
+        .attr("height", height2 + 7);
+
+    
+    function brushed() {
+      console.log( brush.extent());
+      xScale.domain(brush.empty() ? x2Scale.domain() : brush.extent()); //選択されたデータセットの範囲をxScaleのdomainに反映
+      focus.select("path").attr("d", area); //上位グラフアップデート
+      focus.select(".x.axis").call(xAxis); //上位x軸アップデート
+    }
+
+}
+</script>
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-27276322-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</body>
+</html>

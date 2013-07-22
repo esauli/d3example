@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>D3 Template</title>
+<style>
+    .axis path{
+	fill:none;
+	stroke:black;
+}
+.axis {
+	font-size:8pt;
+	font-family:sans-serif;
+}
+.tick{
+	fill:none;
+	stroke:black;
+}
+</style>
+</head>
+<body>
+<h2>水平パンニング</h2>
+
+
+<script src="../d3.v3.min.js"></script>
+<script> 
+d3main(d3);
+
+function d3main(d3){
+    
+    //データセットの作成
+    var dataSet = [];
+    var random = function(){ return parseInt(Math.random()*100) };    
+    for(var i=0; i < 101; i++){
+        dataSet.push(
+            {
+                x: i*10,
+                y: random()
+            }
+        )
+        
+    }
+
+
+    //svg ステージ設置
+    var svg_width = 500;
+    var svg = d3.select('body')
+                .append('svg')
+                .attr('width', svg_width)
+                .attr('cursor', 'move'); 
+    
+    //データセットの最大値取得
+    var x_max = d3.max(dataSet, function(d){ return d.x  }); //X最大値取得
+    var y_max = d3.max(dataSet, function(d){ return d.y  }); //Y最大値取得
+    
+    var x_margin = 20; //X軸両端のマージン
+    
+    //スケール関数を作成
+    var x_scale = d3.scale.linear().domain([0, x_max]).range([x_margin, x_max - x_margin])
+    var y_scale = d3.scale.linear().domain([0, y_max]).range([y_max, 0]);
+    
+    
+    //スケールを元にpathのd属性を設定するline関数を作成    
+    var line = d3.svg.line()
+        .x(function(d) { return x_scale(d.x); })
+        .y(function(d) { return y_scale(d.y); })
+        .interpolate('basis');
+    
+    //折れ線グラフ描画        
+    svg.append('g')
+        .datum(dataSet)
+      .append('path')
+        .attr('class', 'data')
+        .attr('d', line) //line関数をデータセットに適用
+        .attr('stroke', 'red')
+        .attr('fill', 'none')
+    
+    //X軸補助目盛線描画
+    var x_axis = d3.svg.axis().scale(x_scale); //スケールを元に目盛線を作成
+    svg.append('g')
+        .attr('class', 'x axis')
+        .attr('transform', 'translate(0,' + 100 + ')') 
+        .call(x_axis);
+        
+    //ズームイベント設置
+    var zoom = d3.behavior.zoom()
+        .x(x_scale)
+        .scaleExtent([1, 1]) //zoom倍率の範囲？　["最小", "最大"]値らしい。
+        .on('zoom', function(){
+            
+            var t = zoom.translate(); //translation vector取得。マウスの移動量。
+            var tx = t[0]; //x軸に対するマウスの移動量
+            var ty = t[1]; //Y軸に対するマウスの移動量
+            //console.log(t);
+            
+            //txの値の範囲を制限
+            tx = Math.min(tx, 0); //最大値を0までに制限
+            tx = Math.max(tx, svg_width - x_max); //最小値を-500までに制限 
+            //console.log(tx);
+            
+            //translation vectorをzoomに設定し再描画する
+            zoom.translate([tx, ty]);
+            svg.select('.data').attr('d', line);
+            svg.select('.x').transition().attr('transform', 'translate(' + tx + ' ,' + y_max + ')');
+        });
+    svg.call(zoom);
+
+}
+    
+
+</script>
+</body>
+</html>

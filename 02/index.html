@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Hello D3 </title>
+</head>
+<body>
+<p>Hello D3</p>
+
+
+
+
+<script src="../d3.v3.min.js"></script>
+<script>
+setup();
+
+
+var count = 10;
+
+function setup(){
+	var data = [10, 20, 30];
+	var svg = d3.select('body')
+		.append("svg");
+		//.style("background-color", "black");
+
+
+
+		svg.selectAll(".test")
+		.data(data)
+		.enter()
+		.append("svg:circle")
+		.on('click', function(){console.log(this)})  //append直後でないとクリックイベントがちゃんと付加されない
+		.attr("cx", 0)
+		.attr("cx", function(d, i){ return (i+1) * 50; })
+		.attr("cy", function(d, i){ return (i+1) * 50; })
+		.attr("r", function(d, i){ return (i+1) * 10; })
+		.attr("fill", "red")
+		.attr("class", "test");
+		
+		setInterval(draw, 500);
+		
+}
+
+
+function draw(){
+	count = count + 30;
+	if(count > 600) count = 10;
+	d3.selectAll('.test').transition().attr("cx", count);	
+}
+
+ </script>
+
+</body>
+</html>

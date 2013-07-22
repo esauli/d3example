@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8' />
+<title>convert</title>
+</head>
+<body>
+<text></text>
+
+
+<script src="../../d3.v3.min.js"></script>
+<script>
+d3main(d3);
+
+function d3main(d3){
+	d3.csv('data.csv', function(data){
+
+		
+		graph = {'nodes': [], 'links': [] };
+		
+		data.forEach(function(d){
+				graph.nodes.push({'name': d.source });
+				graph.nodes.push({'name': d.target });
+			
+				graph.links.push({
+					'source': d.source,
+					'target': d.target,
+					'value': d.value
+				});
+			})
+		graph.nodes = d3.keys(
+			d3.nest()
+			  .key(function(d) { return d.name; })
+				.map(graph.nodes)
+		);
+		
+		graph.links.forEach(function(d, i){
+			graph.links[i].source = graph.nodes.indexOf(graph.links[i].source);
+			graph.links[i].target = graph.nodes.indexOf(graph.links[i].target);
+		});
+		
+		
+		d3.csv('userImg.csv', function(img){ //ユーザーICONのimageURLリストをマージする
+				
+				img2 = d3.nest().key(function(d) {  return d.name; }).map(img);
+				
+				graph.nodes.forEach(function(d,i){				
+					if(img2[d][0]){
+					    console.log(img2[d][0].imgurl);
+					    graph.nodes[i] = {'name': d , 'img': img2[d][0].imgurl};
+					}
+				});
+		
+
+				
+				var jsonData = JSON.stringify(graph);
+					//テキストエリアにエクスポート
+				d3.select('body').append('textarea')
+						.attr({
+								cols:50,
+								rows:25
+						})
+						.text(jsonData);
+				
+				//Data URI schemeとしてエクスポート
+				d3.select('body').append('p').append('a').text('Data URI schemeで出力').attr({
+						href: "data:text/plain;base64,"+ encodeToBase64(jsonData)
+				});
+								
+					
+						
+
+				
+		});
+	
+
+		
+	});
+	
+	
+}
+
+
+function encodeToBase64 (str) {
+  var data = encodeURI(str).replace(/%([0-9A-F]{2})/g,
+              function(a,n){ return String.fromCharCode(parseInt(n, 16)); });
+  return window.btoa(data);
+}
+
+function decodeFromBase64 (data) {
+  var utf8 = window.atob(data).split("");
+  return decodeURI(utf8.map(function(c){ return "%" + c.charCodeAt(0).toString(16); }).join(""));
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title></title>
+</head>
+<body>
+<button id="Decomposition">分解</button>
+<button id="Reset">リセット</button>
+
+
+
+
+<script src="../d3.v3.min.js"></script>
+<script>
+d3main();
+
+function d3main() {
+	var w = 100;
+	var h = 100;
+	
+	d3.select('body')
+	  .append('canvas')
+	  .attr('id', 'canvas')
+	  .attr('width', w)
+	  .attr('heigh', h)
+	  .attr('style', 'display:none')
+	  
+	var canvas = document.getElementById('canvas');
+	var ctx = canvas.getContext('2d');
+
+	var imgObj = new Image();
+	imgObj.src = "Parrots.jpg";
+	
+	
+	imgObj.onload = function() {
+		ctx.drawImage(imgObj, 0, 0);
+		
+		var imgData = ctx.getImageData(0, 0, w, h);
+	
+	
+		var imgDataArray  = [];
+		for(var i=0; i < imgData.width * imgData.height * 4 ; i+=4){	
+			imgDataArray.push( {
+				r:imgData.data[i],
+				g:imgData.data[i+1],
+				b:imgData.data[i+2],
+				color:(function(r,g,b){return ((((0<<8)+r<<8)+g<<8)+b)})(imgData.data[i], imgData.data[i+1], imgData.data[i+2])
+			} ); 
+			
+			
+		}
+
+		var svg = d3.select('body').append('svg');
+		
+		svg.selectAll("circle")
+			.data(imgDataArray)
+			.enter()
+			.append("svg:circle")
+			.attr('cx', function(d, i){ return (i % w) * 2})
+			.attr('cy', function(d, i){ return Math.floor(i / w) * 2})
+			.attr('fill', function(d, i){ return  "#" + d.color.toString(16)})
+			.attr('r', 2)
+		
+	}
+	
+	
+function reset(){
+		d3.selectAll("circle").transition()
+			.attr('cx', function(d, i){ return (i % w) * 2})
+			.attr('cy', function(d, i){ return Math.floor(i / w) * 2})
+			.attr('fill', function(d, i){ return  "#" + d.color.toString(16)})
+			.attr('r', 2)
+		  .duration(800)
+
+			;
+
+}	
+
+/*
+明暗での区分になるので、このスケールは使えない。
+var colorscale = d3.scale.quantile().range([0,1,2,3,4]).domain([0, 4473924, 8947848, 13421772, 16777215])
+*/
+
+function decomposition(){
+		d3.selectAll('circle').transition()
+		  .attr('cx', function(d, i){ 
+			var step = (i % w) * 2;
+			
+			//↓　なんとかしたい。
+			if(d.r < 200 && d.g < 200 && d.b > 125){
+				return step + 750;
+			}else if(d.r > 125 && d.g < 200 && d.b < 200){
+				return step + 500;
+			}else if(d.r < 200 && d.g > 125 && d.b < 200)
+				return step + 250;			
+			else{
+				return step;
+			}
+		  })
+		  .duration(800)
+	
+		;
+}
+	
+	d3.select('#Decomposition').on('click', decomposition)
+	d3.select('#Reset').on('click', reset)
+	
+
+	
+};
+</script>
+
+</body>
+</html>

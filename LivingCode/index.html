@@ -1,0 +1,156 @@
+<html>
+<head>
+<title>d3.js Living Code</title>
+</head>
+<style>
+html, body{
+    margin: 0px;
+    padding: 0px;
+}
+canvas {	
+	position:absolute;
+	top:0px;
+	left:0px;
+	z-index: 1;
+}
+svg {
+	width: 100%;
+	height: 100%;
+	position:absolute;
+	top:0px;
+	left:0px;
+	z-index: 2
+}
+
+</style>
+
+<body>
+<canvas></canvas>
+<svg></svg>
+
+ 
+ 
+ <script src="../d3.v3.min.js"></script>
+<script id="code">
+/*
+
+//d3.js Living Code 
+
+//select svg elements
+var svg = d3.select('svg');
+
+//add circle
+var circle = svg.append('circle').attr({cx:100, cy:10, r:100, fill:'red', 'fill-opacity':0.5});
+
+
+//move circle
+circle.transition().attr({cx:500}).duration(2000);
+circle.transition().attr({cy:500}).duration(2000);
+circle.transition().attr({cx:10}).duration(1000);
+circle.transition().attr({cy:10}).duration(1000);
+circle.transition().attr({cx:500, cy:500}).duration(2000);
+
+
+//change  radius
+circle.transition().attr({r:20}).duration(1000);
+circle.transition().attr({r: 100}).duration(1000);
+circle.transition().attr({r: 10}).duration(1000);
+circle.transition().attr({r:500}).duration(1500);
+
+
+//change  colors
+circle.transition().attr({fill: 'blue'}).duration(1000);
+circle.transition().attr({fill: 'yellow'}).duration(1000);
+circle.transition().attr({fill: 'pink'}).duration(1000);
+circle.transition().attr({fill: 'lime'}).duration(1000);
+circle.transition().attr({fill: 'orange'}).duration(1000);
+circle.transition().attr({fill: 'red'}).duration(1000);
+
+
+
+circle.transition().attr({r: 0}).duration(3000);
+
+//END
+
+*/
+</script>
+ 
+<script>
+
+var body = document.body;
+var canvas = body.querySelectorAll("canvas")[0]
+var cx = canvas.getContext('2d');
+
+code = document.getElementById('code').innerHTML.replace(/\/\*/,'').replace(/\*\//,'').split("\n");
+
+//console.log(S);
+so = 0;
+fs = "fillStyle";
+lo = 1;
+ln = "length";
+canvas.width = W = innerWidth;
+canvas.height = H = code.length*20;
+body.style.margin = 0;
+body.style.background = "#000";
+body.style.overflow = "hidden";
+cx.textBaseline = "top";
+cx.font = "12px monospace";
+
+x = setInterval(write, 50);
+
+
+
+function write() {
+	cx.globalCompositeOperation = "source-over";
+	cx.shadowBlur = 0;
+	cx[fs] = "rgba(0,0,0,0.4)";
+	cx.fillRect(0,0,W,H);
+	cx.shadowColor = "rgba(0,255,0,0.5)";
+	cx.shadowBlur = 10;
+	cx[fs] = "#060";
+	cx.globalCompositeOperation = "lighter";
+	code.forEach(function(v, i) {
+		 var tmp = v;
+		if (i <= lo) {
+			if (i == lo) {
+				v = v.substr(0, so);
+				if (tmp == v+";") {
+					eval.call(window,tmp);
+				}			
+			}
+			cx.fillText(v, 100, 100+i*16);
+
+		}
+
+	});
+	cx[fs] = "#0f0";
+	cx.fillRect(100+cx.measureText(code[lo].substr(0, so)).width, 102+lo*16, 10, 14);
+	so++;
+	if (so >= code[lo][ln]) {lo++; so = 0;}
+	if (lo*16 > innerHeight-200) { cx.translate(0, -0.5); }
+	if (lo >= code[ln]-1) { window.clearInterval(x);}
+}
+
+</script>
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-27276322-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</body>
+</htm>
+
+
+</script>
+
+</body>
+</htm>

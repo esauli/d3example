@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>D3 viewBox Pan/Zoom</title>
+<style>
+svg {
+	background-color:floralwhite;
+}
+</style>
+
+
+</head>
+<body>
+<p>view Box Zoom（移動：ドラッグ、拡大縮小：ホイール）</p> 
+
+
+
+<script src="../d3.v3.min.js"></script>
+<script>
+var width = 500;
+var height = 500;
+var vbox_x = 500;
+var vbox_y = 500;
+var vbox_default_width = vbox_width = 1000;
+var vbox_default_height = vbox_height = 1000;
+
+var svg = d3.select('body')
+	.append('svg')
+	.attr("width", width)
+	.attr("height", height)
+	.attr("viewBox", "" + vbox_x + " " + vbox_y + " " + vbox_width + " " + vbox_height); //viewBox属性を付加
+
+
+random = function(){
+	var min = 0;
+	var max = 1;
+	if(arguments.length == 1){
+		max = arguments[0];
+	}else{
+		min = arguments[0];
+		max = arguments[1];
+	}
+	
+	return Math.floor(Math.random() * (max - min) ) + min;
+}
+
+
+var dataSet = [];
+
+for(var i=0; i < 50; i++){
+	dataSet.push({x:random(0,2000),y:random(0,2000),r:random(60,200)});
+}
+
+
+var color = d3.scale.linear().domain([0, dataSet.length]).range(["steelblue", "red"])
+	.interpolate(d3.interpolateHsl);
+	;
+
+
+svg.selectAll('.circle')
+   .data(dataSet)
+   .enter()
+   .append('circle')
+   .attr('opacity', 0.5)
+   .attr('cx', function(d){ return d.x })
+   .attr('cy', function(d){ return d.y })
+   .attr('r', function(d){ return d.r })
+   .attr('fill', function(d, i){ return color(i);  })
+   .attr('class', 'circle');
+   
+
+drag = d3.behavior.drag().on("drag", function(d) {
+      vbox_x -= d3.event.dx;
+      vbox_y -= d3.event.dy;
+      return svg.attr("translate", "" + vbox_x + " " + vbox_y); //基点の調整。svgタグのtranslate属性を更新
+});
+svg.call(drag);
+
+zoom = d3.behavior.zoom().on("zoom", function(d) {
+	var befere_vbox_width, before_vbox_height, d_x, d_y;
+	befere_vbox_width = vbox_width;
+	before_vbox_height = vbox_height;
+	vbox_width = vbox_default_width * d3.event.scale;
+	vbox_height = vbox_default_height * d3.event.scale;
+	d_x = (befere_vbox_width - vbox_width) / 2;
+	d_y = (before_vbox_height - vbox_height) / 2;
+	vbox_x += d_x;
+	vbox_y += d_y;
+	return svg.attr("viewBox", "" + vbox_x + " " + vbox_y + " " + vbox_width + " " + vbox_height);  //svgタグのviewBox属性を更新
+});
+
+svg.call(zoom);   
+
+
+</script>
+
+
+</body>
+</html>

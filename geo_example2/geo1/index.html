@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+<head>
+<title>Japan Map</title>
+<style>
+ svg {
+  width:900px;
+  height: 900px;
+ }
+ body {
+    color:white;
+    background-color: #ccc;
+ }
+.axis path,
+.axis line {
+    fill: none;
+    stroke:black;
+}
+.axis text {
+    fill: black;
+}
+
+</style>
+</head>
+
+<body>
+<h1>都道府県別トップ企業の売上高</h1>
+data by <a href="http://www2.ttcn.ne.jp/honkawa/7470.html">図録▽都道府県別トップ企業の売上高</a><br>
+<svg></svg>
+
+
+<script src="../../d3.v3.min.js"></script>
+<script src="../../topojson.v0.min.js"></script>
+<script src="../../d3helper.js"></script>
+<script>
+d3.json("japan.topojson?1", function(json) {
+	d3main(json);
+});
+
+
+function d3main(json){
+
+var category = {
+    "パチンコ":"red",
+    "電気事業":"blue",
+    "農協":"green",
+    "保険":"gold",
+
+    "卸売":"yellowgreen",
+    "電気機器卸":"violetred",
+    "食料飲料卸":"violet",
+    "食品卸":"tan",
+
+    "化学製品":"darkgray",
+    "製薬":"snow",
+    "研究開発":"salmon",
+    "紙・パルプ":"sandybrown",
+    
+    "カメラ":"lightcyan",
+    "家電小売":"lightgreen",
+    "各種商品小売":"lightyellow",
+    "ドラッグストア":"indigo",
+    "衣料":"indianred",
+
+    "鉄鋼":"steelblue",
+    "運輸業":"darkgoldenrod",
+    
+    "自動車":"darkslateblue",
+    "自動車・二輪車":"darkviolet",
+    "自動車部品":"fuchsia",
+    
+    "出版":"orange",
+    "商社":"tomato",   
+    "情報機器":"aqua",
+    "半導体":"coral",
+    "ロボット":"lightslategray",
+    "パソコン":"dimgray",
+    
+}
+
+
+	var geodata = topojson.object(json, json.objects.japan).geometries;
+	//var geodata = json.features;
+	
+	geodata = geodata.sort(function(a,b){return  parseInt(b.properties.amount) - parseInt(a.properties.amount) });
+
+	
+	var max = d3.max(geodata, function(d){ return parseInt(d.properties.amount) } );
+	console.log(max);
+	
+	var xScale = d3.scale.linear().domain([0, max]).range([0, 400]);
+
+	projection = d3.geo
+		.mercator()		//投影法の指定
+		.scale(1500)	//スケール（ズーム）の指定
+		.translate([600,450])
+		.center([139.0032936, 36.3219088]); //中心の座標を指定
+
+	var path = d3.geo.path().projection(projection);　//投影
+
+	var svg = d3.select("svg");
+	
+	
+	var labelGroup = svg.append("g");
+	var rect = labelGroup.selectAll(".label_box")
+	    .data(geodata)
+	    .enter()
+	    .append('rect')
+	    .attr({
+		class:"label_box",
+		x:260,
+		y:function(d,i){return i * 18 + 50},
+		width:function(d){ return xScale(+d.properties.amount)},
+		height:10,
+		fill:function(d,i){ return  category[d.properties.category]  }
+	    });
+	
+	var text = labelGroup.selectAll(".label_text")
+	    .data(geodata)
+	    .enter()
+	    .append('text')
+	    .attr({
+		class: "label_text",
+		x:260,
+		y:function(d, i){ return i * 18 + 50 + 8},
+		fill:function(d,i){ return  category[d.properties.category]  },
+		"text-anchor": "end",
+		 "dominant-baseline": "middle"
+	    })
+	    .text(function(d){ return d.properties.company });
+	    
+	var xAxis = d3.svg.axis().scale(xScale).orient("top").ticks(5);
+	
+	 labelGroup.append("g")  //x目盛軸
+	    .attr("class", "x axis")
+	    .attr("transform", "translate(260," + 30 + ")")
+	    .call(xAxis);
+	
+	var map =  svg.append("svg:g")
+		.selectAll("path")
+		.data(geodata)
+		.enter()
+		.append("svg:path")
+		.attr({
+			"d": D(path),
+			"fill": function(d, i){ return category[d.properties.category]  } ,
+			"fill-opacity": 0.5,
+			"stroke": "black"
+		})
+}
+</script>
+<script type="text/javascript">
+
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-27276322-1']);
+_gaq.push(['_trackPageview']);
+
+	(function() {
+	var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') +'.google-analytics.com/ga.js';
+	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+</script>
+</body>
+</html>

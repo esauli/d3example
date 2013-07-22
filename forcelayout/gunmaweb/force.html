@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8' />
+<title>Gunma.web Social Graph</title>
+<style>
+body {
+	background:#000;
+	width: 100%;
+	height: 100%;
+}
+	
+</style>
+
+</head>
+<body>
+<svg></svg>
+
+
+<script src="../d3.v3.min.js">
+<script>
+d3main();
+
+function d3main(){
+	
+	d3.json('data.json?2', function(data){
+				
+				
+				
+		var w = d3.select('body').style('width').replace('px','');
+		var h = 1000;
+		
+		//dataSet valueの最大値取得
+		var valueMax = d3.max(data.links, function(d){ return d.value });
+				
+		var opacityScale = d3.scale.linear().domain([0, valueMax]).range([0.4, 0.8]);			  //valueの値によって透明度を変化させる
+		var colorScale = d3.scale.linear().domain([0, valueMax]).range(['white', 'blue']); //valueの値によってカラーを変化させる
+		
+
+		//グラフを描画するステージ（svgタグ）を追加
+		var svg = d3.select('svg').attr('width', w).attr('height', h);
+
+		//グラフタイトル追加
+		svg.append('text')
+			.attr({
+				x:10,
+				y:80,
+				fill: 'white',
+				'font-size':60
+			})
+			.text('Gunma.web Social Graph');
+		 
+		//グラフの初期設定
+		var force  = d3.layout.force()
+			.nodes(data.nodes)
+			.links(data.links)
+			.gravity(.05) //重力
+			.distance(500) //ノード間の距離
+			.charge(-300) //各ノードの引き合うor反発しあう力
+			.size([w, h]); //図のサイズ
+		
+		
+		//ユーザー間のリンク作成
+		var link = svg.selectAll('line.link')
+			.data(force.links(), function(d, i) {  return d.source + '-' + d.target; }) //linksデータを要素にバインド
+			.enter().append('svg:line')
+			.attr({
+				'class':function(d){ return 'link ' + 'l'+data.nodes[d.source].name.replace(/\./g,'') + ' ' + 'l'+data.nodes[d.target].name.replace(/\./g,'') }, 
+				'stroke': 'blue',
+				'stroke-opacity':function(d){ return opacityScale(d.value) },
+				'stroke-width':function(d){ return d.value } 
+			});
+				
+		
+		//nodeデータをバインディング 
+		var node = svg.selectAll('g.node').data(force.nodes(), function(d) { return d.name;} );
+		
+		//ユーザーグループ
+		var nodeEnter = node.enter().append('g')
+			.attr('class', 'node')
+			.attr('id', function(d){ return d.name.replace(/\./g,'') }) 
+			.on('click', function(){
+				d3.selectAll('.link').attr('stroke', 'blue')
+				d3.selectAll('.l'+d3.select(this).attr('id'))
+				.attr('stroke', 'red')
+			})
+			.call(force.drag); //ノードをドラッグできるように設定
+		
+		//ユーザーアイコン追加
+		nodeEnter.append('image')
+			.attr('class', 'user')
+			.attr({
+				'xlink:href':function(d){ return d.img }, //ノード用画像の設定
+				'x':'-16px',
+				'y':'-16px',
+				'width':'32px',
+				'height':'32px'
+			});
+		
+		//ユーザー名追加 
+		nodeEnter.append('text')
+			.attr('class', 'nodetext')
+			.attr({
+				'dx':30,
+				'dy':'.35em',
+				'fill':'white'
+			})
+			.text(function(d) { return d.name });
+		
+		//フォースレイアウトのアニメーションを開始
+		force.start();
+		
+		//アニメーションループ
+		force.on('tick', function() {
+			node.attr('transform', function(d) { return 'translate(' + d.x + ',' + d.y + ')'; });
+			link.attr({
+				x1: function(d) { return d.source.x; },
+				y1: function(d) { return d.source.y; },
+				x2: function(d) { return d.target.x; },
+				y2: function(d) { return d.target.y; }
+			});
+		});
+		
+		 		
+	});
+	
+}
+</script>
+
+<script type='text/javascript'>
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-27276322-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+</body>
+</html>

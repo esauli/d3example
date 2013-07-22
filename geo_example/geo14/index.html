@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>D3.js GoogleMap Quadtree</title>
+<style type="text/css">
+#map {
+	width: 900px;
+	height: 600px;
+}
+
+.SvgOverlay {
+	position: relative;
+	width: 900px;
+	height: 600px;           
+}
+
+.SvgOverlay svg {
+	position: absolute;
+	top: -4000px;
+	left: -4000px;
+	width: 8000px;
+	height: 8000px;        
+}
+
+</style>
+</head>
+<body>
+<h1>高崎市　燃料給油所(GS)　四分木</h1>
+<p>バグ：拡大するとおかしくなります。</p>
+<div id="map"></div>
+<br>
+data by <a href="http://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-P07.html">国土数値情報　燃料給油所データ</a>
+
+
+
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+<script src="../../d3.v3.min.js"></script>
+<script src="../../topojson.v0.min.js"></script>
+<script type="text/javascript">
+
+d3.json('point.geojson', function(pointjson){
+	main(pointjson); 
+});
+
+function main(pointjson) {
+        var buffer = 4000;
+	var widht = 900;
+	
+	
+	
+	//Google Map 初期化
+	var map = new google.maps.Map(document.getElementById('map'), {
+		zoom: 11,
+		mapTypeId: google.maps.MapTypeId.ROADMAP,
+		center: new google.maps.LatLng(36.322356, 139.013057),       
+	});
+
+	//Google Map スタイル指定
+	var styleOptions = [{
+		featureType: 'all',
+		elementType: 'labels',
+		stylers: [{ visibility: 'on' }]
+	}, {
+		featureType: 'all',
+		elementType: 'geometry',
+		stylers: [
+		{ "hue": "#00ccff" },
+		{ "saturation": 10 },
+		{ "lightness": 33 }
+	      ]
+	}];
+
+
+	var lopanType = new google.maps.StyledMapType(styleOptions);
+	map.mapTypes.set('noText', lopanType);
+	map.setMapTypeId('noText');
+
+	
+		
+	var overlay = new google.maps.OverlayView(); //OverLayオブジェクトの作成
+
+	//オーバレイ追加
+	overlay.onAdd = function () {
+
+		var layer = d3.select(this.getPanes().overlayLayer).append("div").attr("class", "SvgOverlay");
+		var svg = layer.append("svg");
+		var svgoverlay = svg.append("g").attr("class", "AdminDivisions");
+		var markerOverlay = this;
+		var overlayProjection = markerOverlay.getProjection();
+	
+		//Google Mapの投影法設定
+		var googleMapProjection = function (coordinates) {
+			var googleCoordinates = new google.maps.LatLng(coordinates[1], coordinates[0]);
+			var pixelCoordinates = overlayProjection.fromLatLngToDivPixel(googleCoordinates);
+			return [pixelCoordinates.x+buffer , pixelCoordinates.y +buffer];
+		}
+
+			
+		//再描画時に呼ばれるコールバック    
+		overlay.draw = function () {
+			var bounds = map.getBounds();
+			
+
+			//母点位置情報
+			var pointdata = pointjson.features;
+			
+			//ピクセルポジション情報
+			var positions = [];
+
+			pointdata.forEach(function(d) {
+				positions.push(googleMapProjection(d.geometry.coordinates)); //位置情報→ピクセル
+			});
+			
+								
+			var circleAttr = {
+				    "cx":function(d, i) { return positions[i][0]; },
+				    "cy":function(d, i) { return positions[i][1]; },
+				    "r":2,
+				    fill:"red"			
+			}
+	
+			//母点表示
+			svgoverlay.selectAll(".point")
+				.data(pointdata)
+				.attr(circleAttr)
+				.enter()
+				.append("svg:circle")
+				.attr("class", "point")
+				.attr(circleAttr);
+				
+			var qpoint = [];
+			pointdata.forEach(function(d) {
+			    var point =  new google.maps.LatLng(d.geometry.coordinates[1], d.geometry.coordinates[0]);
+			    if(bounds.contains(point) ) {
+				var tmp = googleMapProjection(d.geometry.coordinates);
+				qpoint.push({x:tmp[0], y:tmp[1]}); //位置情報→ピクセル
+			    }
+    			});
+			var quadtree = d3.geom.quadtree(qpoint, 0, buffer+widht);
+			var rectAtrr = {
+				"x": function(d) { return d.x; },
+				"y": function(d) { return d.y; },
+				"width": function(d) { return d.width; },
+				"height": function(d) { return d.height; },
+				"fill": "none",
+				"stroke": "#f000f0",
+				"stroke-opacity": 1			
+			}
+
+			//領域描画
+			svg.selectAll("rect")
+			.data(nodes(quadtree))
+			.attr(rectAtrr)
+			.enter()
+			.append("svg:rect")
+			.attr(rectAtrr);
+			
+			//四分木→ 矩形データ配列に変換。
+			function nodes(quadtree) {
+				var nodes = [];
+				quadtree.visit(function(node, x1, y1, x2, y2) {
+					nodes.push({x: x1, y: y1, width: x2 - x1, height: y2 - y1});
+				});
+				return nodes;
+			}
+			
+			
+			
+		};
+
+	};
+
+	//作成したSVGを地図にオーバーレイする
+	overlay.setMap(map);
+	
+		
+};
+
+</script>
+
+
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-27276322-1']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+	var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+</body>
+</html>

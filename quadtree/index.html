@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>D3.js 四分木 </title>
+<style>
+svg {
+  padding: 2px;
+}
+
+circle {
+  fill: lightsteelblue;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+
+rect {
+  fill: none;
+  stroke: #000;
+  stroke-opacity: .3;
+}
+
+</style>
+
+
+
+</head>
+<body>
+
+<script src="../d3.v3.min.js"></script>
+<script>
+var w = 500;
+
+// ランダムなポイントを生成
+var data = d3.range(500).map(function() {
+    return {
+	x: Math.random() * w,
+	y: Math.random() * w
+    };
+});
+
+// 四分木データ生成
+var quadtree = d3.geom.quadtree(data, 0, w);
+
+var svg = d3.select("body").append("svg:svg")
+    .attr("width", w)
+    .attr("height", w)
+    .style("pointer-events", "all");
+
+svg.selectAll("rect")
+    .data(nodes(quadtree))
+  .enter().append("svg:rect")
+    .attr("x", function(d) { return d.x; })
+    .attr("y", function(d) { return d.y; })
+    .attr("width", function(d) { return d.width; })
+    .attr("height", function(d) { return d.height; });
+
+svg.selectAll("circle")
+    .data(data)
+  .enter().append("svg:circle")
+    .attr("cx", function(d) { return d.x; })
+    .attr("cy", function(d) { return d.y; })
+    .attr("r", 4.5);
+
+    
+//四分木データを矩形データの配列に変換
+function nodes(quadtree) {
+  var nodes = [];
+  quadtree.visit(function(node, x1, y1, x2, y2) {
+    nodes.push({x: x1, y: y1, width: x2 - x1, height: y2 - y1});
+  });
+  return nodes;
+}
+
+
+
+
+
+
+ </script>
+</body>
+</html>

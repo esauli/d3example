@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+<head>
+<title>world Map</title>
+<style>
+ svg {
+  width:1000px;
+  height: 600px;
+  
+ }
+</style>
+
+<script src="../../d3.v3.min.js"></script>
+<script src="../../topojson.v0.min.js"></script>
+<script src="../../d3helper.js"></script>
+<script>
+d3.json("world.topojson", function(json) {
+  d3main(json);
+});
+
+
+function d3main(json){
+  
+  var path, map, xy;
+  
+  var geodata = topojson.object(json, json.objects.world).geometries;
+ // var geodata = json.features;
+  
+  projection = d3.geo
+    .mercator()		//投影法の指定
+    .scale(100)	//スケール（ズーム）の指定
+    .rotate([-150,0,0])
+    .translate([300,200])
+
+
+  path = d3.geo.path().projection(projection);　//投影
+  
+  var svg = d3.select("svg");
+
+  var map =  svg.append("svg:g")
+    .selectAll("path")
+    .data(geodata)
+    .enter()
+    .append("svg:path")
+    .attr({
+      "d": D(path),
+      "fill": "green",
+      "fill-opacity": 0.5,
+      "stroke": "black"
+    })                
+}
+</script>
+
+</head>
+
+
+<body>
+<svg></svg>
+
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-27276322-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</body>
+</html>

@@ -1,0 +1,153 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>群馬県　過疎地域</title>
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+<style type="text/css">
+#map {
+	width: 500px;
+	height: 500px;
+}
+
+.SvgOverlay {
+	position: relative;
+	width: 500px;
+	height: 500px;           
+}
+
+.SvgOverlay svg {
+	position: absolute;
+	top: -4000px;
+	left: -4000px;
+	width: 8000px;
+	height: 8000px;        
+}
+
+.SvgOverlay path {
+	stroke: black;
+	stroke-width: 1px;
+}
+</style>
+</head>
+<body>
+	<h2>群馬県の過疎地域</h2>
+	<p>データ元（<a href="http://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A17.html">国土数値情報　過疎地域データ　平成19年版</a>）</p>
+<div id="map"></div>
+
+<script src="../../d3.v3.min.js"></script>
+<script type="text/javascript">
+d3.json("gunma.geojson", function(gunmajson) {
+	d3.json("kaso.geojson", function(kasojson) {  
+		d3main(gunmajson, kasojson)
+	});
+});
+
+
+function d3main(gunmajson, kasojson) {
+	
+	//Google Map 初期化
+	var map = new google.maps.Map(document.getElementById('map'), {
+			zoom: 9,
+			mapTypeId: google.maps.MapTypeId.ROADMAP,
+			center: new google.maps.LatLng(36.53, 139.06),       
+		});
+
+	//Google Map スタイル指定
+	var styleOptions = [{
+		featureType: 'all',
+		elementType: 'labels',
+		stylers: [{ visibility: 'on' }]
+	}, {
+		featureType: 'all',
+		elementType: 'geometry',
+		stylers: [{ hue: '#593869' }, { saturation: '-70' }, { gamma: '0.5' }]
+	}];
+
+	var lopanType = new google.maps.StyledMapType(styleOptions);
+	map.mapTypes.set('noText', lopanType);
+	map.setMapTypeId('noText');
+
+
+
+	//OverLayオブジェクトの作成	
+	var overlay = new google.maps.OverlayView(); 
+
+	//オーバーレイ追加
+	overlay.onAdd = function () {
+
+		var layer = d3.select(this.getPanes().overlayLayer).append("div").attr("class", "SvgOverlay"); //レイヤー作成(div)
+
+		var svg = layer.append("svg"); //レイヤーにSVGタグ追加
+		var gunmalayer = svg.append("g").attr("class", "AdminDivisions1"); //群馬県地図表示用グループ
+		var kasolayer = svg.append("g").attr("class", "AdminDivisions2"); //過疎地域表示用グループ
+		var markerOverlay = this;
+		var overlayProjection = markerOverlay.getProjection(); //オーバーレイのProjection取得
+
+		// Google Map Projection 作成
+		var googleMapProjection = function (coordinates) {
+			var googleCoordinates = new google.maps.LatLng(coordinates[1], coordinates[0]);
+			var pixelCoordinates = overlayProjection.fromLatLngToDivPixel(googleCoordinates);
+			return [pixelCoordinates.x + 4000, pixelCoordinates.y + 4000];
+		}
+
+		//Google Map ProjectionをD3.jsのProjectionとして指定
+		path = d3.geo.path().projection(googleMapProjection);		
+
+		//地図描画イベントリスナー
+		overlay.draw = function () {
+
+			//群馬地図描く
+			gunmalayer.selectAll("path")
+				.data(gunmajson.features)
+				.attr("d", path) 
+				.enter().append("svg:path")
+				.attr("d", path)
+				.attr({
+					"class": 'gunma',
+					"fill": "black",
+					"fill-opacity": 0.2
+				});
+			
+			
+			//過疎地域描く
+			kasolayer.selectAll("path")
+				.data(kasojson.features)
+				.attr("d", path) 
+				.enter().append("svg:path")
+				.attr("d", path)
+				.attr({
+					"class": "kaso",
+					"fill": "red",
+					"fill-opacity": 0.5
+				});
+				
+			
+		};
+
+	};
+
+	//作成したSVGを地図にオーバーレイする
+	overlay.setMap(map);
+
+}
+
+</script>
+
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-27276322-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+</body>
+</html>

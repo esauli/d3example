@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+<head>
+<title>D3.js 地図＆Hexbin</title>
+<style>
+svg {
+	width:1200px;
+	height: 1200px;
+	background-color:#000;
+}
+body {
+	color:#fff;
+	background-color:#000;
+}
+rect {
+  fill: none;
+  stroke: #000;
+  stroke-opacity: .3;
+}
+
+</style>
+
+
+</head>
+
+
+<body>
+<h1>竜巻等の突風データ　Hexbin</h1>
+<button id="btn">ポイント表示</button>
+<br><svg></svg><br>
+data by <a href="http://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A30b.html">国土数値情報　竜巻等の突風データ(平成24年)</a>
+
+
+<script src="../../d3.v3.min.js"></script>
+<script src="../../topojson.v0.min.js"></script>
+<script src="../../d3helper.js"></script>
+<script src="d3.hexbin.v0.min.js"></script>
+
+<script>
+d3.json("japan.topojson", function(json) {
+	d3main(json);
+});
+
+function d3main(json){
+	var width = 1200;
+	var height = 1200;
+	
+	var svg = d3.select("svg");
+
+	var geodata = topojson.object(json, json.objects.japan).geometries;
+	//var geodata = json.features;
+
+	var projection = d3.geo
+		.mercator()		//投影法の指定
+		.scale(3000)	//スケール（ズーム）の指定
+		.translate([600,700])
+		.center([139.0032936, 36.3219088]); //中心の座標を指定
+
+	var path = d3.geo.path().projection(projection);　//投影
+
+	//地図表示
+	var map =  svg.append("svg:g").attr("id", "map")
+		.selectAll("path")
+		.data(geodata)
+		.enter()
+		.append("svg:path")
+		.attr({
+			"d": function(d){ return path(d) },
+			"fill": "white",
+			"fill-opacity": 1,
+			"stroke": "black"
+		});
+
+	//竜巻・突風データ読み込み
+	d3.json('tatsumaki.geojson?11', function(json){
+		//母点位置情報
+		var pointdata = json.features;
+	
+		//ピクセルポジション情報
+		var positions = [];
+		pointdata.forEach(function(d) {
+			var point = projection(d.geometry.coordinates);//位置情報→ピクセル
+			positions.push([point[0], point[1]]); 
+		});
+		
+		//竜巻・突風ポイント生成(初期・非表示)		
+		var circle = svg.selectAll("circle")
+			.data(positions)
+			.enter()
+			.append("circle")
+			.attr({
+				"cx":function(d, i) { return d[0]; },
+				"cy":function(d, i) { return d[1]; },
+				"r":2,
+				fill:"red",
+				"fill-opacity":0
+			});
+	
+		//六角形を塗るカラースケールを作成
+		var hexColor = d3.scale.linear()
+			.domain([0, 20])
+			.range(["pink", "red"])
+			.interpolate(d3.interpolateLab);
+		
+		//hex生成関数	
+		var hexbin = d3.hexbin()
+			.size([900, 600])
+			.radius(10);
+			
+		//hex生成
+		svg.append("g")
+			.selectAll(".hexagon")
+			.data(hexbin(positions)) //positionsデータからhexデータを生成
+			.enter()
+			.append("path")
+			.attr("class", "hexagon")
+			.attr({
+				"d": hexbin.hexagon(),
+				"transform": function(d) { return "translate(" + d.x + "," + d.y + ")"; },
+				"stroke": "white",
+				"fill":function(d) { return hexColor(d.length); }, //六角形内の基点の数によって色の濃度を調整
+				"opacity": .5
+			});
+
+		//ポイントの表示・非表示設定
+		d3.select("#btn").on('click', toggle(
+				function(){ circle.attr("fill-opacity", 1)},
+				function(){ circle.attr("fill-opacity", 0)}
+			)
+		)
+	});
+
+}
+</script>
+
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-27276322-1']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+	var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+</body>
+</html>

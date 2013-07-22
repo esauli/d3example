@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>築年と賃料の相関図</title>
+<style>
+body {
+	background-color: black;
+	color:white;
+}
+	
+.axis path,
+.axis line {
+	fill: none;
+	stroke: white;
+}
+.axis text {
+	fill: white;
+}
+
+.valuline:hover {
+	stroke-width: 10;
+}
+	
+</style>
+</head>
+<body>
+<h2>築年と賃料の相関図</h2>
+<font size="2">専有面積でも分けないと……いつかやる。</font>
+	<p style="color: red">高崎市</p>
+	<p style="color: lightblue">前橋市</p>
+	<p style="color: green">伊勢崎市</p>
+	<p style="color: yellow">足利市</p>
+<svg width="800" height="500"></svg>
+
+
+<script src="../d3.v3.min.js"></script>
+<script>
+var h = 300;
+var w = 800;
+d3.csv("estateutf8.csv?1", function(csv){
+
+	var svg = d3.select('svg');
+	var group = svg.append('g')
+		.attr("transform", "translate (" +[100, 10] +")")
+	
+
+
+	var dataSet = []
+	dataSet.push(csv.filter(function(d){ return d.city == "高崎市" }))
+	dataSet.push(csv.filter(function(d){ return d.city == "前橋市" }))
+	dataSet.push(csv.filter(function(d){ return d.city == "伊勢崎市" }))
+	dataSet.push(csv.filter(function(d){ return d.city == "足利市" }))
+	
+	parseData = d3.time.format("%Y-%m-%d").parse;
+	
+	var rentMax = d3.max(csv, function(d){ return parseInt(d.rent) });
+	
+	var xScale = d3.time.scale()
+	.domain([ parseData('1965-1-1'), parseData('2013-12-31') ])
+	.range([0, w]);
+	
+	yScale = d3.scale.linear()
+		.domain([0, rentMax]).range([h, 0]);
+	
+	var valueline = d3.svg.line()
+		.x(function(d){ return  xScale(parseData(d.completion))})
+		.y(function(d){ return yScale(d.rent) })
+		.interpolate('step-before');
+		
+		
+	
+	group.selectAll('path')
+	.data(dataSet)
+	.enter()
+	.append('path').attr({
+			d: function(d) { return valueline(d) },
+			fill: 'none',
+			"class": "valuline",
+			stroke: function(d){
+				switch(d[0].city){
+					case '高崎市': return 'red'; break;
+					case '前橋市': return 'lightblue'; break;
+					case '伊勢崎市': return 'green'; break;
+					case '足利市': return 'yellow'; break;
+				}
+			}
+		})
+		
+	var xAxis = d3.svg.axis().scale(xScale).orient('bottom').ticks(5);
+	var yAxis = d3.svg.axis().scale(yScale).orient('left').ticks(10);
+	
+	group.append('g')
+	.attr('class', 'x axis')
+	.attr("transform", "translate (" + [0, h] + ")")
+	.call(xAxis);
+	
+	
+	group.append('g')
+	.attr('class', 'y axis')
+	.attr("transform", "translate (" + [0, 0] + ")")
+	.call(yAxis);
+	
+	
+	
+	
+});
+</script>
+
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-27276322-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>D3 テーブル</title>
+<style>
+td {
+	width:20px;
+	height:20px;
+	text-align:center;
+	padding:2px;
+}
+th {
+	color:midnightblue;
+}
+</style>
+
+</head>
+<body>
+<h2>カラーマップ</h2>
+<p>google アナリティクスからエクスポートしたデータを元にテーブルを作成</P>
+
+
+<script src="../../d3.v3.min.js"></script>
+<script> 
+d3main();
+
+
+function d3main(){
+
+	d3.csv('ga.csv', function(csv){
+
+		
+		var max = d3.max(csv, function(d){ return d.visitors }); //訪問者数の最大値取得
+		
+		var colorScale = d3.scale.linear().domain([0, max]).range(["#FFF0F5", "#DC143C"]); //カラースケールを作成
+		
+		var  hours  = d3.range(24); //時間表示用
+		
+		var data = d3.nest().key(function(d){return d.date;}).entries(csv); //CSVから取得したデータをdateフィールドの値をkeyにしてネスト		
+		//console.log(data);
+		
+		
+		var tbody = d3.select('body').append('table').append('tbody'); //table作成
+		var tfoot = d3.select('table').append('tfoot'); //tableにtfootをappend
+		
+		tfoot.append('th'); //空th追加
+		
+		//tfootに時間thを追加
+		tfoot.selectAll('class')
+			.data(hours)
+			.enter()
+			.append('th')
+			.attr("class", "hours")
+			.text(function(d){ return d});
+		
+		
+		//tr追加
+		var trs = tbody.selectAll('tr')
+		  .data(data)
+		  .enter()
+		  .append('tr')
+		  
+		 //thに年月日を追加
+		 trs.append('th').text(function(d){ 
+			var Year = d.key.substring(0, 4);
+			var Month = d.key.substring(4, 6);
+			var Day = d.key.substring(6, 8);
+			var text = Year + "/" + Month + "/" + Day;
+			return text;
+		});
+
+		
+		//td追加
+		trs.selectAll('td')
+		   .data(function(d){ return d.values} )
+		   .enter()
+		   .append('td')
+		   .style("background-color", function(d){ return colorScale(d.visitors); })
+		   .on('mouseover', function(d){
+				d3.select(this).text(d.visitors); //mouoverした際に訪問者数を表示
+		   })
+		   .on("mouseout", function(d){
+				d3.select(this).text("");		   
+		   });
+		  
+	});
+
+}
+</script>
+
+
+
+</body>
+</html>

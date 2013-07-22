@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>D3 CSV→JSON変換</title>
+<script src="http://shimz.me/libs/require.js"></script>
+<style>
+textarea {
+	height: 200px;
+	width:100%;
+}
+</style>
+
+<script>
+requirejs.config({
+    enforceDefine: true,
+    paths: {
+        d3: [
+            'http://d3js.org/d3.v3.min',
+            'http://cdnjs.cloudflare.com/ajax/libs/d3/3.0.1/d3.v3.min'
+        ]
+    },
+	shim: {
+        d3: {
+            exports: 'd3'
+				}
+    }
+});
+ 
+require(['d3'], function () {
+	d3main(d3);
+});
+
+
+
+function d3main(d3){
+
+	d3.csv('access.csv?1', function(csv){
+
+		data = d3.nest()
+				.key(function(d){  return d.date; }) //dateをキーにしてネスト
+				.entries(csv);
+				
+		var jsonData = JSON.stringify(data);
+
+		//Data URI schemeとしてエクスポート
+		d3.select('body').append('p').append('a').text('Data URI schemeで出力').attr({
+				href: "data:text/plain;base64,"+ btoa(jsonData)
+		})
+	
+		//テキストエリアにエクスポート
+    d3.select('body').append('textarea').text(jsonData);
+		
+
+	})
+
+
+}
+	
+
+</script>
+
+</head>
+<body>
+<h2>CSVをJSON変換</h2>
+<p>元<a href="http://shimz.me/example/d3js/color/01/access.csv">CSV</a></p>
+<pre style="border:1px solid black;padding: 2px">
+data = d3.nest()
+	.key(function(d){  return d.date; })
+	.entries(csv);	
+</pre>
+
+</body>
+</html>

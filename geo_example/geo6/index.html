@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+<head>
+<title>D3 Globe</title>
+<link rel="stylesheet" href="http://shimz.me/libs/jquery-tipr/tipr/tipr.css" >
+</head>
+
+
+<body>
+
+
+
+<script src="../../d3.v3.min.js"></script>
+<script src="../../topojson.v0.min.js"></script>
+<script>
+window.onload = function(){
+    var stage,path, map, xy;
+    
+    stage = d3.select("body").append("svg:svg").attr("width", 960).attr("height", 600); //地図を表示するステージ
+    
+    //海　実はただのcircle
+    stage.append('circle')
+        .attr({
+            fill:"blue",
+            cx:480,
+            cy:250,
+            r:245
+        })
+    
+    projection = d3.geo.orthographic() //投影法を指定
+        .scale(245) //大きさ
+        .rotate([0,0,0]) //x,y,z回転
+        .clipAngle(90); //表示する角度 180度を指定すると裏側の大陸まで表示される
+    
+    path = d3.geo.path().projection(projection);
+        
+    d3.json("conuntries2.topojson", function(json){ //地図情報の読み込み
+        
+        var data = topojson.object(json, json.objects.conuntries); //topojson変換
+       
+        stage.append("svg:g").attr({"class":"earth"}); //g要素追加(グループ化)
+       
+       //地図表示
+        map = stage
+            .selectAll("path")
+            .data(data.geometries) 
+            .enter()
+            .append("svg:path")
+            .style("background-color", "blue")
+            .attr({
+            "class": "path tip",
+            "d":path,
+                "fill-opacity":1,
+                "fill":"green",
+                "stroke":"#222",
+		'data-tip':function(d){ return d.properties.sovereignt }
+            })
+            .on("mouseover", function(){
+                d3.select(this).attr("fill", "red");
+            })
+            .on("mouseout", function(){
+                d3.select(this).transition().duration(500).attr("fill", "green");
+            })
+           
+            map.append('title') //ツールチップ追加
+	    .text(function(d){ return d.properties.sovereignt })
+	    
+    });
+    
+    
+    setInterval(update, 100); //定期的に回転させる
+    
+    var i=0;
+    function update(){
+        i = i+0.5;
+        projection.rotate([i,0,0]);  //rotateの値を増やして
+        path = d3.geo.path().projection(projection);    //path関数をアップデート
+        map.attr("d", path); //paht関数をmapオブジェクトに適用
+    }
+}
+</script>
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-27276322-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script> 
+</body>
+</html>

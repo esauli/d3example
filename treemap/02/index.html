@@ -1,0 +1,101 @@
+<html>
+<head>
+<meta charset="utf-8" />
+<title>D3 FileList TreeMap</title>
+<style>
+html, body {
+    margin:0px;
+    padding:0px;
+    width:100%;
+    height: 100%;
+    background-color: black;
+    color:white;
+}
+a {
+    color:white;
+}
+</style>
+</head>
+<body>
+<h1><a href="http://shimz.me/example/d3js">http://shimz.me/example/d3js</a> FileList</h1>
+<svg></svg>
+
+
+
+
+<script src="../../d3.v3.min.js"></script>
+<script src="../../d3helper.js"></script>
+<script>
+d3.json('files.json', function(data){
+    d3draw(data);
+});
+
+function d3draw(data) {
+var w = d3.select('body').style('width').replace('px', '');
+var h = d3.select('body').style('height').replace('px', '')-50;
+
+
+    var treemap = d3.layout.treemap().size([w, h]);
+    
+    var svg = d3.select('svg').attr({width:w, height:h});
+    var colorScale = d3.scale.category20();
+    
+    
+    var boxGroup = svg.selectAll('g')
+	.data(treemap.value(function(d){  return d.size}).nodes(data))
+	.enter()
+	.append('g')
+
+		
+    var box = boxGroup.append('rect')
+	.attr({
+	    'fill': function(d, i){ ;return colorScale(i)},
+	    'fill-opacity':0.5, 
+	    'stroke': "black",
+	    'stroke-width':2,
+	    'stroke-opacity':1, 
+            x:F('x'),
+            y:F('y'),
+            width:F('dx'),
+            height:F('dy')  
+	})
+	.append('title')
+	.text(function(d){ return d.file +": " + Math.floor(d.size/1024) + 'KB' })
+    
+    var text = boxGroup.append('text')
+	.attr({
+	    fill:"black",
+	    'fill-opacity':function(d){ return (d.size>200000) ? 1: 0; },
+	    x:function(d){ return d.x + (d.dx/2)},
+	    y:function(d, i){ return d.y + (d.dy/2) },
+	})
+        .text(function(d){
+	    return Math.floor(d.size/1024) + 'KB' }
+	)
+	.append('title')
+	.text(function(d){ return d.file +": " + Math.floor(d.size/1024) + 'KB' })
+    
+}
+
+function basename(path) {
+    var ret = (path) ?  path.split('/'):  null;
+    ret = (ret) ? ret[ret.length-1] : '';
+    return  ret;
+}
+</script>
+
+<script type="text/javascript">
+
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-27276322-1']);
+_gaq.push(['_trackPageview']);
+
+	(function() {
+	var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') +'.google-analytics.com/ga.js';
+	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+</script>
+</body>
+</html>

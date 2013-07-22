@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+<head>
+<title>Satellite Projection TEST</title>
+	
+<style>
+path {
+	stroke-width: 1px;
+}
+
+svg {
+	background-color:#00a8ea;
+}
+</style>
+
+</head>
+
+<body>
+<p>Satellite Projection　TEST (衛星俯瞰図／鳥瞰図)</p>
+scale<input id="scale" type="range" min="1000" max="100000" value="40000" style="width: 300px !important;"/>
+<input id="scaleValue" type="text" size="5" value="40000">
+<br>
+
+rotate1<input id="rotate1" type="range" min="-100" max="100" value="45"  step="0.01" style="width: 200px !important;"/>
+<input id="rotate1Value" type="text" size="5" value="45">
+rotate2<input id="rotate2" type="range" min="-100" max="100" value="-10" step="0.01" style="width: 200px !important;"/>
+<input id="rotate2Value" type="text" size="5" value="-10">
+rotate3<input id="rotate3" type="range" min="-100" max="100" value="-50" step="0.01" style="width: 200px !important;"/>
+<input id="rotate3Value" type="text" size="5" value="-50">
+<br>
+tilt<input id="tilt" type="range" min="-180" max="720" value="60" step="0.001" style="width: 600px !important;"/>
+<input id="tiltValue" type="text" size="5" value="60">
+clipAngle<input id="clipAngle" type="range" min="0" max="360" value="200"  step="0.01" style="width: 200px !important;"/>
+<input id="clipAngleValue" type="text" size="5" value="200">
+
+<br>
+
+
+
+<script src="../../d3.v3.min.js"></script>
+<script src="http://d3js.org/d3.geo.projection.v0.min.js"></script>
+
+<script>
+var path, map, xy;
+var map = d3.select("body").append("svg:svg").attr("width", 960).attr("height", 600); //地図用のステージ(SVGタグ)を作成
+
+d3.json("japan.geojson", function(json) {
+   map.selectAll("path")
+            .data(json.features)
+            .enter()
+            .append("svg:path")
+			.attr("class", "base");
+			
+	draw(40000, [45.00, -10, -50], 60, 200);
+			
+});
+
+
+function draw(scale, rotate, tilt, clipAngle){
+
+	projection = d3.geo.satellite()			//Satellite Projectionの指定
+		.center([139.0032936, 36.3219088])
+		.scale(scale)
+		.rotate(rotate) //3軸の回転角
+		.tilt(tilt) //視点の傾き？
+		.clipAngle(clipAngle) //地図の表示範囲をカットする角度？
+
+
+	path = d3.geo.path().projection(projection);　
+
+	d3.selectAll('.base')
+		.transition()
+		.attr("d", path)  
+		.attr("fill-opacity", 1)
+		.attr("fill", "green")
+		.attr("stroke", "#222");
+
+			
+	//guide();　// 重すぎるのでガイド線は外しておく
+}
+
+
+function guide(){ //ガイド線（経度緯度線）表示
+	var graticule = d3.geo.graticule()
+		.step([22.5 / 30, 22.5 / 30]);
+
+	map.append("path")
+		.datum(graticule)
+		.attr("class", "graticule")
+		.attr("d", path)
+		.attr("stroke", "#ccc");
+}
+
+
+d3.selectAll('input').on('change', function(d){
+	var scale = document.getElementById("scale").value; 　//　d3.select(this).attr('value') //d3.selectだとなぜかスライダーのvalue値がうまく取れない。
+	d3.select('#scaleValue').attr("value", scale);
+	var rotate = [];
+	rotate.push(document.getElementById("rotate1").value);
+	rotate.push(document.getElementById("rotate2").value);
+	rotate.push(document.getElementById("rotate3").value);
+	d3.select('#rotate1Value').attr("value", rotate[0]);
+	d3.select('#rotate2Value').attr("value", rotate[1]);
+	d3.select('#rotate3Value').attr("value", rotate[2]);
+	var tilt = document.getElementById("tilt").value; 　
+	d3.select('#tiltValue').attr("value", tilt);
+	var clipAngle = document.getElementById("clipAngle").value; 　
+	d3.select('#clipAngleValue').attr("value", clipAngle);
+
+	draw(scale, rotate, tilt, clipAngle);
+})
+
+</script>
+</body>
+</html>

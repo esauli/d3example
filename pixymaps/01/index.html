@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+#container {
+	width: 100%;
+	height: 100%;
+  overflow: hidden;
+}
+html, body{
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+    height: 100%;
+}	
+</style>
+  </head>
+  <body>
+    <div id="container">
+      <canvas id="map"></canvas>
+    </div>
+<div id="copy">
+      &copy; 2011
+      <a href="http://www.cloudmade.com/">CloudMade</a>,
+      <a href="http://www.openstreetmap.org/">OpenStreetMap</a> contributors,
+      <a href="http://creativecommons.org/licenses/by-sa/2.0/">CCBYSA</a>.
+    </div>
+    
+    
+<script src="pixymaps.js"></script>
+<script src="http://d3js.org/d3.v2.js?2.10.1"></script>
+<script type="text/javascript">
+window.onload = function(){
+    var canvas = d3.select("#map").call(drag),
+        context = canvas.node().getContext("2d");
+    
+    var w = d3.select('body').style('width').replace('px', ''),
+        h = d3.select('body').style('height').replace('px', ''),
+        lon =　139.013057,
+        lat = 36.322356;
+    var project = d3.geo.mercator()
+        .scale(1)
+        .translate([.5, .5]);
+    
+    var view = pixymaps.view()
+        .size([w, h])
+        .center(project([lon, lat]))
+        .zoom(10);
+    
+    var image = pixymaps.image()
+        .view(view)
+        .url(pixymaps.url("http://{S}tile.cloudmade.com"
+        + "/1a1b06b230af4efdbb989ea99e9841af" // http://cloudmade.com/register
+        + "/999/256/{Z}/{X}/{Y}.png")
+        .hosts(["a.", "b.", "c.", ""]))
+        .render(canvas.node());
+    
+    function drag(selection) {
+      var p0;
+    
+      selection.on("mousedown", mousedown);
+      d3.select(window).on("mousemove", mousemove).on("mouseup", mouseup);
+    
+      function mousedown() {
+        p0 = [d3.event.pageX, d3.event.pageY];
+        d3.event.preventDefault();
+      }
+    
+      function mousemove() {
+        if (p0) {
+          var p1 = [d3.event.pageX, d3.event.pageY];
+          view.panBy([p1[0] - p0[0], p1[1] - p0[1]]);
+          image.render(canvas.node());
+          p0 = p1;
+          d3.event.preventDefault();
+        }
+      }
+    
+      function mouseup() {
+        if (p0) {
+          p0 = null;
+          d3.event.preventDefault();
+        }
+      }
+    }
+}
+</script>    
+  </body>
+</html>

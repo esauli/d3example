@@ -1,0 +1,1006 @@
+{
+"type": "FeatureCollection",
+                                                                                
+"features": [
+{ "type": "Feature", "id": 1, "properties": { "id": 14388189, "replace": 25000, "room": "1R", "lat": 36.400786944399997, "lng": 139.090651667, "address": "群馬県前橋市幸塚町" }, "geometry": { "type": "Point", "coordinates": [ 139.090651667, 36.400786944399997 ] } }
+,
+{ "type": "Feature", "id": 2, "properties": { "id": 4032272, "replace": 28000, "room": "1K", "lat": 36.38146, "lng": 139.06602194444446, "address": "群馬県前橋市紅雲町１丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.06602194444446, 36.38146 ] } }
+,
+{ "type": "Feature", "id": 3, "properties": { "id": 6834694, "replace": 55000, "room": "2DK", "lat": 36.364055, "lng": 139.05827388888889, "address": "群馬県前橋市後家町" }, "geometry": { "type": "Point", "coordinates": [ 139.05827388888889, 36.364055 ] } }
+,
+{ "type": "Feature", "id": 4, "properties": { "id": 14404269, "replace": 49000, "room": "1LDK", "lat": 36.291016749705811, "lng": 139.03767370204901, "address": "群馬県高崎市下佐野町" }, "geometry": { "type": "Point", "coordinates": [ 139.03767370204901, 36.291016749705811 ] } }
+,
+{ "type": "Feature", "id": 5, "properties": { "id": 16727463, "replace": 56000, "room": "2LDK", "lat": 36.351304432456075, "lng": 139.32272138266811, "address": "群馬県太田市藪塚町" }, "geometry": { "type": "Point", "coordinates": [ 139.32272138266811, 36.351304432456075 ] } }
+,
+{ "type": "Feature", "id": 6, "properties": { "id": 4038181, "replace": 48000, "room": "2DK", "lat": 36.38122111111111, "lng": 139.03599305555556, "address": "群馬県前橋市元総社町" }, "geometry": { "type": "Point", "coordinates": [ 139.03599305555556, 36.38122111111111 ] } }
+,
+{ "type": "Feature", "id": 7, "properties": { "id": 6107230, "replace": 53000, "room": "2LDK", "lat": 36.272901666700001, "lng": 139.19919861100001, "address": "群馬県伊勢崎市富塚町" }, "geometry": { "type": "Point", "coordinates": [ 139.19919861100001, 36.272901666700001 ] } }
+,
+{ "type": "Feature", "id": 8, "properties": { "id": 7386604, "replace": 56000, "room": "1LDK", "lat": 36.358551666700002, "lng": 139.065023333, "address": "群馬県前橋市大利根町１丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.065023333, 36.358551666700002 ] } }
+,
+{ "type": "Feature", "id": 9, "properties": { "id": 14678038, "replace": 49000, "room": "2LDK", "lat": 36.389216594476842, "lng": 138.98778616545991, "address": "群馬県高崎市中里町" }, "geometry": { "type": "Point", "coordinates": [ 138.98778616545991, 36.389216594476842 ] } }
+,
+{ "type": "Feature", "id": 10, "properties": { "id": 14969155, "replace": 46000, "room": "2LDK", "lat": 36.4401975, "lng": 139.09549611099999, "address": "群馬県前橋市富士見町小暮" }, "geometry": { "type": "Point", "coordinates": [ 139.09549611099999, 36.4401975 ] } }
+,
+{ "type": "Feature", "id": 11, "properties": { "id": 9876360, "replace": 55000, "room": "3DK", "lat": 36.233110833333335, "lng": 139.13936305555555, "address": "埼玉県児玉郡上里町大字三町" }, "geometry": { "type": "Point", "coordinates": [ 139.13936305555555, 36.233110833333335 ] } }
+,
+{ "type": "Feature", "id": 12, "properties": { "id": 4036654, "replace": 22000, "room": "1K", "lat": 36.438835, "lng": 139.09764388888888, "address": "群馬県前橋市富士見町時沢" }, "geometry": { "type": "Point", "coordinates": [ 139.09764388888888, 36.438835 ] } }
+,
+{ "type": "Feature", "id": 13, "properties": { "id": 4028190, "replace": 31000, "room": "1K", "lat": 36.319494444444445, "lng": 138.99792861111112, "address": "群馬県高崎市八千代町１丁目" }, "geometry": { "type": "Point", "coordinates": [ 138.99792861111112, 36.319494444444445 ] } }
+,
+{ "type": "Feature", "id": 14, "properties": { "id": 4035314, "replace": 39000, "room": "1K", "lat": 36.401356111111113, "lng": 139.06445, "address": "群馬県前橋市昭和町３丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.06445, 36.401356111111113 ] } }
+,
+{ "type": "Feature", "id": 15, "properties": { "id": 9923404, "replace": 58000, "room": "2LDK", "lat": 36.316333055555553, "lng": 139.53583833333334, "address": "栃木県足利市駒場町" }, "geometry": { "type": "Point", "coordinates": [ 139.53583833333334, 36.316333055555553 ] } }
+,
+{ "type": "Feature", "id": 16, "properties": { "id": 11021416, "replace": 58000, "room": "2SLDK", "lat": 36.390602777799998, "lng": 139.28014611099999, "address": "群馬県みどり市笠懸町鹿" }, "geometry": { "type": "Point", "coordinates": [ 139.28014611099999, 36.390602777799998 ] } }
+,
+{ "type": "Feature", "id": 17, "properties": { "id": 4034455, "replace": 35000, "room": "1K", "lat": 36.365198055555553, "lng": 139.08018805555557, "address": "群馬県前橋市六供町" }, "geometry": { "type": "Point", "coordinates": [ 139.08018805555557, 36.365198055555553 ] } }
+,
+{ "type": "Feature", "id": 18, "properties": { "id": 7323090, "replace": 29000, "room": "1K", "lat": 36.261560555555555, "lng": 139.07071694444446, "address": "群馬県藤岡市上栗須" }, "geometry": { "type": "Point", "coordinates": [ 139.07071694444446, 36.261560555555555 ] } }
+,
+{ "type": "Feature", "id": 19, "properties": { "id": 14082943, "replace": 30000, "room": "1K", "lat": 36.401356111111113, "lng": 139.06445, "address": "群馬県前橋市昭和町３丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.06445, 36.401356111111113 ] } }
+,
+{ "type": "Feature", "id": 20, "properties": { "id": 16767540, "replace": 46000, "room": "1R", "lat": 36.31919527777778, "lng": 139.03388962356971, "address": "群馬県高崎市上中居町" }, "geometry": { "type": "Point", "coordinates": [ 139.03388962356971, 36.31919527777778 ] } }
+,
+{ "type": "Feature", "id": 21, "properties": { "id": 8695516, "replace": 39000, "room": "2LDK", "lat": 36.315217445732451, "lng": 139.24354644892929, "address": "群馬県伊勢崎市三室町" }, "geometry": { "type": "Point", "coordinates": [ 139.24354644892929, 36.315217445732451 ] } }
+,
+{ "type": "Feature", "id": 22, "properties": { "id": 5939536, "replace": 75000, "room": "3LDK", "lat": 36.372720555599997, "lng": 139.07724388899999, "address": "群馬県前橋市六供町１丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.07724388899999, 36.372720555599997 ] } }
+,
+{ "type": "Feature", "id": 23, "properties": { "id": 4032371, "replace": 59000, "room": "1DK", "lat": 36.410258055555559, "lng": 139.0659061111111, "address": "群馬県前橋市下小出町２丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.0659061111111, 36.410258055555559 ] } }
+,
+{ "type": "Feature", "id": 24, "properties": { "id": 8107987, "replace": 55000, "room": "1LDK", "lat": 36.364968611099997, "lng": 139.06094861099999, "address": "群馬県前橋市箱田町" }, "geometry": { "type": "Point", "coordinates": [ 139.06094861099999, 36.364968611099997 ] } }
+,
+{ "type": "Feature", "id": 25, "properties": { "id": 15250944, "replace": 50000, "room": "2DK", "lat": 36.355056666700001, "lng": 138.92492777800001, "address": "群馬県高崎市下里見町" }, "geometry": { "type": "Point", "coordinates": [ 138.92492777800001, 36.355056666700001 ] } }
+,
+{ "type": "Feature", "id": 26, "properties": { "id": 12570266, "replace": 43000, "room": "2DK", "lat": 36.360801111111108, "lng": 139.53693472222221, "address": "栃木県佐野市出流原町" }, "geometry": { "type": "Point", "coordinates": [ 139.53693472222221, 36.360801111111108 ] } }
+,
+{ "type": "Feature", "id": 27, "properties": { "id": 4038099, "replace": 43000, "room": "1LDK", "lat": 36.40965111111111, "lng": 139.03471, "address": "群馬県前橋市高井町１丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.03471, 36.40965111111111 ] } }
+,
+{ "type": "Feature", "id": 28, "properties": { "id": 4028591, "replace": 55000, "room": "2DK", "lat": 36.314890833333337, "lng": 139.00223777777776, "address": "群馬県高崎市聖石町" }, "geometry": { "type": "Point", "coordinates": [ 139.00223777777776, 36.314890833333337 ] } }
+,
+{ "type": "Feature", "id": 29, "properties": { "id": 6318883, "replace": 63000, "room": "2LDK", "lat": 36.342021944444447, "lng": 139.18245972222223, "address": "群馬県伊勢崎市波志江町" }, "geometry": { "type": "Point", "coordinates": [ 139.18245972222223, 36.342021944444447 ] } }
+,
+{ "type": "Feature", "id": 30, "properties": { "id": 16720543, "replace": 75000, "room": "2LDK", "lat": 36.32382888888889, "lng": 139.17559972222222, "address": "群馬県伊勢崎市連取町" }, "geometry": { "type": "Point", "coordinates": [ 139.17559972222222, 36.32382888888889 ] } }
+,
+{ "type": "Feature", "id": 31, "properties": { "id": 4557565, "replace": 49000, "room": "2DK", "lat": 36.36396388888889, "lng": 139.04392194444443, "address": "群馬県前橋市江田町" }, "geometry": { "type": "Point", "coordinates": [ 139.04392194444443, 36.36396388888889 ] } }
+,
+{ "type": "Feature", "id": 32, "properties": { "id": 10753938, "replace": 66000, "room": "3DK", "lat": 36.250181666700001, "lng": 139.379840833, "address": "群馬県太田市高林東町" }, "geometry": { "type": "Point", "coordinates": [ 139.379840833, 36.250181666700001 ] } }
+,
+{ "type": "Feature", "id": 33, "properties": { "id": 4026525, "replace": 48000, "room": "1K", "lat": 36.310306944444442, "lng": 139.03384111111112, "address": "群馬県高崎市上中居町" }, "geometry": { "type": "Point", "coordinates": [ 139.03384111111112, 36.310306944444442 ] } }
+,
+{ "type": "Feature", "id": 34, "properties": { "id": 14606765, "replace": 47000, "room": "2LDK", "lat": 36.368849722199997, "lng": 138.93868527800001, "address": "群馬県高崎市高浜町" }, "geometry": { "type": "Point", "coordinates": [ 138.93868527800001, 36.368849722199997 ] } }
+,
+{ "type": "Feature", "id": 35, "properties": { "id": 16807237, "replace": 150000, "room": "3LDK", "lat": 36.363022378655003, "lng": 139.08031909556252, "address": "群馬県前橋市六供町" }, "geometry": { "type": "Point", "coordinates": [ 139.08031909556252, 36.363022378655003 ] } }
+,
+{ "type": "Feature", "id": 36, "properties": { "id": 6765082, "replace": 78000, "room": "4DK", "lat": 36.368204166699996, "lng": 139.08696111099999, "address": "群馬県前橋市天川原町１丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.08696111099999, 36.368204166699996 ] } }
+,
+{ "type": "Feature", "id": 37, "properties": { "id": 10216891, "replace": 45000, "room": "2DK", "lat": 36.274612553516427, "lng": 139.26555076259436, "address": "群馬県伊勢崎市境栄" }, "geometry": { "type": "Point", "coordinates": [ 139.26555076259436, 36.274612553516427 ] } }
+,
+{ "type": "Feature", "id": 38, "properties": { "id": 16590278, "replace": 35000, "room": "1K", "lat": 36.373275, "lng": 139.0543111111111, "address": "群馬県前橋市古市町１丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.0543111111111, 36.373275 ] } }
+,
+{ "type": "Feature", "id": 39, "properties": { "id": 13967482, "replace": 40000, "room": "1K", "lat": 36.3055925, "lng": 139.44945611099999, "address": "栃木県足利市堀込町" }, "geometry": { "type": "Point", "coordinates": [ 139.44945611099999, 36.3055925 ] } }
+,
+{ "type": "Feature", "id": 40, "properties": { "id": 9112316, "replace": 57000, "room": "2LDK", "lat": 36.2987225, "lng": 139.18505055555556, "address": "群馬県伊勢崎市中町" }, "geometry": { "type": "Point", "coordinates": [ 139.18505055555556, 36.2987225 ] } }
+,
+{ "type": "Feature", "id": 41, "properties": { "id": 4771179, "replace": 56000, "room": "2LDK", "lat": 36.262715004631822, "lng": 139.03619010938218, "address": "群馬県高崎市吉井町岩井" }, "geometry": { "type": "Point", "coordinates": [ 139.03619010938218, 36.262715004631822 ] } }
+,
+{ "type": "Feature", "id": 42, "properties": { "id": 13699807, "replace": 38000, "room": "1LDK", "lat": 36.2959825, "lng": 139.18516, "address": "群馬県伊勢崎市今井町" }, "geometry": { "type": "Point", "coordinates": [ 139.18516, 36.2959825 ] } }
+,
+{ "type": "Feature", "id": 43, "properties": { "id": 15892274, "replace": 68000, "room": "2LDK", "lat": 36.254154444444445, "lng": 139.54626138888889, "address": "群馬県館林市東広内町" }, "geometry": { "type": "Point", "coordinates": [ 139.54626138888889, 36.254154444444445 ] } }
+,
+{ "type": "Feature", "id": 44, "properties": { "id": 16562104, "replace": 28000, "room": "1K", "lat": 36.287367222222223, "lng": 139.36847972222222, "address": "群馬県太田市浜町" }, "geometry": { "type": "Point", "coordinates": [ 139.36847972222222, 36.287367222222223 ] } }
+,
+{ "type": "Feature", "id": 45, "properties": { "id": 9299365, "replace": 65000, "room": "2LDK", "lat": 36.408752910543043, "lng": 139.03359728855338, "address": "群馬県前橋市高井町１丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.03359728855338, 36.408752910543043 ] } }
+,
+{ "type": "Feature", "id": 46, "properties": { "id": 4291397, "replace": 35000, "room": "2K", "lat": 36.353771813424792, "lng": 139.40061315667845, "address": "栃木県足利市大前町" }, "geometry": { "type": "Point", "coordinates": [ 139.40061315667845, 36.353771813424792 ] } }
+,
+{ "type": "Feature", "id": 47, "properties": { "id": 5176018, "replace": 50000, "room": "2DK", "lat": 36.339493888888889, "lng": 139.00270416666666, "address": "群馬県高崎市飯塚町" }, "geometry": { "type": "Point", "coordinates": [ 139.00270416666666, 36.339493888888889 ] } }
+,
+{ "type": "Feature", "id": 48, "properties": { "id": 14180251, "replace": 33000, "room": "1DK", "lat": 36.310863611099997, "lng": 139.44740305600001, "address": "栃木県足利市堀込町" }, "geometry": { "type": "Point", "coordinates": [ 139.44740305600001, 36.310863611099997 ] } }
+,
+{ "type": "Feature", "id": 49, "properties": { "id": 4021896, "replace": 40000, "room": "1LDK", "lat": 36.3846875, "lng": 139.31945444444443, "address": "群馬県桐生市広沢町３丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.31945444444443, 36.3846875 ] } }
+,
+{ "type": "Feature", "id": 50, "properties": { "id": 4041001, "replace": 54000, "room": "1LDK", "lat": 36.366009166666664, "lng": 139.22592777777777, "address": "群馬県伊勢崎市市場町１丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.22592777777777, 36.366009166666664 ] } }
+,
+{ "type": "Feature", "id": 51, "properties": { "id": 15733975, "replace": 45000, "room": "2DK", "lat": 36.266660277777774, "lng": 139.19717555555556, "address": "群馬県伊勢崎市八斗島町" }, "geometry": { "type": "Point", "coordinates": [ 139.19717555555556, 36.266660277777774 ] } }
+,
+{ "type": "Feature", "id": 52, "properties": { "id": 5784821, "replace": 70000, "room": "3LDK", "lat": 36.383636666699999, "lng": 139.09804, "address": "群馬県前橋市西片貝町４丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.09804, 36.383636666699999 ] } }
+,
+{ "type": "Feature", "id": 53, "properties": { "id": 16897691, "replace": 56000, "room": "1LDK", "lat": 36.269083055599999, "lng": 139.25793611099999, "address": "群馬県伊勢崎市境" }, "geometry": { "type": "Point", "coordinates": [ 139.25793611099999, 36.269083055599999 ] } }
+,
+{ "type": "Feature", "id": 54, "properties": { "id": 7193525, "replace": 48000, "room": "1SDK", "lat": 36.313093888888886, "lng": 139.17678944444444, "address": "群馬県伊勢崎市連取町" }, "geometry": { "type": "Point", "coordinates": [ 139.17678944444444, 36.313093888888886 ] } }
+,
+{ "type": "Feature", "id": 55, "properties": { "id": 4039219, "replace": 53000, "room": "3DK", "lat": 36.303492777777777, "lng": 139.21144166666667, "address": "群馬県伊勢崎市茂呂町２丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.21144166666667, 36.303492777777777 ] } }
+,
+{ "type": "Feature", "id": 56, "properties": { "id": 14082892, "replace": 30000, "room": "1K", "lat": 36.401356111111113, "lng": 139.06445, "address": "群馬県前橋市昭和町３丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.06445, 36.401356111111113 ] } }
+,
+{ "type": "Feature", "id": 57, "properties": { "id": 16014281, "replace": 35000, "room": "1DK", "lat": 36.267390651210533, "lng": 139.19282699121862, "address": "群馬県伊勢崎市八斗島町" }, "geometry": { "type": "Point", "coordinates": [ 139.19282699121862, 36.267390651210533 ] } }
+,
+{ "type": "Feature", "id": 58, "properties": { "id": 4031551, "replace": 35000, "room": "1K", "lat": 36.4191, "lng": 139.06785194444444, "address": "群馬県前橋市青柳町" }, "geometry": { "type": "Point", "coordinates": [ 139.06785194444444, 36.4191 ] } }
+,
+{ "type": "Feature", "id": 59, "properties": { "id": 4037376, "replace": 35000, "room": "1K", "lat": 36.393033055555556, "lng": 139.0966238888889, "address": "群馬県前橋市西片貝町１丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.0966238888889, 36.393033055555556 ] } }
+,
+{ "type": "Feature", "id": 60, "properties": { "id": 13747491, "replace": 64000, "room": "2LDK", "lat": 36.344316666700003, "lng": 139.019610556, "address": "群馬県高崎市問屋町４丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.019610556, 36.344316666700003 ] } }
+,
+{ "type": "Feature", "id": 61, "properties": { "id": 4022364, "replace": 50000, "room": "2DK", "lat": 36.352534166666665, "lng": 139.47385083333333, "address": "栃木県足利市利保町２丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.47385083333333, 36.352534166666665 ] } }
+,
+{ "type": "Feature", "id": 62, "properties": { "id": 4042851, "replace": 40000, "room": "1K", "lat": 36.305967552139393, "lng": 139.18109690340469, "address": "群馬県伊勢崎市連取元町" }, "geometry": { "type": "Point", "coordinates": [ 139.18109690340469, 36.305967552139393 ] } }
+,
+{ "type": "Feature", "id": 63, "properties": { "id": 5479457, "replace": 40000, "room": "2DK", "lat": 36.408711388900002, "lng": 139.03833583299999, "address": "群馬県前橋市総社町植野" }, "geometry": { "type": "Point", "coordinates": [ 139.03833583299999, 36.408711388900002 ] } }
+,
+{ "type": "Feature", "id": 64, "properties": { "id": 14149347, "replace": 50000, "room": "3DK", "lat": 36.339590555555553, "lng": 139.43636083333334, "address": "栃木県足利市今福町" }, "geometry": { "type": "Point", "coordinates": [ 139.43636083333334, 36.339590555555553 ] } }
+,
+{ "type": "Feature", "id": 65, "properties": { "id": 13948177, "replace": 48000, "room": "2DK", "lat": 36.2753675, "lng": 139.26479805599999, "address": "群馬県伊勢崎市境美原" }, "geometry": { "type": "Point", "coordinates": [ 139.26479805599999, 36.2753675 ] } }
+,
+{ "type": "Feature", "id": 66, "properties": { "id": 4033830, "replace": 60000, "room": "3LDK", "lat": 36.426278888888888, "lng": 139.06036194444445, "address": "群馬県前橋市荒牧町" }, "geometry": { "type": "Point", "coordinates": [ 139.06036194444445, 36.426278888888888 ] } }
+,
+{ "type": "Feature", "id": 67, "properties": { "id": 14235683, "replace": 50000, "room": "3DK", "lat": 36.310776111099997, "lng": 139.43950611099999, "address": "栃木県足利市堀込町" }, "geometry": { "type": "Point", "coordinates": [ 139.43950611099999, 36.310776111099997 ] } }
+,
+{ "type": "Feature", "id": 68, "properties": { "id": 9662819, "replace": 50000, "room": "1LDK", "lat": 36.367618487268707, "lng": 138.99811585271914, "address": "群馬県高崎市福島町" }, "geometry": { "type": "Point", "coordinates": [ 138.99811585271914, 36.367618487268707 ] } }
+,
+{ "type": "Feature", "id": 69, "properties": { "id": 8747173, "replace": 58000, "room": "2LDK", "lat": 36.324422272852452, "lng": 139.43623324603297, "address": "栃木県足利市八幡町" }, "geometry": { "type": "Point", "coordinates": [ 139.43623324603297, 36.324422272852452 ] } }
+,
+{ "type": "Feature", "id": 70, "properties": { "id": 4024344, "replace": 50000, "room": "2DK", "lat": 36.343093888888887, "lng": 139.02851972222223, "address": "群馬県高崎市貝沢町" }, "geometry": { "type": "Point", "coordinates": [ 139.02851972222223, 36.343093888888887 ] } }
+,
+{ "type": "Feature", "id": 71, "properties": { "id": 10951386, "replace": 44000, "room": "2DK", "lat": 36.407738914899468, "lng": 139.31244338314588, "address": "群馬県桐生市相生町２丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.31244338314588, 36.407738914899468 ] } }
+,
+{ "type": "Feature", "id": 72, "properties": { "id": 4027668, "replace": 31000, "room": "1K", "lat": 36.322205, "lng": 139.00925888888889, "address": "群馬県高崎市鞘町" }, "geometry": { "type": "Point", "coordinates": [ 139.00925888888889, 36.322205 ] } }
+,
+{ "type": "Feature", "id": 73, "properties": { "id": 7703477, "replace": 45000, "room": "1LDK", "lat": 36.293450339250391, "lng": 139.21469265136344, "address": "群馬県伊勢崎市茂呂町２丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.21469265136344, 36.293450339250391 ] } }
+,
+{ "type": "Feature", "id": 74, "properties": { "id": 13524428, "replace": 57000, "room": "2LDK", "lat": 36.3492325, "lng": 139.058618056, "address": "群馬県前橋市川曲町" }, "geometry": { "type": "Point", "coordinates": [ 139.058618056, 36.3492325 ] } }
+,
+{ "type": "Feature", "id": 75, "properties": { "id": 12570279, "replace": 43000, "room": "2DK", "lat": 36.360801111111108, "lng": 139.53693472222221, "address": "栃木県佐野市出流原町" }, "geometry": { "type": "Point", "coordinates": [ 139.53693472222221, 36.360801111111108 ] } }
+,
+{ "type": "Feature", "id": 76, "properties": { "id": 13694589, "replace": 52000, "room": "2LDK", "lat": 36.305232777777775, "lng": 139.20398805555556, "address": "群馬県伊勢崎市茂呂町１丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.20398805555556, 36.305232777777775 ] } }
+,
+{ "type": "Feature", "id": 77, "properties": { "id": 12647801, "replace": 45000, "room": "1LDK", "lat": 36.327858591422348, "lng": 139.46112155291939, "address": "栃木県足利市伊勢町４丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.46112155291939, 36.327858591422348 ] } }
+,
+{ "type": "Feature", "id": 78, "properties": { "id": 15263347, "replace": 30000, "room": "1LDK", "lat": 36.415175277800003, "lng": 139.33274611100001, "address": "群馬県桐生市堤町１丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.33274611100001, 36.415175277800003 ] } }
+,
+{ "type": "Feature", "id": 79, "properties": { "id": 4741213, "replace": 45000, "room": "1LDK", "lat": 36.329050277777775, "lng": 139.23234638888889, "address": "群馬県伊勢崎市八寸町" }, "geometry": { "type": "Point", "coordinates": [ 139.23234638888889, 36.329050277777775 ] } }
+,
+{ "type": "Feature", "id": 80, "properties": { "id": 14450387, "replace": 53000, "room": "2LDK", "lat": 36.448501539771144, "lng": 139.08139115698663, "address": "群馬県前橋市富士見町小沢" }, "geometry": { "type": "Point", "coordinates": [ 139.08139115698663, 36.448501539771144 ] } }
+,
+{ "type": "Feature", "id": 81, "properties": { "id": 13238611, "replace": 42000, "room": "2DK", "lat": 36.405586990811436, "lng": 139.35064242797719, "address": "群馬県桐生市東５丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.35064242797719, 36.405586990811436 ] } }
+,
+{ "type": "Feature", "id": 82, "properties": { "id": 13858128, "replace": 34000, "room": "2DK", "lat": 36.364113611100002, "lng": 139.37672277799999, "address": "栃木県足利市小俣南町" }, "geometry": { "type": "Point", "coordinates": [ 139.37672277799999, 36.364113611100002 ] } }
+,
+{ "type": "Feature", "id": 83, "properties": { "id": 12783211, "replace": 53000, "room": "2DK", "lat": 36.316163841666445, "lng": 139.16591434293639, "address": "群馬県伊勢崎市田中島町" }, "geometry": { "type": "Point", "coordinates": [ 139.16591434293639, 36.316163841666445 ] } }
+,
+{ "type": "Feature", "id": 84, "properties": { "id": 15465751, "replace": 48000, "room": "2SDK", "lat": 36.421535, "lng": 139.04933722199999, "address": "群馬県前橋市川原町１丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.04933722199999, 36.421535 ] } }
+,
+{ "type": "Feature", "id": 85, "properties": { "id": 4030049, "replace": 26000, "room": "1K", "lat": 36.350248055555554, "lng": 139.025635, "address": "群馬県高崎市井野町" }, "geometry": { "type": "Point", "coordinates": [ 139.025635, 36.350248055555554 ] } }
+,
+{ "type": "Feature", "id": 86, "properties": { "id": 5023149, "replace": 38000, "room": "2DK", "lat": 36.340879166699999, "lng": 139.429571944, "address": "栃木県足利市五十部町" }, "geometry": { "type": "Point", "coordinates": [ 139.429571944, 36.340879166699999 ] } }
+,
+{ "type": "Feature", "id": 87, "properties": { "id": 14801306, "replace": 69000, "room": "3LDK", "lat": 36.385859166700001, "lng": 139.044368889, "address": "群馬県前橋市元総社町２丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.044368889, 36.385859166700001 ] } }
+,
+{ "type": "Feature", "id": 88, "properties": { "id": 16774656, "replace": 55000, "room": "5DK", "lat": 36.310973888900001, "lng": 139.19816638899999, "address": "群馬県伊勢崎市上泉町" }, "geometry": { "type": "Point", "coordinates": [ 139.19816638899999, 36.310973888900001 ] } }
+,
+{ "type": "Feature", "id": 89, "properties": { "id": 4029442, "replace": 43000, "room": "1K", "lat": 36.316725833333336, "lng": 139.01204638888888, "address": "群馬県高崎市新田町" }, "geometry": { "type": "Point", "coordinates": [ 139.01204638888888, 36.316725833333336 ] } }
+,
+{ "type": "Feature", "id": 90, "properties": { "id": 10686063, "replace": 50000, "room": "3K", "lat": 36.299635712676185, "lng": 139.36761361885689, "address": "群馬県太田市大島町" }, "geometry": { "type": "Point", "coordinates": [ 139.36761361885689, 36.299635712676185 ] } }
+,
+{ "type": "Feature", "id": 91, "properties": { "id": 14987761, "replace": 45000, "room": "3DK", "lat": 36.308254675646573, "lng": 139.18219226621474, "address": "群馬県伊勢崎市連取町" }, "geometry": { "type": "Point", "coordinates": [ 139.18219226621474, 36.308254675646573 ] } }
+,
+{ "type": "Feature", "id": 92, "properties": { "id": 7078317, "replace": 55000, "room": "3DK", "lat": 36.2518383333, "lng": 139.36796222199999, "address": "群馬県太田市高林西町" }, "geometry": { "type": "Point", "coordinates": [ 139.36796222199999, 36.2518383333 ] } }
+,
+{ "type": "Feature", "id": 93, "properties": { "id": 14235791, "replace": 50000, "room": "2LDK", "lat": 36.327211666666663, "lng": 139.47463638888888, "address": "栃木県足利市助戸１丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.47463638888888, 36.327211666666663 ] } }
+,
+{ "type": "Feature", "id": 94, "properties": { "id": 10369844, "replace": 30000, "room": "1K", "lat": 36.391725555599997, "lng": 139.028870278, "address": "群馬県前橋市元総社町" }, "geometry": { "type": "Point", "coordinates": [ 139.028870278, 36.391725555599997 ] } }
+,
+{ "type": "Feature", "id": 95, "properties": { "id": 14772702, "replace": 55000, "room": "2LDK", "lat": 36.315855555555558, "lng": 139.21821222222223, "address": "群馬県伊勢崎市下植木町" }, "geometry": { "type": "Point", "coordinates": [ 139.21821222222223, 36.315855555555558 ] } }
+,
+{ "type": "Feature", "id": 96, "properties": { "id": 8375591, "replace": 48000, "room": "2DK", "lat": 36.382805888685802, "lng": 139.09514558619625, "address": "群馬県前橋市西片貝町４丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.09514558619625, 36.382805888685802 ] } }
+,
+{ "type": "Feature", "id": 97, "properties": { "id": 9747742, "replace": 52000, "room": "2DK", "lat": 36.3399961111, "lng": 139.42759388900001, "address": "栃木県足利市五十部町" }, "geometry": { "type": "Point", "coordinates": [ 139.42759388900001, 36.3399961111 ] } }
+,
+{ "type": "Feature", "id": 98, "properties": { "id": 16827358, "replace": 68000, "room": "2LDK", "lat": 36.424595380655035, "lng": 139.05786532305743, "address": "群馬県前橋市荒牧町２丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.05786532305743, 36.424595380655035 ] } }
+,
+{ "type": "Feature", "id": 99, "properties": { "id": 16500931, "replace": 48000, "room": "3K", "lat": 36.327013611111106, "lng": 139.33565166666668, "address": "群馬県太田市天良町" }, "geometry": { "type": "Point", "coordinates": [ 139.33565166666668, 36.327013611111106 ] } }
+,
+{ "type": "Feature", "id": 100, "properties": { "id": 14672518, "replace": 65000, "room": "3DK", "lat": 36.331157777777776, "lng": 139.47659722222221, "address": "栃木県足利市花園町" }, "geometry": { "type": "Point", "coordinates": [ 139.47659722222221, 36.331157777777776 ] } }
+,
+{ "type": "Feature", "id": 101, "properties": { "id": 16844808, "replace": 33000, "room": "1R", "lat": 36.345869444444446, "lng": 138.99853138888886, "address": "群馬県高崎市下小鳥町" }, "geometry": { "type": "Point", "coordinates": [ 138.99853138888886, 36.345869444444446 ] } }
+,
+{ "type": "Feature", "id": 102, "properties": { "id": 6668230, "replace": 53000, "room": "3DK", "lat": 36.3803266667, "lng": 139.10166305600001, "address": "群馬県前橋市天川大島町２丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.10166305600001, 36.3803266667 ] } }
+,
+{ "type": "Feature", "id": 103, "properties": { "id": 4202377, "replace": 38000, "room": "1K", "lat": 36.398669287198608, "lng": 139.06708211369588, "address": "群馬県前橋市昭和町２丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.06708211369588, 36.398669287198608 ] } }
+,
+{ "type": "Feature", "id": 104, "properties": { "id": 14930960, "replace": 52000, "room": "2LDK", "lat": 36.355516111111108, "lng": 138.9224863888889, "address": "群馬県高崎市下里見町" }, "geometry": { "type": "Point", "coordinates": [ 138.9224863888889, 36.355516111111108 ] } }
+,
+{ "type": "Feature", "id": 105, "properties": { "id": 6651307, "replace": 55000, "room": "3DK", "lat": 36.33414472222222, "lng": 139.15665277777777, "address": "群馬県伊勢崎市宮子町" }, "geometry": { "type": "Point", "coordinates": [ 139.15665277777777, 36.33414472222222 ] } }
+,
+{ "type": "Feature", "id": 106, "properties": { "id": 16788588, "replace": 48000, "room": "1DK", "lat": 36.371091388899998, "lng": 139.00498722200001, "address": "群馬県高崎市中泉町" }, "geometry": { "type": "Point", "coordinates": [ 139.00498722200001, 36.371091388899998 ] } }
+,
+{ "type": "Feature", "id": 107, "properties": { "id": 4028199, "replace": 51000, "room": "2DK", "lat": 36.307567411932588, "lng": 138.84873054999227, "address": "群馬県安中市原市" }, "geometry": { "type": "Point", "coordinates": [ 138.84873054999227, 36.307567411932588 ] } }
+,
+{ "type": "Feature", "id": 108, "properties": { "id": 4040622, "replace": 59000, "room": "2LDK", "lat": 36.306463055555554, "lng": 139.23377777777779, "address": "群馬県伊勢崎市境伊与久" }, "geometry": { "type": "Point", "coordinates": [ 139.23377777777779, 36.306463055555554 ] } }
+,
+{ "type": "Feature", "id": 109, "properties": { "id": 6103697, "replace": 45000, "room": "1K", "lat": 36.339290555555557, "lng": 138.98891611111111, "address": "群馬県高崎市上並榎町" }, "geometry": { "type": "Point", "coordinates": [ 138.98891611111111, 36.339290555555557 ] } }
+,
+{ "type": "Feature", "id": 110, "properties": { "id": 4036782, "replace": 49000, "room": "3DK", "lat": 36.409133055555557, "lng": 139.03950305555554, "address": "群馬県前橋市総社町植野" }, "geometry": { "type": "Point", "coordinates": [ 139.03950305555554, 36.409133055555557 ] } }
+,
+{ "type": "Feature", "id": 111, "properties": { "id": 16387007, "replace": 50000, "room": "2LDK", "lat": 36.421520332005002, "lng": 139.28867798261251, "address": "群馬県みどり市大間々町大間々" }, "geometry": { "type": "Point", "coordinates": [ 139.28867798261251, 36.421520332005002 ] } }
+,
+{ "type": "Feature", "id": 112, "properties": { "id": 16755353, "replace": 34000, "room": "2DK", "lat": 36.312821111111113, "lng": 139.14164388888889, "address": "群馬県佐波郡玉村町大字樋越" }, "geometry": { "type": "Point", "coordinates": [ 139.14164388888889, 36.312821111111113 ] } }
+,
+{ "type": "Feature", "id": 113, "properties": { "id": 5014688, "replace": 55000, "room": "3DK", "lat": 36.316202222199998, "lng": 139.47495388900001, "address": "栃木県足利市若草町" }, "geometry": { "type": "Point", "coordinates": [ 139.47495388900001, 36.316202222199998 ] } }
+,
+{ "type": "Feature", "id": 114, "properties": { "id": 15245071, "replace": 76000, "room": "3LDK", "lat": 36.42935569286, "lng": 139.05795437161251, "address": "群馬県前橋市関根町" }, "geometry": { "type": "Point", "coordinates": [ 139.05795437161251, 36.42935569286 ] } }
+,
+{ "type": "Feature", "id": 115, "properties": { "id": 16682333, "replace": 38000, "room": "1LDK", "lat": 36.310611388888887, "lng": 139.1788386111111, "address": "群馬県伊勢崎市連取町" }, "geometry": { "type": "Point", "coordinates": [ 139.1788386111111, 36.310611388888887 ] } }
+,
+{ "type": "Feature", "id": 116, "properties": { "id": 15433263, "replace": 65000, "room": "3DK", "lat": 36.3020925, "lng": 139.476741667, "address": "栃木県足利市福富町" }, "geometry": { "type": "Point", "coordinates": [ 139.476741667, 36.3020925 ] } }
+,
+{ "type": "Feature", "id": 117, "properties": { "id": 7938733, "replace": 53000, "room": "2LDK", "lat": 36.411531944399997, "lng": 139.18226611099999, "address": "群馬県前橋市樋越町" }, "geometry": { "type": "Point", "coordinates": [ 139.18226611099999, 36.411531944399997 ] } }
+,
+{ "type": "Feature", "id": 118, "properties": { "id": 15263370, "replace": 30000, "room": "2DK", "lat": 36.415175277800003, "lng": 139.33274611100001, "address": "群馬県桐生市堤町１丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.33274611100001, 36.415175277800003 ] } }
+,
+{ "type": "Feature", "id": 119, "properties": { "id": 9323952, "replace": 63000, "room": "2LDK", "lat": 36.312772589569605, "lng": 139.49963950084731, "address": "栃木県足利市鵤木町" }, "geometry": { "type": "Point", "coordinates": [ 139.49963950084731, 36.312772589569605 ] } }
+,
+{ "type": "Feature", "id": 120, "properties": { "id": 4037500, "replace": 58000, "room": "3DK", "lat": 36.381281944444446, "lng": 139.0825561111111, "address": "群馬県前橋市三河町２丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.0825561111111, 36.381281944444446 ] } }
+,
+{ "type": "Feature", "id": 121, "properties": { "id": 7564538, "replace": 43000, "room": "1LDK", "lat": 36.339598407651273, "lng": 139.24637498074256, "address": "群馬県伊勢崎市東町" }, "geometry": { "type": "Point", "coordinates": [ 139.24637498074256, 36.339598407651273 ] } }
+,
+{ "type": "Feature", "id": 122, "properties": { "id": 16500364, "replace": 53000, "room": "2LDK", "lat": 36.238283055555556, "lng": 139.3964013888889, "address": "群馬県邑楽郡大泉町大字仙石" }, "geometry": { "type": "Point", "coordinates": [ 139.3964013888889, 36.238283055555556 ] } }
+,
+{ "type": "Feature", "id": 123, "properties": { "id": 12487540, "replace": 59000, "room": "3DK", "lat": 36.379313237024597, "lng": 139.10621013711292, "address": "群馬県前橋市東片貝町" }, "geometry": { "type": "Point", "coordinates": [ 139.10621013711292, 36.379313237024597 ] } }
+,
+{ "type": "Feature", "id": 124, "properties": { "id": 15622469, "replace": 26000, "room": "1K", "lat": 36.405321944400001, "lng": 139.08842333300001, "address": "群馬県前橋市下細井町" }, "geometry": { "type": "Point", "coordinates": [ 139.08842333300001, 36.405321944400001 ] } }
+,
+{ "type": "Feature", "id": 125, "properties": { "id": 9749529, "replace": 130000, "room": "4SLDK", "lat": 36.374478888900001, "lng": 139.060435, "address": "群馬県前橋市小相木町１丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.060435, 36.374478888900001 ] } }
+,
+{ "type": "Feature", "id": 126, "properties": { "id": 4034049, "replace": 31000, "room": "1K", "lat": 36.40996, "lng": 139.04172305555556, "address": "群馬県前橋市総社町総社" }, "geometry": { "type": "Point", "coordinates": [ 139.04172305555556, 36.40996 ] } }
+,
+{ "type": "Feature", "id": 127, "properties": { "id": 14947117, "replace": 42000, "room": "2DK", "lat": 36.372968888888884, "lng": 138.89804638888887, "address": "群馬県高崎市上里見町" }, "geometry": { "type": "Point", "coordinates": [ 138.89804638888887, 36.372968888888884 ] } }
+,
+{ "type": "Feature", "id": 128, "properties": { "id": 8792250, "replace": 45000, "room": "3DK", "lat": 36.311764722200003, "lng": 139.46190916699999, "address": "栃木県足利市福居町" }, "geometry": { "type": "Point", "coordinates": [ 139.46190916699999, 36.311764722200003 ] } }
+,
+{ "type": "Feature", "id": 129, "properties": { "id": 16597754, "replace": 54000, "room": "1LDK", "lat": 36.374407659534995, "lng": 139.10651637489249, "address": "群馬県前橋市天川大島町３丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.10651637489249, 36.374407659534995 ] } }
+,
+{ "type": "Feature", "id": 130, "properties": { "id": 4038912, "replace": 33000, "room": "1K", "lat": 36.314315555555552, "lng": 139.1655661111111, "address": "群馬県伊勢崎市田中島町" }, "geometry": { "type": "Point", "coordinates": [ 139.1655661111111, 36.314315555555552 ] } }
+,
+{ "type": "Feature", "id": 131, "properties": { "id": 4905741, "replace": 42000, "room": "2DK", "lat": 36.379099171277623, "lng": 139.09380064704973, "address": "群馬県前橋市朝日町４丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.09380064704973, 36.379099171277623 ] } }
+,
+{ "type": "Feature", "id": 132, "properties": { "id": 15000781, "replace": 35000, "room": "1LDK", "lat": 36.320007777800001, "lng": 139.41066, "address": "群馬県太田市東新町" }, "geometry": { "type": "Point", "coordinates": [ 139.41066, 36.320007777800001 ] } }
+,
+{ "type": "Feature", "id": 133, "properties": { "id": 12730587, "replace": 42000, "room": "2DK", "lat": 36.309695555555557, "lng": 139.20512638888889, "address": "群馬県伊勢崎市今泉町２丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.20512638888889, 36.309695555555557 ] } }
+,
+{ "type": "Feature", "id": 134, "properties": { "id": 4039016, "replace": 50000, "room": "2DK", "lat": 36.314963611111111, "lng": 139.21508777777777, "address": "群馬県伊勢崎市下植木町" }, "geometry": { "type": "Point", "coordinates": [ 139.21508777777777, 36.314963611111111 ] } }
+,
+{ "type": "Feature", "id": 135, "properties": { "id": 6180664, "replace": 38000, "room": "2DK", "lat": 36.320715555444266, "lng": 139.16976891079958, "address": "群馬県伊勢崎市田中島町" }, "geometry": { "type": "Point", "coordinates": [ 139.16976891079958, 36.320715555444266 ] } }
+,
+{ "type": "Feature", "id": 136, "properties": { "id": 4599619, "replace": 46000, "room": "2DK", "lat": 36.319724444444446, "lng": 139.16615555555555, "address": "群馬県伊勢崎市田中島町" }, "geometry": { "type": "Point", "coordinates": [ 139.16615555555555, 36.319724444444446 ] } }
+,
+{ "type": "Feature", "id": 137, "properties": { "id": 15894658, "replace": 69000, "room": "2LDK", "lat": 36.323205478080155, "lng": 139.21100446772454, "address": "群馬県伊勢崎市昭和町" }, "geometry": { "type": "Point", "coordinates": [ 139.21100446772454, 36.323205478080155 ] } }
+,
+{ "type": "Feature", "id": 138, "properties": { "id": 14383933, "replace": 27000, "room": "1K", "lat": 36.399717082696966, "lng": 139.08355415190263, "address": "群馬県前橋市日吉町４丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.08355415190263, 36.399717082696966 ] } }
+,
+{ "type": "Feature", "id": 139, "properties": { "id": 14800679, "replace": 70000, "room": "3DK", "lat": 36.352331111111113, "lng": 138.99734222222222, "address": "群馬県高崎市下小鳥町" }, "geometry": { "type": "Point", "coordinates": [ 138.99734222222222, 36.352331111111113 ] } }
+,
+{ "type": "Feature", "id": 140, "properties": { "id": 13383650, "replace": 53000, "room": "2LDK", "lat": 36.373217996544888, "lng": 139.05217686026805, "address": "群馬県前橋市古市町１丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.05217686026805, 36.373217996544888 ] } }
+,
+{ "type": "Feature", "id": 141, "properties": { "id": 5939978, "replace": 49000, "room": "2DK", "lat": 36.413135, "lng": 139.02618611111112, "address": "群馬県前橋市総社町高井" }, "geometry": { "type": "Point", "coordinates": [ 139.02618611111112, 36.413135 ] } }
+,
+{ "type": "Feature", "id": 142, "properties": { "id": 12507426, "replace": 39000, "room": "2K", "lat": 36.387989444444443, "lng": 138.96886277777779, "address": "群馬県高崎市箕郷町生原" }, "geometry": { "type": "Point", "coordinates": [ 138.96886277777779, 36.387989444444443 ] } }
+,
+{ "type": "Feature", "id": 143, "properties": { "id": 12990567, "replace": 31000, "room": "1K", "lat": 36.369950833333334, "lng": 139.00307222222222, "address": "群馬県高崎市中泉町" }, "geometry": { "type": "Point", "coordinates": [ 139.00307222222222, 36.369950833333334 ] } }
+,
+{ "type": "Feature", "id": 144, "properties": { "id": 4750690, "replace": 43000, "room": "1K", "lat": 36.348631666700001, "lng": 139.40701944400001, "address": "栃木県足利市鹿島町" }, "geometry": { "type": "Point", "coordinates": [ 139.40701944400001, 36.348631666700001 ] } }
+,
+{ "type": "Feature", "id": 145, "properties": { "id": 16141721, "replace": 20000, "room": "1R", "lat": 36.314008055599999, "lng": 139.11907777799999, "address": "群馬県佐波郡玉村町大字上福島" }, "geometry": { "type": "Point", "coordinates": [ 139.11907777799999, 36.314008055599999 ] } }
+,
+{ "type": "Feature", "id": 146, "properties": { "id": 16547060, "replace": 30000, "room": "2K", "lat": 36.282148055555552, "lng": 139.3058425, "address": "群馬県太田市新田木崎町" }, "geometry": { "type": "Point", "coordinates": [ 139.3058425, 36.282148055555552 ] } }
+,
+{ "type": "Feature", "id": 147, "properties": { "id": 4038299, "replace": 58000, "room": "2LDK", "lat": 36.31726583333333, "lng": 139.16679277777777, "address": "群馬県伊勢崎市田中島町" }, "geometry": { "type": "Point", "coordinates": [ 139.16679277777777, 36.31726583333333 ] } }
+,
+{ "type": "Feature", "id": 148, "properties": { "id": 16013363, "replace": 53000, "room": "2LDK", "lat": 36.389036328584659, "lng": 139.00392543521798, "address": "群馬県高崎市棟高町" }, "geometry": { "type": "Point", "coordinates": [ 139.00392543521798, 36.389036328584659 ] } }
+,
+{ "type": "Feature", "id": 149, "properties": { "id": 16581796, "replace": 50000, "room": "2LDK", "lat": 36.2947336111, "lng": 139.38001888900001, "address": "群馬県太田市東本町" }, "geometry": { "type": "Point", "coordinates": [ 139.38001888900001, 36.2947336111 ] } }
+,
+{ "type": "Feature", "id": 150, "properties": { "id": 9879970, "replace": 60000, "room": "2LDK", "lat": 36.31316972222222, "lng": 138.9925561111111, "address": "群馬県高崎市片岡町３丁目" }, "geometry": { "type": "Point", "coordinates": [ 138.9925561111111, 36.31316972222222 ] } }
+,
+{ "type": "Feature", "id": 151, "properties": { "id": 5261151, "replace": 38000, "room": "2K", "lat": 36.398331288650752, "lng": 139.09061161608381, "address": "群馬県前橋市下沖町" }, "geometry": { "type": "Point", "coordinates": [ 139.09061161608381, 36.398331288650752 ] } }
+,
+{ "type": "Feature", "id": 152, "properties": { "id": 14741025, "replace": 36000, "room": "1K", "lat": 36.34511361111111, "lng": 139.00000472222223, "address": "群馬県高崎市下小鳥町" }, "geometry": { "type": "Point", "coordinates": [ 139.00000472222223, 36.34511361111111 ] } }
+,
+{ "type": "Feature", "id": 153, "properties": { "id": 15802336, "replace": 39000, "room": "2DK", "lat": 36.3229425, "lng": 139.59523611111112, "address": "栃木県佐野市犬伏上町" }, "geometry": { "type": "Point", "coordinates": [ 139.59523611111112, 36.3229425 ] } }
+,
+{ "type": "Feature", "id": 154, "properties": { "id": 14346810, "replace": 48000, "room": "1K", "lat": 36.367707222200004, "lng": 139.08344750000001, "address": "群馬県前橋市六供町" }, "geometry": { "type": "Point", "coordinates": [ 139.08344750000001, 36.367707222200004 ] } }
+,
+{ "type": "Feature", "id": 155, "properties": { "id": 13496341, "replace": 45000, "room": "3DK", "lat": 36.337666944399999, "lng": 139.419063333, "address": "栃木県足利市五十部町" }, "geometry": { "type": "Point", "coordinates": [ 139.419063333, 36.337666944399999 ] } }
+,
+{ "type": "Feature", "id": 156, "properties": { "id": 16177507, "replace": 47000, "room": "1K", "lat": 36.279548611099997, "lng": 139.19889583299999, "address": "群馬県伊勢崎市除ケ町" }, "geometry": { "type": "Point", "coordinates": [ 139.19889583299999, 36.279548611099997 ] } }
+,
+{ "type": "Feature", "id": 157, "properties": { "id": 16655408, "replace": 55000, "room": "3LDK", "lat": 36.270275, "lng": 139.36585944444445, "address": "群馬県太田市岩瀬川町" }, "geometry": { "type": "Point", "coordinates": [ 139.36585944444445, 36.270275 ] } }
+,
+{ "type": "Feature", "id": 158, "properties": { "id": 7751312, "replace": 34000, "room": "2DK", "lat": 36.299579722200001, "lng": 139.1930275, "address": "群馬県伊勢崎市山王町" }, "geometry": { "type": "Point", "coordinates": [ 139.1930275, 36.299579722200001 ] } }
+,
+{ "type": "Feature", "id": 159, "properties": { "id": 4033817, "replace": 55000, "room": "2LDK", "lat": 36.365896111111113, "lng": 139.061555, "address": "群馬県前橋市上新田町" }, "geometry": { "type": "Point", "coordinates": [ 139.061555, 36.365896111111113 ] } }
+,
+{ "type": "Feature", "id": 160, "properties": { "id": 4036547, "replace": 42000, "room": "1K", "lat": 36.400491111111108, "lng": 139.06985, "address": "群馬県前橋市昭和町１丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.06985, 36.400491111111108 ] } }
+,
+{ "type": "Feature", "id": 161, "properties": { "id": 4036793, "replace": 46000, "room": "1K", "lat": 36.40069, "lng": 139.07197888888888, "address": "群馬県前橋市国領町２丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.07197888888888, 36.40069 ] } }
+,
+{ "type": "Feature", "id": 162, "properties": { "id": 16677749, "replace": 60000, "room": "2LDK", "lat": 36.341284166666668, "lng": 139.20318, "address": "群馬県伊勢崎市波志江町" }, "geometry": { "type": "Point", "coordinates": [ 139.20318, 36.341284166666668 ] } }
+,
+{ "type": "Feature", "id": 163, "properties": { "id": 8131453, "replace": 29000, "room": "1K", "lat": 36.3535175, "lng": 139.39894027777777, "address": "栃木県足利市大前町" }, "geometry": { "type": "Point", "coordinates": [ 139.39894027777777, 36.3535175 ] } }
+,
+{ "type": "Feature", "id": 164, "properties": { "id": 4038699, "replace": 55000, "room": "2LDK", "lat": 36.319996666666668, "lng": 139.18770222222221, "address": "群馬県伊勢崎市太田町" }, "geometry": { "type": "Point", "coordinates": [ 139.18770222222221, 36.319996666666668 ] } }
+,
+{ "type": "Feature", "id": 165, "properties": { "id": 13969420, "replace": 39000, "room": "1DK", "lat": 36.373724994366682, "lng": 139.23816669234324, "address": "群馬県伊勢崎市西久保町２丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.23816669234324, 36.373724994366682 ] } }
+,
+{ "type": "Feature", "id": 166, "properties": { "id": 13724779, "replace": 50000, "room": "3DK", "lat": 36.2831611111, "lng": 139.01639583299999, "address": "群馬県高崎市城山町２丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.01639583299999, 36.2831611111 ] } }
+,
+{ "type": "Feature", "id": 167, "properties": { "id": 16787638, "replace": 62000, "room": "2DK", "lat": 36.327036128289215, "lng": 139.01798490217223, "address": "群馬県高崎市江木町" }, "geometry": { "type": "Point", "coordinates": [ 139.01798490217223, 36.327036128289215 ] } }
+,
+{ "type": "Feature", "id": 168, "properties": { "id": 16786602, "replace": 35000, "room": "2DK", "lat": 36.367004722222219, "lng": 139.00224555555553, "address": "群馬県高崎市中泉町" }, "geometry": { "type": "Point", "coordinates": [ 139.00224555555553, 36.367004722222219 ] } }
+,
+{ "type": "Feature", "id": 169, "properties": { "id": 14930254, "replace": 55000, "room": "2DK", "lat": 36.379505, "lng": 139.06494111111112, "address": "群馬県前橋市紅雲町１丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.06494111111112, 36.379505 ] } }
+,
+{ "type": "Feature", "id": 170, "properties": { "id": 8973721, "replace": 40000, "room": "2DK", "lat": 36.303312222199999, "lng": 139.456376944, "address": "栃木県足利市福居町" }, "geometry": { "type": "Point", "coordinates": [ 139.456376944, 36.303312222199999 ] } }
+,
+{ "type": "Feature", "id": 171, "properties": { "id": 16946231, "replace": 52000, "room": "2DK", "lat": 36.403232267594689, "lng": 139.09040363580343, "address": "群馬県前橋市幸塚町" }, "geometry": { "type": "Point", "coordinates": [ 139.09040363580343, 36.403232267594689 ] } }
+,
+{ "type": "Feature", "id": 172, "properties": { "id": 13695017, "replace": 57000, "room": "2LDK", "lat": 36.261590277800003, "lng": 139.39021361100001, "address": "群馬県太田市東矢島町" }, "geometry": { "type": "Point", "coordinates": [ 139.39021361100001, 36.261590277800003 ] } }
+,
+{ "type": "Feature", "id": 173, "properties": { "id": 10861627, "replace": 45000, "room": "2DK", "lat": 36.364103302370985, "lng": 139.39935140964411, "address": "栃木県足利市葉鹿町" }, "geometry": { "type": "Point", "coordinates": [ 139.39935140964411, 36.364103302370985 ] } }
+,
+{ "type": "Feature", "id": 174, "properties": { "id": 16384307, "replace": 85000, "room": "2LDK", "lat": 36.352340360854996, "lng": 139.1215900685375, "address": "群馬県前橋市山王町１丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.1215900685375, 36.352340360854996 ] } }
+,
+{ "type": "Feature", "id": 175, "properties": { "id": 7331452, "replace": 42000, "room": "1K", "lat": 36.328726121028502, "lng": 139.23354953011864, "address": "群馬県伊勢崎市八寸町" }, "geometry": { "type": "Point", "coordinates": [ 139.23354953011864, 36.328726121028502 ] } }
+,
+{ "type": "Feature", "id": 176, "properties": { "id": 7745335, "replace": 55000, "room": "3DK", "lat": 36.311169166666666, "lng": 139.17023111111112, "address": "群馬県伊勢崎市連取町" }, "geometry": { "type": "Point", "coordinates": [ 139.17023111111112, 36.311169166666666 ] } }
+,
+{ "type": "Feature", "id": 177, "properties": { "id": 13382291, "replace": 64000, "room": "2LDK", "lat": 36.324129340777645, "lng": 139.5727653674318, "address": "栃木県佐野市堀米町" }, "geometry": { "type": "Point", "coordinates": [ 139.5727653674318, 36.324129340777645 ] } }
+,
+{ "type": "Feature", "id": 178, "properties": { "id": 5124344, "replace": 48000, "room": "2DK", "lat": 36.34457825292305, "lng": 138.99914188876906, "address": "群馬県高崎市下小鳥町" }, "geometry": { "type": "Point", "coordinates": [ 138.99914188876906, 36.34457825292305 ] } }
+,
+{ "type": "Feature", "id": 179, "properties": { "id": 16835908, "replace": 73000, "room": "3LDK", "lat": 36.295758888888891, "lng": 139.05720055555557, "address": "群馬県高崎市倉賀野町" }, "geometry": { "type": "Point", "coordinates": [ 139.05720055555557, 36.295758888888891 ] } }
+,
+{ "type": "Feature", "id": 180, "properties": { "id": 7259272, "replace": 40000, "room": "2DK", "lat": 36.287842222199998, "lng": 139.34358416699999, "address": "群馬県太田市由良町" }, "geometry": { "type": "Point", "coordinates": [ 139.34358416699999, 36.287842222199998 ] } }
+,
+{ "type": "Feature", "id": 181, "properties": { "id": 11144007, "replace": 25000, "room": "1K", "lat": 36.2301325, "lng": 139.08700138888889, "address": "群馬県藤岡市根岸" }, "geometry": { "type": "Point", "coordinates": [ 139.08700138888889, 36.2301325 ] } }
+,
+{ "type": "Feature", "id": 182, "properties": { "id": 16890605, "replace": 100000, "room": "4LDK", "lat": 36.354624444444447, "lng": 139.02150527777778, "address": "群馬県高崎市小八木町" }, "geometry": { "type": "Point", "coordinates": [ 139.02150527777778, 36.354624444444447 ] } }
+,
+{ "type": "Feature", "id": 183, "properties": { "id": 15171654, "replace": 29000, "room": "1K", "lat": 36.330238888899999, "lng": 139.20173416700001, "address": "群馬県伊勢崎市寿町" }, "geometry": { "type": "Point", "coordinates": [ 139.20173416700001, 36.330238888899999 ] } }
+,
+{ "type": "Feature", "id": 184, "properties": { "id": 14547058, "replace": 40000, "room": "2DK", "lat": 36.316350555600003, "lng": 139.194328611, "address": "群馬県伊勢崎市三光町" }, "geometry": { "type": "Point", "coordinates": [ 139.194328611, 36.316350555600003 ] } }
+,
+{ "type": "Feature", "id": 185, "properties": { "id": 10271178, "replace": 55000, "room": "2LDK", "lat": 36.458971944399998, "lng": 139.00211611099999, "address": "群馬県渋川市有馬" }, "geometry": { "type": "Point", "coordinates": [ 139.00211611099999, 36.458971944399998 ] } }
+,
+{ "type": "Feature", "id": 186, "properties": { "id": 15701901, "replace": 49000, "room": "2K", "lat": 36.418645001377023, "lng": 139.07420890463717, "address": "群馬県前橋市龍蔵寺町" }, "geometry": { "type": "Point", "coordinates": [ 139.07420890463717, 36.418645001377023 ] } }
+,
+{ "type": "Feature", "id": 187, "properties": { "id": 15013053, "replace": 53000, "room": "2LDK", "lat": 36.351221388888888, "lng": 139.40489583333334, "address": "栃木県足利市大前町" }, "geometry": { "type": "Point", "coordinates": [ 139.40489583333334, 36.351221388888888 ] } }
+,
+{ "type": "Feature", "id": 188, "properties": { "id": 16547059, "replace": 30000, "room": "2K", "lat": 36.282148055555552, "lng": 139.3058425, "address": "群馬県太田市新田木崎町" }, "geometry": { "type": "Point", "coordinates": [ 139.3058425, 36.282148055555552 ] } }
+,
+{ "type": "Feature", "id": 189, "properties": { "id": 4044765, "replace": 63000, "room": "2LDK", "lat": 36.382344444444442, "lng": 139.26521111111111, "address": "群馬県伊勢崎市間野谷町" }, "geometry": { "type": "Point", "coordinates": [ 139.26521111111111, 36.382344444444442 ] } }
+,
+{ "type": "Feature", "id": 190, "properties": { "id": 12662216, "replace": 45000, "room": "3DK", "lat": 36.3467225, "lng": 139.466065, "address": "栃木県足利市田所町" }, "geometry": { "type": "Point", "coordinates": [ 139.466065, 36.3467225 ] } }
+,
+{ "type": "Feature", "id": 191, "properties": { "id": 4038477, "replace": 33000, "room": "1K", "lat": 36.309002777777778, "lng": 139.17535972222223, "address": "群馬県伊勢崎市連取町" }, "geometry": { "type": "Point", "coordinates": [ 139.17535972222223, 36.309002777777778 ] } }
+,
+{ "type": "Feature", "id": 192, "properties": { "id": 9904233, "replace": 25000, "room": "1K", "lat": 36.3231766667, "lng": 139.44993833300001, "address": "栃木県足利市田中町" }, "geometry": { "type": "Point", "coordinates": [ 139.44993833300001, 36.3231766667 ] } }
+,
+{ "type": "Feature", "id": 193, "properties": { "id": 8120100, "replace": 48000, "room": "2K", "lat": 36.378344307854071, "lng": 139.05264828223693, "address": "群馬県前橋市古市町" }, "geometry": { "type": "Point", "coordinates": [ 139.05264828223693, 36.378344307854071 ] } }
+,
+{ "type": "Feature", "id": 194, "properties": { "id": 16297579, "replace": 45000, "room": "1DK", "lat": 36.348508731324891, "lng": 139.14165132809791, "address": "群馬県前橋市小屋原町" }, "geometry": { "type": "Point", "coordinates": [ 139.14165132809791, 36.348508731324891 ] } }
+,
+{ "type": "Feature", "id": 195, "properties": { "id": 14317850, "replace": 52000, "room": "2LDK", "lat": 36.416222678450708, "lng": 139.06091203204437, "address": "群馬県前橋市上小出町３丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.06091203204437, 36.416222678450708 ] } }
+,
+{ "type": "Feature", "id": 196, "properties": { "id": 7591628, "replace": 30000, "room": "1K", "lat": 36.301708333299999, "lng": 139.00739777800001, "address": "群馬県高崎市石原町" }, "geometry": { "type": "Point", "coordinates": [ 139.00739777800001, 36.301708333299999 ] } }
+,
+{ "type": "Feature", "id": 197, "properties": { "id": 15736429, "replace": 35000, "room": "1DK", "lat": 36.357431944399998, "lng": 139.19851416700001, "address": "群馬県伊勢崎市波志江町" }, "geometry": { "type": "Point", "coordinates": [ 139.19851416700001, 36.357431944399998 ] } }
+,
+{ "type": "Feature", "id": 198, "properties": { "id": 16338388, "replace": 41000, "room": "1LDK", "lat": 36.36407, "lng": 139.22909027777777, "address": "群馬県伊勢崎市市場町２丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.22909027777777, 36.36407 ] } }
+,
+{ "type": "Feature", "id": 199, "properties": { "id": 16530365, "replace": 52000, "room": "1LDK", "lat": 36.291599722222223, "lng": 139.37114083333333, "address": "群馬県太田市西本町" }, "geometry": { "type": "Point", "coordinates": [ 139.37114083333333, 36.291599722222223 ] } }
+,
+{ "type": "Feature", "id": 200, "properties": { "id": 16279762, "replace": 52000, "room": "2LDK", "lat": 36.410576388899997, "lng": 139.27869777800001, "address": "群馬県みどり市大間々町大間々" }, "geometry": { "type": "Point", "coordinates": [ 139.27869777800001, 36.410576388899997 ] } }
+,
+{ "type": "Feature", "id": 201, "properties": { "id": 13338508, "replace": 43000, "room": "1K", "lat": 36.427766111111112, "lng": 139.04076111111112, "address": "群馬県前橋市川原町２丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.04076111111112, 36.427766111111112 ] } }
+,
+{ "type": "Feature", "id": 202, "properties": { "id": 13920047, "replace": 27000, "room": "1K", "lat": 36.308906388888886, "lng": 139.21067305555556, "address": "群馬県伊勢崎市今泉町１丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.21067305555556, 36.308906388888886 ] } }
+,
+{ "type": "Feature", "id": 203, "properties": { "id": 4034074, "replace": 76000, "room": "3LDK", "lat": 36.371818888888889, "lng": 139.10717194444445, "address": "群馬県前橋市天川大島町３丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.10717194444445, 36.371818888888889 ] } }
+,
+{ "type": "Feature", "id": 204, "properties": { "id": 12788135, "replace": 55000, "room": "2DK", "lat": 36.30484666666667, "lng": 139.1891, "address": "群馬県伊勢崎市連取町" }, "geometry": { "type": "Point", "coordinates": [ 139.1891, 36.30484666666667 ] } }
+,
+{ "type": "Feature", "id": 205, "properties": { "id": 15749151, "replace": 50000, "room": "2DK", "lat": 36.334644444444443, "lng": 138.95656777777776, "address": "群馬県高崎市八幡町" }, "geometry": { "type": "Point", "coordinates": [ 138.95656777777776, 36.334644444444443 ] } }
+,
+{ "type": "Feature", "id": 206, "properties": { "id": 13966114, "replace": 25000, "room": "1K", "lat": 36.3118491667, "lng": 139.21905527800001, "address": "群馬県伊勢崎市日乃出町" }, "geometry": { "type": "Point", "coordinates": [ 139.21905527800001, 36.3118491667 ] } }
+,
+{ "type": "Feature", "id": 207, "properties": { "id": 16587497, "replace": 45000, "room": "2DK", "lat": 36.310078333333337, "lng": 139.20540888888888, "address": "群馬県伊勢崎市今泉町２丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.20540888888888, 36.310078333333337 ] } }
+,
+{ "type": "Feature", "id": 208, "properties": { "id": 4045218, "replace": 20000, "room": "1K", "lat": 36.316558055555554, "lng": 139.2182775, "address": "群馬県伊勢崎市下植木町" }, "geometry": { "type": "Point", "coordinates": [ 139.2182775, 36.316558055555554 ] } }
+,
+{ "type": "Feature", "id": 209, "properties": { "id": 4024408, "replace": 34000, "room": "2DK", "lat": 36.32846, "lng": 138.98422805555555, "address": "群馬県高崎市下豊岡町" }, "geometry": { "type": "Point", "coordinates": [ 138.98422805555555, 36.32846 ] } }
+,
+{ "type": "Feature", "id": 210, "properties": { "id": 5099646, "replace": 42000, "room": "2DK", "lat": 36.290847222222219, "lng": 139.18913055555555, "address": "群馬県伊勢崎市堀口町" }, "geometry": { "type": "Point", "coordinates": [ 139.18913055555555, 36.290847222222219 ] } }
+,
+{ "type": "Feature", "id": 211, "properties": { "id": 14547081, "replace": 39000, "room": "3K", "lat": 36.2756194444, "lng": 139.191166944, "address": "群馬県伊勢崎市富塚町" }, "geometry": { "type": "Point", "coordinates": [ 139.191166944, 36.2756194444 ] } }
+,
+{ "type": "Feature", "id": 212, "properties": { "id": 13109798, "replace": 52000, "room": "3DK", "lat": 36.374026944400001, "lng": 139.29858638900001, "address": "群馬県みどり市笠懸町阿左美" }, "geometry": { "type": "Point", "coordinates": [ 139.29858638900001, 36.374026944400001 ] } }
+,
+{ "type": "Feature", "id": 213, "properties": { "id": 11345662, "replace": 38000, "room": "2DK", "lat": 36.3265116667, "lng": 138.887796944, "address": "群馬県安中市高別当" }, "geometry": { "type": "Point", "coordinates": [ 138.887796944, 36.3265116667 ] } }
+,
+{ "type": "Feature", "id": 214, "properties": { "id": 4036712, "replace": 36000, "room": "2K", "lat": 36.395120302446102, "lng": 139.0696749345247, "address": "群馬県前橋市平和町１丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.0696749345247, 36.395120302446102 ] } }
+,
+{ "type": "Feature", "id": 215, "properties": { "id": 5275457, "replace": 40000, "room": "2K", "lat": 36.402478333300003, "lng": 139.091136667, "address": "群馬県前橋市幸塚町" }, "geometry": { "type": "Point", "coordinates": [ 139.091136667, 36.402478333300003 ] } }
+,
+{ "type": "Feature", "id": 216, "properties": { "id": 10415893, "replace": 53000, "room": "2LDK", "lat": 36.340833055600001, "lng": 138.95297638900001, "address": "群馬県高崎市剣崎町" }, "geometry": { "type": "Point", "coordinates": [ 138.95297638900001, 36.340833055600001 ] } }
+,
+{ "type": "Feature", "id": 217, "properties": { "id": 13803035, "replace": 40000, "room": "2DK", "lat": 36.297956986555157, "lng": 139.21164227391776, "address": "群馬県伊勢崎市茂呂町２丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.21164227391776, 36.297956986555157 ] } }
+,
+{ "type": "Feature", "id": 218, "properties": { "id": 16873000, "replace": 24000, "room": "1R", "lat": 36.326105277777778, "lng": 138.99157861111109, "address": "群馬県高崎市下豊岡町" }, "geometry": { "type": "Point", "coordinates": [ 138.99157861111109, 36.326105277777778 ] } }
+,
+{ "type": "Feature", "id": 219, "properties": { "id": 4041979, "replace": 46000, "room": "2DK", "lat": 36.338021081094602, "lng": 139.15444769681096, "address": "群馬県伊勢崎市宮子町" }, "geometry": { "type": "Point", "coordinates": [ 139.15444769681096, 36.338021081094602 ] } }
+,
+{ "type": "Feature", "id": 220, "properties": { "id": 12821625, "replace": 43000, "room": "2DK", "lat": 36.436043055555558, "lng": 139.09005888888888, "address": "群馬県前橋市富士見町時沢" }, "geometry": { "type": "Point", "coordinates": [ 139.09005888888888, 36.436043055555558 ] } }
+,
+{ "type": "Feature", "id": 221, "properties": { "id": 9052070, "replace": 52500, "room": "1LDK", "lat": 36.288320555600002, "lng": 139.60369361100001, "address": "栃木県佐野市越名町" }, "geometry": { "type": "Point", "coordinates": [ 139.60369361100001, 36.288320555600002 ] } }
+,
+{ "type": "Feature", "id": 222, "properties": { "id": 5153275, "replace": 50000, "room": "2DK", "lat": 36.318574722199997, "lng": 139.17019055599999, "address": "群馬県伊勢崎市田中島町" }, "geometry": { "type": "Point", "coordinates": [ 139.17019055599999, 36.318574722199997 ] } }
+,
+{ "type": "Feature", "id": 223, "properties": { "id": 9999779, "replace": 63000, "room": "2LDK", "lat": 36.380270899576871, "lng": 139.32036049915268, "address": "群馬県桐生市広沢町３丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.32036049915268, 36.380270899576871 ] } }
+,
+{ "type": "Feature", "id": 224, "properties": { "id": 4030589, "replace": 65000, "room": "3LDK", "lat": 36.345236388888885, "lng": 138.99078305555557, "address": "群馬県高崎市筑縄町" }, "geometry": { "type": "Point", "coordinates": [ 138.99078305555557, 36.345236388888885 ] } }
+,
+{ "type": "Feature", "id": 225, "properties": { "id": 8107964, "replace": 65000, "room": "2LDK", "lat": 36.361663055555553, "lng": 139.059305, "address": "群馬県前橋市箱田町" }, "geometry": { "type": "Point", "coordinates": [ 139.059305, 36.361663055555553 ] } }
+,
+{ "type": "Feature", "id": 226, "properties": { "id": 10690997, "replace": 28000, "room": "1K", "lat": 36.202675195913962, "lng": 139.12829764289017, "address": "埼玉県児玉郡神川町大字八日市" }, "geometry": { "type": "Point", "coordinates": [ 139.12829764289017, 36.202675195913962 ] } }
+,
+{ "type": "Feature", "id": 227, "properties": { "id": 13379995, "replace": 23000, "room": "1K", "lat": 36.303452777777778, "lng": 139.11210722222222, "address": "群馬県佐波郡玉村町大字下新田" }, "geometry": { "type": "Point", "coordinates": [ 139.11210722222222, 36.303452777777778 ] } }
+,
+{ "type": "Feature", "id": 228, "properties": { "id": 4039129, "replace": 50000, "room": "2DK", "lat": 36.306976388888891, "lng": 139.23506305555554, "address": "群馬県伊勢崎市境伊与久" }, "geometry": { "type": "Point", "coordinates": [ 139.23506305555554, 36.306976388888891 ] } }
+,
+{ "type": "Feature", "id": 229, "properties": { "id": 8798499, "replace": 20000, "room": "1R", "lat": 36.336349722199998, "lng": 138.917580278, "address": "群馬県安中市安中" }, "geometry": { "type": "Point", "coordinates": [ 138.917580278, 36.336349722199998 ] } }
+,
+{ "type": "Feature", "id": 230, "properties": { "id": 4025631, "replace": 43000, "room": "1DK", "lat": 36.341901111111113, "lng": 139.00874333333334, "address": "群馬県高崎市飯塚町" }, "geometry": { "type": "Point", "coordinates": [ 139.00874333333334, 36.341901111111113 ] } }
+,
+{ "type": "Feature", "id": 231, "properties": { "id": 16587395, "replace": 60000, "room": "3LDK", "lat": 36.30429, "lng": 139.00399472222222, "address": "群馬県高崎市石原町" }, "geometry": { "type": "Point", "coordinates": [ 139.00399472222222, 36.30429 ] } }
+,
+{ "type": "Feature", "id": 232, "properties": { "id": 4022095, "replace": 45300, "room": "1K", "lat": 36.319170277777779, "lng": 139.45597916666668, "address": "栃木県足利市田中町" }, "geometry": { "type": "Point", "coordinates": [ 139.45597916666668, 36.319170277777779 ] } }
+,
+{ "type": "Feature", "id": 233, "properties": { "id": 16740264, "replace": 25000, "room": "1K", "lat": 36.284651666666669, "lng": 139.35740777777775, "address": "群馬県太田市藤阿久町" }, "geometry": { "type": "Point", "coordinates": [ 139.35740777777775, 36.284651666666669 ] } }
+,
+{ "type": "Feature", "id": 234, "properties": { "id": 5556480, "replace": 70000, "room": "4DK", "lat": 36.422825, "lng": 139.057236389, "address": "群馬県前橋市荒牧町" }, "geometry": { "type": "Point", "coordinates": [ 139.057236389, 36.422825 ] } }
+,
+{ "type": "Feature", "id": 235, "properties": { "id": 4726153, "replace": 28000, "room": "1K", "lat": 36.3563377778, "lng": 139.40202916699999, "address": "栃木県足利市大前町" }, "geometry": { "type": "Point", "coordinates": [ 139.40202916699999, 36.3563377778 ] } }
+,
+{ "type": "Feature", "id": 236, "properties": { "id": 4040149, "replace": 59000, "room": "2DK", "lat": 36.330513888888888, "lng": 139.17698944444444, "address": "群馬県伊勢崎市安堀町" }, "geometry": { "type": "Point", "coordinates": [ 139.17698944444444, 36.330513888888888 ] } }
+,
+{ "type": "Feature", "id": 237, "properties": { "id": 9487038, "replace": 55000, "room": "3DK", "lat": 36.334977222222221, "lng": 139.19429305555556, "address": "群馬県伊勢崎市乾町" }, "geometry": { "type": "Point", "coordinates": [ 139.19429305555556, 36.334977222222221 ] } }
+,
+{ "type": "Feature", "id": 238, "properties": { "id": 7621878, "replace": 29000, "room": "1K", "lat": 36.401281111099998, "lng": 139.04575972200001, "address": "群馬県前橋市総社町２丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.04575972200001, 36.401281111099998 ] } }
+,
+{ "type": "Feature", "id": 239, "properties": { "id": 16680523, "replace": 49000, "room": "1DK", "lat": 36.241284444400002, "lng": 139.083391944, "address": "群馬県藤岡市藤岡" }, "geometry": { "type": "Point", "coordinates": [ 139.083391944, 36.241284444400002 ] } }
+,
+{ "type": "Feature", "id": 240, "properties": { "id": 16834997, "replace": 43000, "room": "2DK", "lat": 36.267729371100003, "lng": 139.5009335978925, "address": "群馬県館林市日向町" }, "geometry": { "type": "Point", "coordinates": [ 139.5009335978925, 36.267729371100003 ] } }
+,
+{ "type": "Feature", "id": 241, "properties": { "id": 4022553, "replace": 44000, "room": "2DK", "lat": 36.368535555555553, "lng": 139.38411472222222, "address": "栃木県足利市小俣町" }, "geometry": { "type": "Point", "coordinates": [ 139.38411472222222, 36.368535555555553 ] } }
+,
+{ "type": "Feature", "id": 242, "properties": { "id": 4193031, "replace": 63000, "room": "2LDK", "lat": 36.348426666666668, "lng": 139.00605694444445, "address": "群馬県高崎市緑町１丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.00605694444445, 36.348426666666668 ] } }
+,
+{ "type": "Feature", "id": 243, "properties": { "id": 4037271, "replace": 30000, "room": "2K", "lat": 36.400935, "lng": 139.06164194444443, "address": "群馬県前橋市岩神町３丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.06164194444443, 36.400935 ] } }
+,
+{ "type": "Feature", "id": 244, "properties": { "id": 14264547, "replace": 30500, "room": "1K", "lat": 36.286852777777774, "lng": 139.20482944444444, "address": "群馬県伊勢崎市山王町" }, "geometry": { "type": "Point", "coordinates": [ 139.20482944444444, 36.286852777777774 ] } }
+,
+{ "type": "Feature", "id": 245, "properties": { "id": 5632708, "replace": 68000, "room": "2LDK", "lat": 36.365432763325892, "lng": 139.04198582652901, "address": "群馬県前橋市江田町" }, "geometry": { "type": "Point", "coordinates": [ 139.04198582652901, 36.365432763325892 ] } }
+,
+{ "type": "Feature", "id": 246, "properties": { "id": 4038822, "replace": 58000, "room": "2DK", "lat": 36.330201111111109, "lng": 139.23219805555556, "address": "群馬県伊勢崎市八寸町" }, "geometry": { "type": "Point", "coordinates": [ 139.23219805555556, 36.330201111111109 ] } }
+,
+{ "type": "Feature", "id": 247, "properties": { "id": 16092125, "replace": 58000, "room": "2LDK", "lat": 36.319600277777781, "lng": 138.98547916666666, "address": "群馬県高崎市乗附町" }, "geometry": { "type": "Point", "coordinates": [ 138.98547916666666, 36.319600277777781 ] } }
+,
+{ "type": "Feature", "id": 248, "properties": { "id": 9210756, "replace": 55000, "room": "1LDK", "lat": 36.311578328033832, "lng": 139.53898936989677, "address": "栃木県足利市寺岡町" }, "geometry": { "type": "Point", "coordinates": [ 139.53898936989677, 36.311578328033832 ] } }
+,
+{ "type": "Feature", "id": 249, "properties": { "id": 5589916, "replace": 49000, "room": "3DK", "lat": 36.392314914498876, "lng": 139.07850716376518, "address": "群馬県前橋市城東町１丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.07850716376518, 36.392314914498876 ] } }
+,
+{ "type": "Feature", "id": 250, "properties": { "id": 15004940, "replace": 67000, "room": "3DK", "lat": 36.43186, "lng": 139.04855805555556, "address": "群馬県前橋市関根町３丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.04855805555556, 36.43186 ] } }
+,
+{ "type": "Feature", "id": 251, "properties": { "id": 7867891, "replace": 58000, "room": "1LDK", "lat": 36.389971457900394, "lng": 139.05732090586969, "address": "群馬県前橋市石倉町５丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.05732090586969, 36.389971457900394 ] } }
+,
+{ "type": "Feature", "id": 252, "properties": { "id": 12810633, "replace": 45000, "room": "2DK", "lat": 36.279288200095131, "lng": 139.19876136188569, "address": "群馬県伊勢崎市除ケ町" }, "geometry": { "type": "Point", "coordinates": [ 139.19876136188569, 36.279288200095131 ] } }
+,
+{ "type": "Feature", "id": 253, "properties": { "id": 6912315, "replace": 68000, "room": "2LDK", "lat": 36.384845146591218, "lng": 139.00840394392233, "address": "群馬県高崎市棟高町" }, "geometry": { "type": "Point", "coordinates": [ 139.00840394392233, 36.384845146591218 ] } }
+,
+{ "type": "Feature", "id": 254, "properties": { "id": 6581241, "replace": 55000, "room": "3DK", "lat": 36.306201666699998, "lng": 139.46517972199999, "address": "栃木県足利市福居町" }, "geometry": { "type": "Point", "coordinates": [ 139.46517972199999, 36.306201666699998 ] } }
+,
+{ "type": "Feature", "id": 255, "properties": { "id": 15488420, "replace": 48000, "room": "3DK", "lat": 36.444563808410003, "lng": 139.04886177156752, "address": "群馬県前橋市田口町" }, "geometry": { "type": "Point", "coordinates": [ 139.04886177156752, 36.444563808410003 ] } }
+,
+{ "type": "Feature", "id": 256, "properties": { "id": 15434470, "replace": 56000, "room": "1LDK", "lat": 36.363046519484996, "lng": 139.11304421022248, "address": "群馬県前橋市天川大島町" }, "geometry": { "type": "Point", "coordinates": [ 139.11304421022248, 36.363046519484996 ] } }
+,
+{ "type": "Feature", "id": 257, "properties": { "id": 16582059, "replace": 48000, "room": "2LDK", "lat": 36.2947336111, "lng": 139.38001888900001, "address": "群馬県太田市東本町" }, "geometry": { "type": "Point", "coordinates": [ 139.38001888900001, 36.2947336111 ] } }
+,
+{ "type": "Feature", "id": 258, "properties": { "id": 5958057, "replace": 70000, "room": "3DK", "lat": 36.335220555555559, "lng": 138.99271638888888, "address": "群馬県高崎市上並榎町" }, "geometry": { "type": "Point", "coordinates": [ 138.99271638888888, 36.335220555555559 ] } }
+,
+{ "type": "Feature", "id": 259, "properties": { "id": 9156791, "replace": 43000, "room": "3DK", "lat": 36.325436944400003, "lng": 139.46184888900001, "address": "栃木県足利市伊勢町４丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.46184888900001, 36.325436944400003 ] } }
+,
+{ "type": "Feature", "id": 260, "properties": { "id": 4041420, "replace": 45000, "room": "2DK", "lat": 36.324309722222225, "lng": 139.15817555555554, "address": "群馬県伊勢崎市宮子町" }, "geometry": { "type": "Point", "coordinates": [ 139.15817555555554, 36.324309722222225 ] } }
+,
+{ "type": "Feature", "id": 261, "properties": { "id": 9956661, "replace": 31000, "room": "1K", "lat": 36.355891944444444, "lng": 139.02589694444444, "address": "群馬県高崎市井野町" }, "geometry": { "type": "Point", "coordinates": [ 139.02589694444444, 36.355891944444444 ] } }
+,
+{ "type": "Feature", "id": 262, "properties": { "id": 10307932, "replace": 57000, "room": "1LDK", "lat": 36.358672792368729, "lng": 138.97985518410107, "address": "群馬県高崎市南新波町" }, "geometry": { "type": "Point", "coordinates": [ 138.97985518410107, 36.358672792368729 ] } }
+,
+{ "type": "Feature", "id": 263, "properties": { "id": 13089717, "replace": 58000, "room": "2DK", "lat": 36.352965277800003, "lng": 139.061151389, "address": "群馬県前橋市稲荷新田町" }, "geometry": { "type": "Point", "coordinates": [ 139.061151389, 36.352965277800003 ] } }
+,
+{ "type": "Feature", "id": 264, "properties": { "id": 16918402, "replace": 69000, "room": "2LDK", "lat": 36.3417566667, "lng": 139.02226388899999, "address": "群馬県高崎市貝沢町" }, "geometry": { "type": "Point", "coordinates": [ 139.02226388899999, 36.3417566667 ] } }
+,
+{ "type": "Feature", "id": 265, "properties": { "id": 6070914, "replace": 56000, "room": "3DK", "lat": 36.345619166666665, "lng": 139.0022775, "address": "群馬県高崎市下小鳥町" }, "geometry": { "type": "Point", "coordinates": [ 139.0022775, 36.345619166666665 ] } }
+,
+{ "type": "Feature", "id": 266, "properties": { "id": 4023210, "replace": 50000, "room": "3DK", "lat": 36.338589444444445, "lng": 139.46281527777776, "address": "栃木県足利市元学町" }, "geometry": { "type": "Point", "coordinates": [ 139.46281527777776, 36.338589444444445 ] } }
+,
+{ "type": "Feature", "id": 267, "properties": { "id": 9860882, "replace": 58000, "room": "1LDK", "lat": 36.299547777800001, "lng": 139.463465, "address": "栃木県足利市上渋垂町" }, "geometry": { "type": "Point", "coordinates": [ 139.463465, 36.299547777800001 ] } }
+,
+{ "type": "Feature", "id": 268, "properties": { "id": 4031478, "replace": 95000, "room": "2LDK", "lat": 36.36909, "lng": 139.06403, "address": "群馬県前橋市小相木町" }, "geometry": { "type": "Point", "coordinates": [ 139.06403, 36.36909 ] } }
+,
+{ "type": "Feature", "id": 269, "properties": { "id": 11220780, "replace": 48000, "room": "3DK", "lat": 36.340995468315747, "lng": 139.4250439069481, "address": "栃木県足利市五十部町" }, "geometry": { "type": "Point", "coordinates": [ 139.4250439069481, 36.340995468315747 ] } }
+,
+{ "type": "Feature", "id": 270, "properties": { "id": 12745132, "replace": 45000, "room": "2DK", "lat": 36.256215, "lng": 139.47507027777777, "address": "群馬県邑楽郡邑楽町大字中野" }, "geometry": { "type": "Point", "coordinates": [ 139.47507027777777, 36.256215 ] } }
+,
+{ "type": "Feature", "id": 271, "properties": { "id": 14677903, "replace": 43000, "room": "2LDK", "lat": 36.381452222199997, "lng": 139.00245805599999, "address": "群馬県高崎市三ツ寺町" }, "geometry": { "type": "Point", "coordinates": [ 139.00245805599999, 36.381452222199997 ] } }
+,
+{ "type": "Feature", "id": 272, "properties": { "id": 14049168, "replace": 55000, "room": "1K", "lat": 36.391762850204039, "lng": 139.07739793560313, "address": "群馬県前橋市城東町１丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.07739793560313, 36.391762850204039 ] } }
+,
+{ "type": "Feature", "id": 273, "properties": { "id": 4021698, "replace": 49000, "room": "2LDK", "lat": 36.312570833333332, "lng": 139.52510138888888, "address": "栃木県足利市迫間町" }, "geometry": { "type": "Point", "coordinates": [ 139.52510138888888, 36.312570833333332 ] } }
+,
+{ "type": "Feature", "id": 274, "properties": { "id": 16640625, "replace": 63000, "room": "2LDK", "lat": 36.357593691590061, "lng": 139.22334190585755, "address": "群馬県伊勢崎市市場町２丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.22334190585755, 36.357593691590061 ] } }
+,
+{ "type": "Feature", "id": 275, "properties": { "id": 16788145, "replace": 61000, "room": "1LDK", "lat": 36.348622777777777, "lng": 139.00730777777778, "address": "群馬県高崎市緑町１丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.00730777777778, 36.348622777777777 ] } }
+,
+{ "type": "Feature", "id": 276, "properties": { "id": 4896070, "replace": 30000, "room": "1R", "lat": 36.312741111111109, "lng": 138.99267888888889, "address": "群馬県高崎市片岡町３丁目" }, "geometry": { "type": "Point", "coordinates": [ 138.99267888888889, 36.312741111111109 ] } }
+,
+{ "type": "Feature", "id": 277, "properties": { "id": 14314120, "replace": 40000, "room": "2LDK", "lat": 36.315137777799997, "lng": 139.482463889, "address": "栃木県足利市山川町" }, "geometry": { "type": "Point", "coordinates": [ 139.482463889, 36.315137777799997 ] } }
+,
+{ "type": "Feature", "id": 278, "properties": { "id": 14946534, "replace": 36000, "room": "1K", "lat": 36.372968888899997, "lng": 138.898046389, "address": "群馬県高崎市上里見町" }, "geometry": { "type": "Point", "coordinates": [ 138.898046389, 36.372968888899997 ] } }
+,
+{ "type": "Feature", "id": 279, "properties": { "id": 5194147, "replace": 30000, "room": "2K", "lat": 36.380225833103822, "lng": 139.0562532737637, "address": "群馬県前橋市石倉町１丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.0562532737637, 36.380225833103822 ] } }
+,
+{ "type": "Feature", "id": 280, "properties": { "id": 8798996, "replace": 18000, "room": "1R", "lat": 36.336194722199998, "lng": 138.917693611, "address": "群馬県安中市安中" }, "geometry": { "type": "Point", "coordinates": [ 138.917693611, 36.336194722199998 ] } }
+,
+{ "type": "Feature", "id": 281, "properties": { "id": 4041613, "replace": 47000, "room": "2DK", "lat": 36.324670138454216, "lng": 139.15751193960867, "address": "群馬県伊勢崎市宮子町" }, "geometry": { "type": "Point", "coordinates": [ 139.15751193960867, 36.324670138454216 ] } }
+,
+{ "type": "Feature", "id": 282, "properties": { "id": 16704417, "replace": 54000, "room": "2LDK", "lat": 36.269497508825509, "lng": 139.1076382683716, "address": "群馬県高崎市新町" }, "geometry": { "type": "Point", "coordinates": [ 139.1076382683716, 36.269497508825509 ] } }
+,
+{ "type": "Feature", "id": 283, "properties": { "id": 4767046, "replace": 31000, "room": "1K", "lat": 36.386289722199997, "lng": 139.048003333, "address": "群馬県前橋市大友町３丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.048003333, 36.386289722199997 ] } }
+,
+{ "type": "Feature", "id": 284, "properties": { "id": 15151591, "replace": 60000, "room": "3SLDK", "lat": 36.3611511111, "lng": 139.01998916700001, "address": "群馬県高崎市小八木町" }, "geometry": { "type": "Point", "coordinates": [ 139.01998916700001, 36.3611511111 ] } }
+,
+{ "type": "Feature", "id": 285, "properties": { "id": 16597764, "replace": 64000, "room": "1LDK", "lat": 36.374407659534995, "lng": 139.10651637489249, "address": "群馬県前橋市天川大島町３丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.10651637489249, 36.374407659534995 ] } }
+,
+{ "type": "Feature", "id": 286, "properties": { "id": 4753177, "replace": 36000, "room": "1K", "lat": 36.368869081895788, "lng": 139.11713603450934, "address": "群馬県前橋市上大島町" }, "geometry": { "type": "Point", "coordinates": [ 139.11713603450934, 36.368869081895788 ] } }
+,
+{ "type": "Feature", "id": 287, "properties": { "id": 9285954, "replace": 56000, "room": "2LDK", "lat": 36.3065708333, "lng": 139.31427388899999, "address": "群馬県太田市新田村田町" }, "geometry": { "type": "Point", "coordinates": [ 139.31427388899999, 36.3065708333 ] } }
+,
+{ "type": "Feature", "id": 288, "properties": { "id": 13515583, "replace": 60000, "room": "2DK", "lat": 36.340283888888891, "lng": 139.03868, "address": "群馬県高崎市新保町" }, "geometry": { "type": "Point", "coordinates": [ 139.03868, 36.340283888888891 ] } }
+,
+{ "type": "Feature", "id": 289, "properties": { "id": 4031464, "replace": 45000, "room": "2DK", "lat": 36.360893611111109, "lng": 139.06994972222222, "address": "群馬県前橋市上新田町" }, "geometry": { "type": "Point", "coordinates": [ 139.06994972222222, 36.360893611111109 ] } }
+,
+{ "type": "Feature", "id": 290, "properties": { "id": 4044206, "replace": 45000, "room": "2DK", "lat": 36.32532777777778, "lng": 139.1964336111111, "address": "群馬県伊勢崎市喜多町" }, "geometry": { "type": "Point", "coordinates": [ 139.1964336111111, 36.32532777777778 ] } }
+,
+{ "type": "Feature", "id": 291, "properties": { "id": 10691122, "replace": 28000, "room": "1K", "lat": 36.202675195913962, "lng": 139.12829764289017, "address": "埼玉県児玉郡神川町大字八日市" }, "geometry": { "type": "Point", "coordinates": [ 139.12829764289017, 36.202675195913962 ] } }
+,
+{ "type": "Feature", "id": 292, "properties": { "id": 14304347, "replace": 65000, "room": "2LDK", "lat": 36.398051944444447, "lng": 139.00096111111111, "address": "群馬県高崎市金古町" }, "geometry": { "type": "Point", "coordinates": [ 139.00096111111111, 36.398051944444447 ] } }
+,
+{ "type": "Feature", "id": 293, "properties": { "id": 4043582, "replace": 28000, "room": "1K", "lat": 36.308959444444447, "lng": 139.20138638888889, "address": "群馬県伊勢崎市今泉町２丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.20138638888889, 36.308959444444447 ] } }
+,
+{ "type": "Feature", "id": 294, "properties": { "id": 4022410, "replace": 43000, "room": "2DK", "lat": 36.321684444444443, "lng": 139.47918333333334, "address": "栃木県足利市山川町" }, "geometry": { "type": "Point", "coordinates": [ 139.47918333333334, 36.321684444444443 ] } }
+,
+{ "type": "Feature", "id": 295, "properties": { "id": 4750157, "replace": 30000, "room": "2K", "lat": 36.301999444400003, "lng": 139.11559111099999, "address": "群馬県佐波郡玉村町大字下新田" }, "geometry": { "type": "Point", "coordinates": [ 139.11559111099999, 36.301999444400003 ] } }
+,
+{ "type": "Feature", "id": 296, "properties": { "id": 16094880, "replace": 40000, "room": "2DK", "lat": 36.264633611111108, "lng": 139.272985, "address": "群馬県伊勢崎市境女塚" }, "geometry": { "type": "Point", "coordinates": [ 139.272985, 36.264633611111108 ] } }
+,
+{ "type": "Feature", "id": 297, "properties": { "id": 13628241, "replace": 50000, "room": "2DK", "lat": 36.356845555600003, "lng": 138.99022166699999, "address": "群馬県高崎市上小鳥町" }, "geometry": { "type": "Point", "coordinates": [ 138.99022166699999, 36.356845555600003 ] } }
+,
+{ "type": "Feature", "id": 298, "properties": { "id": 4022653, "replace": 40000, "room": "3K", "lat": 36.312777222222223, "lng": 139.53766555555555, "address": "栃木県足利市寺岡町" }, "geometry": { "type": "Point", "coordinates": [ 139.53766555555555, 36.312777222222223 ] } }
+,
+{ "type": "Feature", "id": 299, "properties": { "id": 16375728, "replace": 73000, "room": "3SDK", "lat": 36.37234, "lng": 139.07976305555556, "address": "群馬県前橋市六供町１丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.07976305555556, 36.37234 ] } }
+,
+{ "type": "Feature", "id": 300, "properties": { "id": 16552196, "replace": 35000, "room": "2K", "lat": 36.315345277777773, "lng": 139.35209583333332, "address": "群馬県太田市鳥山中町" }, "geometry": { "type": "Point", "coordinates": [ 139.35209583333332, 36.315345277777773 ] } }
+,
+{ "type": "Feature", "id": 301, "properties": { "id": 13408224, "replace": 38000, "room": "1K", "lat": 36.338730878045112, "lng": 138.95914034817437, "address": "群馬県高崎市剣崎町" }, "geometry": { "type": "Point", "coordinates": [ 138.95914034817437, 36.338730878045112 ] } }
+,
+{ "type": "Feature", "id": 302, "properties": { "id": 4038233, "replace": 48000, "room": "2K", "lat": 36.404572995167861, "lng": 139.16057618240637, "address": "群馬県前橋市大胡町" }, "geometry": { "type": "Point", "coordinates": [ 139.16057618240637, 36.404572995167861 ] } }
+,
+{ "type": "Feature", "id": 303, "properties": { "id": 7648235, "replace": 48000, "room": "3DK", "lat": 36.309980277777775, "lng": 139.18641361111111, "address": "群馬県伊勢崎市連取町" }, "geometry": { "type": "Point", "coordinates": [ 139.18641361111111, 36.309980277777775 ] } }
+,
+{ "type": "Feature", "id": 304, "properties": { "id": 4557850, "replace": 58000, "room": "2LDK", "lat": 36.442045767507054, "lng": 139.08241719303652, "address": "群馬県前橋市富士見町小沢" }, "geometry": { "type": "Point", "coordinates": [ 139.08241719303652, 36.442045767507054 ] } }
+,
+{ "type": "Feature", "id": 305, "properties": { "id": 10541519, "replace": 57000, "room": "1LDK", "lat": 36.311639722199999, "lng": 139.48262277800001, "address": "栃木県足利市猿田町" }, "geometry": { "type": "Point", "coordinates": [ 139.48262277800001, 36.311639722199999 ] } }
+,
+{ "type": "Feature", "id": 306, "properties": { "id": 16752586, "replace": 69000, "room": "2LDK", "lat": 36.257955277777775, "lng": 139.51534333333333, "address": "群馬県館林市西高根町" }, "geometry": { "type": "Point", "coordinates": [ 139.51534333333333, 36.257955277777775 ] } }
+,
+{ "type": "Feature", "id": 307, "properties": { "id": 4028441, "replace": 25000, "room": "1K", "lat": 36.339105, "lng": 138.98796805555557, "address": "群馬県高崎市上並榎町" }, "geometry": { "type": "Point", "coordinates": [ 138.98796805555557, 36.339105 ] } }
+,
+{ "type": "Feature", "id": 308, "properties": { "id": 10384012, "replace": 63000, "room": "2SLDK", "lat": 36.471000976440237, "lng": 139.00382837775379, "address": "群馬県渋川市行幸田" }, "geometry": { "type": "Point", "coordinates": [ 139.00382837775379, 36.471000976440237 ] } }
+,
+{ "type": "Feature", "id": 309, "properties": { "id": 4029623, "replace": 32000, "room": "1K", "lat": 36.323663055555556, "lng": 139.010825, "address": "群馬県高崎市元紺屋町" }, "geometry": { "type": "Point", "coordinates": [ 139.010825, 36.323663055555556 ] } }
+,
+{ "type": "Feature", "id": 310, "properties": { "id": 16844806, "replace": 33000, "room": "1R", "lat": 36.345869444444446, "lng": 138.99853138888886, "address": "群馬県高崎市下小鳥町" }, "geometry": { "type": "Point", "coordinates": [ 138.99853138888886, 36.345869444444446 ] } }
+,
+{ "type": "Feature", "id": 311, "properties": { "id": 7732460, "replace": 44000, "room": "2DK", "lat": 36.330490833333336, "lng": 139.19024611111112, "address": "群馬県伊勢崎市安堀町" }, "geometry": { "type": "Point", "coordinates": [ 139.19024611111112, 36.330490833333336 ] } }
+,
+{ "type": "Feature", "id": 312, "properties": { "id": 10426345, "replace": 58000, "room": "2LDK", "lat": 36.31726583333333, "lng": 139.16679277777777, "address": "群馬県伊勢崎市田中島町" }, "geometry": { "type": "Point", "coordinates": [ 139.16679277777777, 36.31726583333333 ] } }
+,
+{ "type": "Feature", "id": 313, "properties": { "id": 4750674, "replace": 40000, "room": "1K", "lat": 36.348631666700001, "lng": 139.40701944400001, "address": "栃木県足利市鹿島町" }, "geometry": { "type": "Point", "coordinates": [ 139.40701944400001, 36.348631666700001 ] } }
+,
+{ "type": "Feature", "id": 314, "properties": { "id": 5892957, "replace": 58000, "room": "4DK", "lat": 36.333370833333333, "lng": 139.0372911111111, "address": "群馬県高崎市上大類町" }, "geometry": { "type": "Point", "coordinates": [ 139.0372911111111, 36.333370833333333 ] } }
+,
+{ "type": "Feature", "id": 315, "properties": { "id": 13698858, "replace": 50000, "room": "1LDK", "lat": 36.267897649032321, "lng": 139.34940841164689, "address": "群馬県太田市西新町" }, "geometry": { "type": "Point", "coordinates": [ 139.34940841164689, 36.267897649032321 ] } }
+,
+{ "type": "Feature", "id": 316, "properties": { "id": 5487982, "replace": 58000, "room": "3DK", "lat": 36.341911944400003, "lng": 139.01436527800001, "address": "群馬県高崎市飯塚町" }, "geometry": { "type": "Point", "coordinates": [ 139.01436527800001, 36.341911944400003 ] } }
+,
+{ "type": "Feature", "id": 317, "properties": { "id": 5176026, "replace": 50000, "room": "2DK", "lat": 36.339493888888889, "lng": 139.00270416666666, "address": "群馬県高崎市飯塚町" }, "geometry": { "type": "Point", "coordinates": [ 139.00270416666666, 36.339493888888889 ] } }
+,
+{ "type": "Feature", "id": 318, "properties": { "id": 7753119, "replace": 56000, "room": "2LDK", "lat": 36.317527102476141, "lng": 138.8957756894161, "address": "群馬県安中市安中" }, "geometry": { "type": "Point", "coordinates": [ 138.8957756894161, 36.317527102476141 ] } }
+,
+{ "type": "Feature", "id": 319, "properties": { "id": 7745559, "replace": 51000, "room": "3DK", "lat": 36.2963608333, "lng": 139.19390277799999, "address": "群馬県伊勢崎市山王町" }, "geometry": { "type": "Point", "coordinates": [ 139.19390277799999, 36.2963608333 ] } }
+,
+{ "type": "Feature", "id": 320, "properties": { "id": 8173707, "replace": 65000, "room": "3DK", "lat": 36.309389444444442, "lng": 139.02010444444446, "address": "群馬県高崎市和田多中町" }, "geometry": { "type": "Point", "coordinates": [ 139.02010444444446, 36.309389444444442 ] } }
+,
+{ "type": "Feature", "id": 321, "properties": { "id": 12874020, "replace": 31000, "room": "1K", "lat": 36.328264189679764, "lng": 139.22445385918962, "address": "群馬県伊勢崎市豊城町" }, "geometry": { "type": "Point", "coordinates": [ 139.22445385918962, 36.328264189679764 ] } }
+,
+{ "type": "Feature", "id": 322, "properties": { "id": 6640009, "replace": 48000, "room": "2LDK", "lat": 36.372775833299997, "lng": 139.070037778, "address": "群馬県前橋市南町２丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.070037778, 36.372775833299997 ] } }
+,
+{ "type": "Feature", "id": 323, "properties": { "id": 15263367, "replace": 30000, "room": "2DK", "lat": 36.415175277800003, "lng": 139.33274611100001, "address": "群馬県桐生市堤町１丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.33274611100001, 36.415175277800003 ] } }
+,
+{ "type": "Feature", "id": 324, "properties": { "id": 9172153, "replace": 52000, "room": "1DK", "lat": 36.308062777799996, "lng": 139.04554555600001, "address": "群馬県高崎市下中居町" }, "geometry": { "type": "Point", "coordinates": [ 139.04554555600001, 36.308062777799996 ] } }
+,
+{ "type": "Feature", "id": 325, "properties": { "id": 9385166, "replace": 53000, "room": "1DK", "lat": 36.350527027365345, "lng": 139.0170559235865, "address": "群馬県高崎市浜尻町" }, "geometry": { "type": "Point", "coordinates": [ 139.0170559235865, 36.350527027365345 ] } }
+,
+{ "type": "Feature", "id": 326, "properties": { "id": 16196307, "replace": 50000, "room": "3K", "lat": 36.413204862640001, "lng": 139.03910217972751, "address": "群馬県前橋市総社町植野" }, "geometry": { "type": "Point", "coordinates": [ 139.03910217972751, 36.413204862640001 ] } }
+,
+{ "type": "Feature", "id": 327, "properties": { "id": 5556372, "replace": 58000, "room": "2DK", "lat": 36.309389444399997, "lng": 139.020104444, "address": "群馬県高崎市和田多中町" }, "geometry": { "type": "Point", "coordinates": [ 139.020104444, 36.309389444399997 ] } }
+,
+{ "type": "Feature", "id": 328, "properties": { "id": 12389174, "replace": 65000, "room": "3DK", "lat": 36.289836111100001, "lng": 139.36052277799999, "address": "群馬県太田市藤阿久町" }, "geometry": { "type": "Point", "coordinates": [ 139.36052277799999, 36.289836111100001 ] } }
+,
+{ "type": "Feature", "id": 329, "properties": { "id": 11049848, "replace": 69000, "room": "3DK", "lat": 36.407746388900001, "lng": 139.03928083299999, "address": "群馬県前橋市総社町植野" }, "geometry": { "type": "Point", "coordinates": [ 139.03928083299999, 36.407746388900001 ] } }
+,
+{ "type": "Feature", "id": 330, "properties": { "id": 11225773, "replace": 57000, "room": "2LDK", "lat": 36.3068436111, "lng": 139.471005, "address": "栃木県足利市福居町" }, "geometry": { "type": "Point", "coordinates": [ 139.471005, 36.3068436111 ] } }
+,
+{ "type": "Feature", "id": 331, "properties": { "id": 4109667, "replace": 50000, "room": "2DK", "lat": 36.308299742119608, "lng": 139.18493760591591, "address": "群馬県伊勢崎市連取元町" }, "geometry": { "type": "Point", "coordinates": [ 139.18493760591591, 36.308299742119608 ] } }
+,
+{ "type": "Feature", "id": 332, "properties": { "id": 15253794, "replace": 30000, "room": "2DK", "lat": 36.282965, "lng": 139.19809527777778, "address": "群馬県伊勢崎市山王町" }, "geometry": { "type": "Point", "coordinates": [ 139.19809527777778, 36.282965 ] } }
+,
+{ "type": "Feature", "id": 333, "properties": { "id": 16561784, "replace": 37000, "room": "1K", "lat": 36.30733081294909, "lng": 139.40674164227394, "address": "群馬県太田市台之郷町" }, "geometry": { "type": "Point", "coordinates": [ 139.40674164227394, 36.30733081294909 ] } }
+,
+{ "type": "Feature", "id": 334, "properties": { "id": 15208148, "replace": 35000, "room": "2DK", "lat": 36.298089166666664, "lng": 139.18398555555555, "address": "群馬県伊勢崎市今井町" }, "geometry": { "type": "Point", "coordinates": [ 139.18398555555555, 36.298089166666664 ] } }
+,
+{ "type": "Feature", "id": 335, "properties": { "id": 14851454, "replace": 48000, "room": "1K", "lat": 36.279310833333334, "lng": 139.19425944444444, "address": "群馬県伊勢崎市除ケ町" }, "geometry": { "type": "Point", "coordinates": [ 139.19425944444444, 36.279310833333334 ] } }
+,
+{ "type": "Feature", "id": 336, "properties": { "id": 16699952, "replace": 58000, "room": "2LDK", "lat": 36.4111983333, "lng": 139.03510722199999, "address": "群馬県前橋市総社町植野" }, "geometry": { "type": "Point", "coordinates": [ 139.03510722199999, 36.4111983333 ] } }
+,
+{ "type": "Feature", "id": 337, "properties": { "id": 12530182, "replace": 27000, "room": "1K", "lat": 36.294778333333333, "lng": 139.13359055555554, "address": "群馬県佐波郡玉村町大字上茂木" }, "geometry": { "type": "Point", "coordinates": [ 139.13359055555554, 36.294778333333333 ] } }
+,
+{ "type": "Feature", "id": 338, "properties": { "id": 4400115, "replace": 50000, "room": "2DK", "lat": 36.311538055555559, "lng": 138.98510861111112, "address": "群馬県高崎市乗附町" }, "geometry": { "type": "Point", "coordinates": [ 138.98510861111112, 36.311538055555559 ] } }
+,
+{ "type": "Feature", "id": 339, "properties": { "id": 13985875, "replace": 49000, "room": "2LDK", "lat": 36.291427222222225, "lng": 139.21162388888888, "address": "群馬県伊勢崎市茂呂南町" }, "geometry": { "type": "Point", "coordinates": [ 139.21162388888888, 36.291427222222225 ] } }
+,
+{ "type": "Feature", "id": 340, "properties": { "id": 10416112, "replace": 27000, "room": "1K", "lat": 36.392543888900001, "lng": 139.0036, "address": "群馬県高崎市足門町" }, "geometry": { "type": "Point", "coordinates": [ 139.0036, 36.392543888900001 ] } }
+,
+{ "type": "Feature", "id": 341, "properties": { "id": 16767473, "replace": 47500, "room": "1R", "lat": 36.31919527777778, "lng": 139.03388962356971, "address": "群馬県高崎市上中居町" }, "geometry": { "type": "Point", "coordinates": [ 139.03388962356971, 36.31919527777778 ] } }
+,
+{ "type": "Feature", "id": 342, "properties": { "id": 13608687, "replace": 35000, "room": "1K", "lat": 36.3166883333, "lng": 139.443370278, "address": "栃木県足利市朝倉町３丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.443370278, 36.3166883333 ] } }
+,
+{ "type": "Feature", "id": 343, "properties": { "id": 4031405, "replace": 53000, "room": "2LDK", "lat": 36.29672, "lng": 139.12530388888888, "address": "群馬県佐波郡玉村町大字下新田" }, "geometry": { "type": "Point", "coordinates": [ 139.12530388888888, 36.29672 ] } }
+,
+{ "type": "Feature", "id": 344, "properties": { "id": 4041494, "replace": 55000, "room": "1LDK", "lat": 36.28252611111111, "lng": 139.19411444444444, "address": "群馬県伊勢崎市除ケ町" }, "geometry": { "type": "Point", "coordinates": [ 139.19411444444444, 36.28252611111111 ] } }
+,
+{ "type": "Feature", "id": 345, "properties": { "id": 15250975, "replace": 37500, "room": "1K", "lat": 36.32492638888889, "lng": 139.1750763888889, "address": "群馬県伊勢崎市連取町" }, "geometry": { "type": "Point", "coordinates": [ 139.1750763888889, 36.32492638888889 ] } }
+,
+{ "type": "Feature", "id": 346, "properties": { "id": 13954926, "replace": 67000, "room": "2LDK", "lat": 36.376688114969568, "lng": 139.10605761824064, "address": "群馬県前橋市天川大島町３丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.10605761824064, 36.376688114969568 ] } }
+,
+{ "type": "Feature", "id": 347, "properties": { "id": 4022384, "replace": 50000, "room": "3DK", "lat": 36.338839444444446, "lng": 139.48072111111111, "address": "栃木県足利市大月町" }, "geometry": { "type": "Point", "coordinates": [ 139.48072111111111, 36.338839444444446 ] } }
+,
+{ "type": "Feature", "id": 348, "properties": { "id": 5504227, "replace": 50000, "room": "2LDK", "lat": 36.282221111111113, "lng": 139.19917972222223, "address": "群馬県伊勢崎市除ケ町" }, "geometry": { "type": "Point", "coordinates": [ 139.19917972222223, 36.282221111111113 ] } }
+,
+{ "type": "Feature", "id": 349, "properties": { "id": 9595602, "replace": 67000, "room": "2LDK", "lat": 36.327802258331033, "lng": 139.17091973501772, "address": "群馬県伊勢崎市宮子町" }, "geometry": { "type": "Point", "coordinates": [ 139.17091973501772, 36.327802258331033 ] } }
+,
+{ "type": "Feature", "id": 350, "properties": { "id": 14235711, "replace": 53000, "room": "2DK", "lat": 36.318918888900001, "lng": 139.444083611, "address": "栃木県足利市八幡町２丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.444083611, 36.318918888900001 ] } }
+,
+{ "type": "Feature", "id": 351, "properties": { "id": 14314055, "replace": 55000, "room": "2LDK", "lat": 36.417642272351713, "lng": 139.05745955938994, "address": "群馬県前橋市上小出町３丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.05745955938994, 36.417642272351713 ] } }
+,
+{ "type": "Feature", "id": 352, "properties": { "id": 10262318, "replace": 63000, "room": "2LDK", "lat": 36.321980277777776, "lng": 139.20697861111111, "address": "群馬県伊勢崎市昭和町" }, "geometry": { "type": "Point", "coordinates": [ 139.20697861111111, 36.321980277777776 ] } }
+,
+{ "type": "Feature", "id": 353, "properties": { "id": 4027868, "replace": 29000, "room": "1K", "lat": 36.328173888888891, "lng": 139.02072138888889, "address": "群馬県高崎市江木町" }, "geometry": { "type": "Point", "coordinates": [ 139.02072138888889, 36.328173888888891 ] } }
+,
+{ "type": "Feature", "id": 354, "properties": { "id": 14687267, "replace": 58000, "room": "2DK", "lat": 36.351338333333331, "lng": 139.00740888888888, "address": "群馬県高崎市緑町２丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.00740888888888, 36.351338333333331 ] } }
+,
+{ "type": "Feature", "id": 355, "properties": { "id": 10079728, "replace": 70500, "room": "2LDK", "lat": 36.318146766480552, "lng": 139.17018487136036, "address": "群馬県伊勢崎市田中島町" }, "geometry": { "type": "Point", "coordinates": [ 139.17018487136036, 36.318146766480552 ] } }
+,
+{ "type": "Feature", "id": 356, "properties": { "id": 14012588, "replace": 55000, "room": "2LDK", "lat": 36.360462777800002, "lng": 139.393936389, "address": "栃木県足利市葉鹿町１丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.393936389, 36.360462777800002 ] } }
+,
+{ "type": "Feature", "id": 357, "properties": { "id": 11071306, "replace": 50000, "room": "3DK", "lat": 36.412593055599999, "lng": 139.31452083299999, "address": "群馬県桐生市相生町２丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.31452083299999, 36.412593055599999 ] } }
+,
+{ "type": "Feature", "id": 358, "properties": { "id": 7082673, "replace": 50000, "room": "2DK", "lat": 36.3582583333, "lng": 139.06491305599999, "address": "群馬県前橋市大利根町１丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.06491305599999, 36.3582583333 ] } }
+,
+{ "type": "Feature", "id": 359, "properties": { "id": 13510132, "replace": 35000, "room": "1K", "lat": 36.33938666666667, "lng": 139.00129388888888, "address": "群馬県高崎市飯塚町" }, "geometry": { "type": "Point", "coordinates": [ 139.00129388888888, 36.33938666666667 ] } }
+,
+{ "type": "Feature", "id": 360, "properties": { "id": 5012073, "replace": 59000, "room": "2LDK", "lat": 36.420348888888888, "lng": 139.05602305555556, "address": "群馬県前橋市荒牧町" }, "geometry": { "type": "Point", "coordinates": [ 139.05602305555556, 36.420348888888888 ] } }
+,
+{ "type": "Feature", "id": 361, "properties": { "id": 16640545, "replace": 59000, "room": "1LDK", "lat": 36.357593691590061, "lng": 139.22334190585755, "address": "群馬県伊勢崎市市場町２丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.22334190585755, 36.357593691590061 ] } }
+,
+{ "type": "Feature", "id": 362, "properties": { "id": 16555699, "replace": 44000, "room": "2LDK", "lat": 36.373773888899997, "lng": 139.03321416700001, "address": "群馬県前橋市鳥羽町" }, "geometry": { "type": "Point", "coordinates": [ 139.03321416700001, 36.373773888899997 ] } }
+,
+{ "type": "Feature", "id": 363, "properties": { "id": 16755395, "replace": 36000, "room": "2DK", "lat": 36.312821111111113, "lng": 139.14164388888889, "address": "群馬県佐波郡玉村町大字樋越" }, "geometry": { "type": "Point", "coordinates": [ 139.14164388888889, 36.312821111111113 ] } }
+,
+{ "type": "Feature", "id": 364, "properties": { "id": 4027546, "replace": 51000, "room": "2DK", "lat": 36.342, "lng": 139.01490305555555, "address": "群馬県高崎市飯塚町" }, "geometry": { "type": "Point", "coordinates": [ 139.01490305555555, 36.342 ] } }
+,
+{ "type": "Feature", "id": 365, "properties": { "id": 4036548, "replace": 42000, "room": "1K", "lat": 36.400491111111108, "lng": 139.06985, "address": "群馬県前橋市昭和町１丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.06985, 36.400491111111108 ] } }
+,
+{ "type": "Feature", "id": 366, "properties": { "id": 9257653, "replace": 42000, "room": "2DK", "lat": 36.317457777777776, "lng": 139.58615527777778, "address": "栃木県佐野市堀米町" }, "geometry": { "type": "Point", "coordinates": [ 139.58615527777778, 36.317457777777776 ] } }
+,
+{ "type": "Feature", "id": 367, "properties": { "id": 16645761, "replace": 68000, "room": "1LDK", "lat": 36.38123021066, "lng": 139.09525687451247, "address": "群馬県前橋市朝日町４丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.09525687451247, 36.38123021066 ] } }
+,
+{ "type": "Feature", "id": 368, "properties": { "id": 16471324, "replace": 60000, "room": "3DK", "lat": 36.226143614694983, "lng": 139.53098162762748, "address": "群馬県館林市堀工町" }, "geometry": { "type": "Point", "coordinates": [ 139.53098162762748, 36.226143614694983 ] } }
+,
+{ "type": "Feature", "id": 369, "properties": { "id": 4029168, "replace": 28000, "room": "1K", "lat": 36.351413055555554, "lng": 139.00660250000001, "address": "群馬県高崎市緑町２丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.00660250000001, 36.351413055555554 ] } }
+,
+{ "type": "Feature", "id": 370, "properties": { "id": 15254314, "replace": 48000, "room": "3DK", "lat": 36.3645925, "lng": 139.25947916699999, "address": "群馬県伊勢崎市国定町１丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.25947916699999, 36.3645925 ] } }
+,
+{ "type": "Feature", "id": 371, "properties": { "id": 6157033, "replace": 50000, "room": "3DK", "lat": 36.370829473473364, "lng": 139.08618856878755, "address": "群馬県前橋市天川原町" }, "geometry": { "type": "Point", "coordinates": [ 139.08618856878755, 36.370829473473364 ] } }
+,
+{ "type": "Feature", "id": 372, "properties": { "id": 5918020, "replace": 34000, "room": "2DK", "lat": 36.308000833333331, "lng": 139.21170166666667, "address": "群馬県伊勢崎市今泉町１丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.21170166666667, 36.308000833333331 ] } }
+,
+{ "type": "Feature", "id": 373, "properties": { "id": 15013301, "replace": 45000, "room": "2DK", "lat": 36.364103302370985, "lng": 139.39935140964411, "address": "栃木県足利市葉鹿町" }, "geometry": { "type": "Point", "coordinates": [ 139.39935140964411, 36.364103302370985 ] } }
+,
+{ "type": "Feature", "id": 374, "properties": { "id": 6070406, "replace": 45000, "room": "1LDK", "lat": 36.359120555555556, "lng": 138.98355944444444, "address": "群馬県高崎市浜川町" }, "geometry": { "type": "Point", "coordinates": [ 138.98355944444444, 36.359120555555556 ] } }
+,
+{ "type": "Feature", "id": 375, "properties": { "id": 16649976, "replace": 42000, "room": "2DK", "lat": 36.384414811515015, "lng": 139.0443579009675, "address": "群馬県前橋市元総社町１丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.0443579009675, 36.384414811515015 ] } }
+,
+{ "type": "Feature", "id": 376, "properties": { "id": 15013826, "replace": 56000, "room": "2LDK", "lat": 36.342023333299998, "lng": 139.476814722, "address": "栃木県足利市助戸新山町" }, "geometry": { "type": "Point", "coordinates": [ 139.476814722, 36.342023333299998 ] } }
+,
+{ "type": "Feature", "id": 377, "properties": { "id": 8114160, "replace": 135000, "room": "4LDK", "lat": 36.380302777799997, "lng": 139.0543275, "address": "群馬県前橋市元総社町" }, "geometry": { "type": "Point", "coordinates": [ 139.0543275, 36.380302777799997 ] } }
+,
+{ "type": "Feature", "id": 378, "properties": { "id": 4043504, "replace": 50000, "room": "2DK", "lat": 36.383876217420685, "lng": 139.272344785087, "address": "群馬県みどり市笠懸町鹿" }, "geometry": { "type": "Point", "coordinates": [ 139.272344785087, 36.383876217420685 ] } }
+,
+{ "type": "Feature", "id": 379, "properties": { "id": 4022285, "replace": 58000, "room": "2LDK", "lat": 36.36478, "lng": 139.38203666666666, "address": "栃木県足利市小俣南町" }, "geometry": { "type": "Point", "coordinates": [ 139.38203666666666, 36.36478 ] } }
+,
+{ "type": "Feature", "id": 380, "properties": { "id": 6070288, "replace": 40000, "room": "1K", "lat": 36.315740555555557, "lng": 139.01440972222221, "address": "群馬県高崎市鶴見町" }, "geometry": { "type": "Point", "coordinates": [ 139.01440972222221, 36.315740555555557 ] } }
+,
+{ "type": "Feature", "id": 381, "properties": { "id": 12915726, "replace": 48000, "room": "2LDK", "lat": 36.430295833300001, "lng": 139.07464555600001, "address": "群馬県前橋市富士見町原之郷" }, "geometry": { "type": "Point", "coordinates": [ 139.07464555600001, 36.430295833300001 ] } }
+,
+{ "type": "Feature", "id": 382, "properties": { "id": 4021942, "replace": 40000, "room": "2DK", "lat": 36.305205833333332, "lng": 139.45618277777777, "address": "栃木県足利市福居町" }, "geometry": { "type": "Point", "coordinates": [ 139.45618277777777, 36.305205833333332 ] } }
+,
+{ "type": "Feature", "id": 383, "properties": { "id": 13378784, "replace": 54000, "room": "3DK", "lat": 36.325188402894263, "lng": 139.15932830072404, "address": "群馬県伊勢崎市宮子町" }, "geometry": { "type": "Point", "coordinates": [ 139.15932830072404, 36.325188402894263 ] } }
+,
+{ "type": "Feature", "id": 384, "properties": { "id": 11320028, "replace": 58000, "room": "2LDK", "lat": 36.381371666699998, "lng": 139.33605750000001, "address": "群馬県桐生市広沢町３丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.33605750000001, 36.381371666699998 ] } }
+,
+{ "type": "Feature", "id": 385, "properties": { "id": 6778346, "replace": 37000, "room": "1LDK", "lat": 36.302066388888889, "lng": 139.21085333333335, "address": "群馬県伊勢崎市茂呂町２丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.21085333333335, 36.302066388888889 ] } }
+,
+{ "type": "Feature", "id": 386, "properties": { "id": 8377608, "replace": 38000, "room": "2DK", "lat": 36.267886382414055, "lng": 139.26225080881218, "address": "群馬県伊勢崎市境東" }, "geometry": { "type": "Point", "coordinates": [ 139.26225080881218, 36.267886382414055 ] } }
+,
+{ "type": "Feature", "id": 387, "properties": { "id": 4029783, "replace": 40000, "room": "1K", "lat": 36.305746388888892, "lng": 139.02078333333333, "address": "群馬県高崎市和田多中町" }, "geometry": { "type": "Point", "coordinates": [ 139.02078333333333, 36.305746388888892 ] } }
+,
+{ "type": "Feature", "id": 388, "properties": { "id": 4022464, "replace": 36000, "room": "1K", "lat": 36.304615557947962, "lng": 139.45194268987831, "address": "栃木県足利市福居町" }, "geometry": { "type": "Point", "coordinates": [ 139.45194268987831, 36.304615557947962 ] } }
+,
+{ "type": "Feature", "id": 389, "properties": { "id": 15644343, "replace": 50000, "room": "2DK", "lat": 36.3054875, "lng": 139.23797666666667, "address": "群馬県伊勢崎市境伊与久" }, "geometry": { "type": "Point", "coordinates": [ 139.23797666666667, 36.3054875 ] } }
+,
+{ "type": "Feature", "id": 390, "properties": { "id": 13812059, "replace": 25000, "room": "1K", "lat": 36.313445555555553, "lng": 139.02225638888888, "address": "群馬県高崎市双葉町" }, "geometry": { "type": "Point", "coordinates": [ 139.02225638888888, 36.313445555555553 ] } }
+,
+{ "type": "Feature", "id": 391, "properties": { "id": 4686442, "replace": 32000, "room": "1K", "lat": 36.319516666699997, "lng": 139.01034694399999, "address": "群馬県高崎市あら町" }, "geometry": { "type": "Point", "coordinates": [ 139.01034694399999, 36.319516666699997 ] } }
+,
+{ "type": "Feature", "id": 392, "properties": { "id": 16783330, "replace": 64000, "room": "2LDK", "lat": 36.413991888034829, "lng": 139.06720690186413, "address": "群馬県前橋市下小出町３丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.06720690186413, 36.413991888034829 ] } }
+,
+{ "type": "Feature", "id": 393, "properties": { "id": 4983092, "replace": 54000, "room": "3DK", "lat": 36.319419894344151, "lng": 139.49990294253581, "address": "栃木県足利市大沼田町" }, "geometry": { "type": "Point", "coordinates": [ 139.49990294253581, 36.319419894344151 ] } }
+,
+{ "type": "Feature", "id": 394, "properties": { "id": 14174788, "replace": 58000, "room": "2LDK", "lat": 36.38308755414235, "lng": 139.30876906485904, "address": "群馬県みどり市笠懸町阿左美" }, "geometry": { "type": "Point", "coordinates": [ 139.30876906485904, 36.38308755414235 ] } }
+,
+{ "type": "Feature", "id": 395, "properties": { "id": 13388580, "replace": 46000, "room": "2DK", "lat": 36.374175659097162, "lng": 139.05773686643047, "address": "群馬県前橋市古市町１丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.05773686643047, 36.374175659097162 ] } }
+,
+{ "type": "Feature", "id": 396, "properties": { "id": 16682285, "replace": 49000, "room": "2DK", "lat": 36.327802258331026, "lng": 139.23665536897244, "address": "群馬県伊勢崎市八寸町" }, "geometry": { "type": "Point", "coordinates": [ 139.23665536897244, 36.327802258331026 ] } }
+,
+{ "type": "Feature", "id": 397, "properties": { "id": 16739703, "replace": 30000, "room": "1K", "lat": 36.268781944444441, "lng": 139.37993444444447, "address": "群馬県太田市西矢島町" }, "geometry": { "type": "Point", "coordinates": [ 139.37993444444447, 36.268781944444441 ] } }
+,
+{ "type": "Feature", "id": 398, "properties": { "id": 4038468, "replace": 47000, "room": "3DK", "lat": 36.33255472222222, "lng": 139.15687416666665, "address": "群馬県伊勢崎市宮子町" }, "geometry": { "type": "Point", "coordinates": [ 139.15687416666665, 36.33255472222222 ] } }
+,
+{ "type": "Feature", "id": 399, "properties": { "id": 4041796, "replace": 45000, "room": "2DK", "lat": 36.330893888888887, "lng": 139.1571486111111, "address": "群馬県伊勢崎市宮子町" }, "geometry": { "type": "Point", "coordinates": [ 139.1571486111111, 36.330893888888887 ] } }
+,
+{ "type": "Feature", "id": 400, "properties": { "id": 16923503, "replace": 60000, "room": "3DK", "lat": 36.319613055600001, "lng": 139.186529167, "address": "群馬県伊勢崎市太田町" }, "geometry": { "type": "Point", "coordinates": [ 139.186529167, 36.319613055600001 ] } }
+,
+{ "type": "Feature", "id": 401, "properties": { "id": 10686172, "replace": 50000, "room": "3K", "lat": 36.299635712676185, "lng": 139.36761361885689, "address": "群馬県太田市大島町" }, "geometry": { "type": "Point", "coordinates": [ 139.36761361885689, 36.299635712676185 ] } }
+,
+{ "type": "Feature", "id": 402, "properties": { "id": 8146738, "replace": 50000, "room": "3K", "lat": 36.379380836734171, "lng": 139.09477122169156, "address": "群馬県前橋市朝日町４丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.09477122169156, 36.379380836734171 ] } }
+,
+{ "type": "Feature", "id": 403, "properties": { "id": 13628526, "replace": 60000, "room": "2LDK", "lat": 36.350865, "lng": 139.00647388900001, "address": "群馬県高崎市緑町２丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.00647388900001, 36.350865 ] } }
+,
+{ "type": "Feature", "id": 404, "properties": { "id": 14870898, "replace": 51000, "room": "2LDK", "lat": 36.298533365330002, "lng": 138.8626587417175, "address": "群馬県安中市磯部４丁目" }, "geometry": { "type": "Point", "coordinates": [ 138.8626587417175, 36.298533365330002 ] } }
+,
+{ "type": "Feature", "id": 405, "properties": { "id": 15216069, "replace": 52000, "room": "2DK", "lat": 36.343012192984638, "lng": 139.18438299183487, "address": "群馬県伊勢崎市波志江町" }, "geometry": { "type": "Point", "coordinates": [ 139.18438299183487, 36.343012192984638 ] } }
+,
+{ "type": "Feature", "id": 406, "properties": { "id": 6854883, "replace": 51000, "room": "2LDK", "lat": 36.342604722222219, "lng": 138.98971555555556, "address": "群馬県高崎市上並榎町" }, "geometry": { "type": "Point", "coordinates": [ 138.98971555555556, 36.342604722222219 ] } }
+,
+{ "type": "Feature", "id": 407, "properties": { "id": 7141916, "replace": 66000, "room": "3DK", "lat": 36.250181666700001, "lng": 139.379840833, "address": "群馬県太田市高林東町" }, "geometry": { "type": "Point", "coordinates": [ 139.379840833, 36.250181666700001 ] } }
+,
+{ "type": "Feature", "id": 408, "properties": { "id": 16155948, "replace": 40000, "room": "2DK", "lat": 36.269321944399998, "lng": 139.19153361100001, "address": "群馬県伊勢崎市八斗島町" }, "geometry": { "type": "Point", "coordinates": [ 139.19153361100001, 36.269321944399998 ] } }
+,
+{ "type": "Feature", "id": 409, "properties": { "id": 4044345, "replace": 46000, "room": "1LDK", "lat": 36.319566944444446, "lng": 139.16640777777778, "address": "群馬県伊勢崎市田中島町" }, "geometry": { "type": "Point", "coordinates": [ 139.16640777777778, 36.319566944444446 ] } }
+,
+{ "type": "Feature", "id": 410, "properties": { "id": 6082519, "replace": 35000, "room": "2K", "lat": 36.373754166666664, "lng": 139.24731361111111, "address": "群馬県伊勢崎市曲沢町" }, "geometry": { "type": "Point", "coordinates": [ 139.24731361111111, 36.373754166666664 ] } }
+,
+{ "type": "Feature", "id": 411, "properties": { "id": 16702084, "replace": 45000, "room": "2DK", "lat": 36.277857339575867, "lng": 139.3923771375751, "address": "群馬県太田市飯塚町" }, "geometry": { "type": "Point", "coordinates": [ 139.3923771375751, 36.277857339575867 ] } }
+,
+{ "type": "Feature", "id": 412, "properties": { "id": 15253887, "replace": 40000, "room": "2DK", "lat": 36.31675527777778, "lng": 139.1706111111111, "address": "群馬県伊勢崎市田中島町" }, "geometry": { "type": "Point", "coordinates": [ 139.1706111111111, 36.31675527777778 ] } }
+,
+{ "type": "Feature", "id": 413, "properties": { "id": 16856418, "replace": 52000, "room": "2DK", "lat": 36.310478055600001, "lng": 139.018796667, "address": "群馬県高崎市和田多中町" }, "geometry": { "type": "Point", "coordinates": [ 139.018796667, 36.310478055600001 ] } }
+,
+{ "type": "Feature", "id": 414, "properties": { "id": 6787991, "replace": 35000, "room": "2K", "lat": 36.373754166666664, "lng": 139.24731361111111, "address": "群馬県伊勢崎市曲沢町" }, "geometry": { "type": "Point", "coordinates": [ 139.24731361111111, 36.373754166666664 ] } }
+,
+{ "type": "Feature", "id": 415, "properties": { "id": 4040592, "replace": 35000, "room": "2DK", "lat": 36.276004166666667, "lng": 139.271495, "address": "群馬県伊勢崎市境西今井" }, "geometry": { "type": "Point", "coordinates": [ 139.271495, 36.276004166666667 ] } }
+,
+{ "type": "Feature", "id": 416, "properties": { "id": 7726642, "replace": 52000, "room": "2DK", "lat": 36.287681830700265, "lng": 139.10436604529349, "address": "群馬県佐波郡玉村町大字八幡原" }, "geometry": { "type": "Point", "coordinates": [ 139.10436604529349, 36.287681830700265 ] } }
+,
+{ "type": "Feature", "id": 417, "properties": { "id": 15246159, "replace": 30000, "room": "1K", "lat": 36.247930555555556, "lng": 139.17004805555555, "address": "埼玉県本庄市下野堂１丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.17004805555555, 36.247930555555556 ] } }
+,
+{ "type": "Feature", "id": 418, "properties": { "id": 14314385, "replace": 65000, "room": "3DK", "lat": 36.384890213064253, "lng": 139.06777538129717, "address": "群馬県前橋市大手町２丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.06777538129717, 36.384890213064253 ] } }
+,
+{ "type": "Feature", "id": 419, "properties": { "id": 4564027, "replace": 55000, "room": "3DK", "lat": 36.355883611099998, "lng": 139.476446111, "address": "栃木県足利市利保町３丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.476446111, 36.355883611099998 ] } }
+,
+{ "type": "Feature", "id": 420, "properties": { "id": 4029289, "replace": 30000, "room": "1K", "lat": 36.328174056733673, "lng": 139.01537821599138, "address": "群馬県高崎市江木町" }, "geometry": { "type": "Point", "coordinates": [ 139.01537821599138, 36.328174056733673 ] } }
+,
+{ "type": "Feature", "id": 421, "properties": { "id": 4027906, "replace": 45000, "room": "2DK", "lat": 36.306408055555558, "lng": 139.00324305555554, "address": "群馬県高崎市石原町" }, "geometry": { "type": "Point", "coordinates": [ 139.00324305555554, 36.306408055555558 ] } }
+,
+{ "type": "Feature", "id": 422, "properties": { "id": 10637195, "replace": 61000, "room": "1LDK", "lat": 36.348588055599997, "lng": 139.00780027799999, "address": "群馬県高崎市緑町１丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.00780027799999, 36.348588055599997 ] } }
+,
+{ "type": "Feature", "id": 423, "properties": { "id": 15017479, "replace": 55000, "room": "2DK", "lat": 36.334867777777781, "lng": 139.20164722222222, "address": "群馬県伊勢崎市八幡町" }, "geometry": { "type": "Point", "coordinates": [ 139.20164722222222, 36.334867777777781 ] } }
+,
+{ "type": "Feature", "id": 424, "properties": { "id": 10296149, "replace": 45000, "room": "3DK", "lat": 36.315735710172497, "lng": 139.16526267139116, "address": "群馬県伊勢崎市田中島町" }, "geometry": { "type": "Point", "coordinates": [ 139.16526267139116, 36.315735710172497 ] } }
+,
+{ "type": "Feature", "id": 425, "properties": { "id": 9773305, "replace": 45000, "room": "2DK", "lat": 36.29788938684559, "lng": 139.21000616237868, "address": "群馬県伊勢崎市美茂呂町" }, "geometry": { "type": "Point", "coordinates": [ 139.21000616237868, 36.29788938684559 ] } }
+,
+{ "type": "Feature", "id": 426, "properties": { "id": 16639784, "replace": 45000, "room": "1LDK", "lat": 36.409259908364831, "lng": 139.06232629795102, "address": "群馬県前橋市上小出町１丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.06232629795102, 36.409259908364831 ] } }
+,
+{ "type": "Feature", "id": 427, "properties": { "id": 12900328, "replace": 45000, "room": "2DK", "lat": 36.415748333300002, "lng": 139.061529444, "address": "群馬県前橋市上小出町３丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.061529444, 36.415748333300002 ] } }
+,
+{ "type": "Feature", "id": 428, "properties": { "id": 15171558, "replace": 27000, "room": "1K", "lat": 36.3118491667, "lng": 139.21905527800001, "address": "群馬県伊勢崎市日乃出町" }, "geometry": { "type": "Point", "coordinates": [ 139.21905527800001, 36.3118491667 ] } }
+,
+{ "type": "Feature", "id": 429, "properties": { "id": 13408634, "replace": 42000, "room": "1K", "lat": 36.366570691770349, "lng": 139.0058665845016, "address": "群馬県高崎市中泉町" }, "geometry": { "type": "Point", "coordinates": [ 139.0058665845016, 36.366570691770349 ] } }
+,
+{ "type": "Feature", "id": 430, "properties": { "id": 16558274, "replace": 58000, "room": "2LDK", "lat": 36.234414444444447, "lng": 139.55053861111114, "address": "群馬県館林市松原２丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.55053861111114, 36.234414444444447 ] } }
+,
+{ "type": "Feature", "id": 431, "properties": { "id": 8125778, "replace": 50000, "room": "1K", "lat": 36.347485040434634, "lng": 138.99274996148517, "address": "群馬県高崎市筑縄町" }, "geometry": { "type": "Point", "coordinates": [ 138.99274996148517, 36.347485040434634 ] } }
+,
+{ "type": "Feature", "id": 432, "properties": { "id": 8998571, "replace": 55000, "room": "1LDK", "lat": 36.361793645627294, "lng": 139.29393313819136, "address": "群馬県太田市大原町" }, "geometry": { "type": "Point", "coordinates": [ 139.29393313819136, 36.361793645627294 ] } }
+,
+{ "type": "Feature", "id": 433, "properties": { "id": 15215929, "replace": 48000, "room": "2DK", "lat": 36.311305833299997, "lng": 139.21619083300001, "address": "群馬県伊勢崎市粕川町" }, "geometry": { "type": "Point", "coordinates": [ 139.21619083300001, 36.311305833299997 ] } }
+,
+{ "type": "Feature", "id": 434, "properties": { "id": 12788088, "replace": 36000, "room": "2DK", "lat": 36.324354673142878, "lng": 139.19503158219072, "address": "群馬県伊勢崎市喜多町" }, "geometry": { "type": "Point", "coordinates": [ 139.19503158219072, 36.324354673142878 ] } }
+,
+{ "type": "Feature", "id": 435, "properties": { "id": 5941192, "replace": 40000, "room": "1K", "lat": 36.31511, "lng": 139.01446611111112, "address": "群馬県高崎市鶴見町" }, "geometry": { "type": "Point", "coordinates": [ 139.01446611111112, 36.31511 ] } }
+,
+{ "type": "Feature", "id": 436, "properties": { "id": 4036361, "replace": 56000, "room": "2LDK", "lat": 36.416403055555556, "lng": 139.056805, "address": "群馬県前橋市上小出町３丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.056805, 36.416403055555556 ] } }
+,
+{ "type": "Feature", "id": 437, "properties": { "id": 10351843, "replace": 45000, "room": "2DK", "lat": 36.431218547357332, "lng": 139.18624094900633, "address": "群馬県前橋市大前田町" }, "geometry": { "type": "Point", "coordinates": [ 139.18624094900633, 36.431218547357332 ] } }
+,
+{ "type": "Feature", "id": 438, "properties": { "id": 13386859, "replace": 56000, "room": "3LDK", "lat": 36.39216, "lng": 139.00208527800001, "address": "群馬県高崎市足門町" }, "geometry": { "type": "Point", "coordinates": [ 139.00208527800001, 36.39216 ] } }
+,
+{ "type": "Feature", "id": 439, "properties": { "id": 4031307, "replace": 37000, "room": "1R", "lat": 36.371162222222225, "lng": 139.04808583333335, "address": "群馬県前橋市古市町" }, "geometry": { "type": "Point", "coordinates": [ 139.04808583333335, 36.371162222222225 ] } }
+,
+{ "type": "Feature", "id": 440, "properties": { "id": 6668952, "replace": 52000, "room": "2DK", "lat": 36.3612827778, "lng": 139.10556638899999, "address": "群馬県前橋市広瀬町１丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.10556638899999, 36.3612827778 ] } }
+,
+{ "type": "Feature", "id": 441, "properties": { "id": 10521182, "replace": 57000, "room": "3DK", "lat": 36.314978611100003, "lng": 139.48403333300001, "address": "栃木県足利市山川町" }, "geometry": { "type": "Point", "coordinates": [ 139.48403333300001, 36.314978611100003 ] } }
+,
+{ "type": "Feature", "id": 442, "properties": { "id": 16551445, "replace": 52000, "room": "3DK", "lat": 36.322846944399998, "lng": 138.99165777799999, "address": "群馬県高崎市八千代町４丁目" }, "geometry": { "type": "Point", "coordinates": [ 138.99165777799999, 36.322846944399998 ] } }
+,
+{ "type": "Feature", "id": 443, "properties": { "id": 13110551, "replace": 53000, "room": "3DK", "lat": 36.374026944400001, "lng": 139.29858638900001, "address": "群馬県みどり市笠懸町阿左美" }, "geometry": { "type": "Point", "coordinates": [ 139.29858638900001, 36.374026944400001 ] } }
+,
+{ "type": "Feature", "id": 444, "properties": { "id": 5035141, "replace": 57000, "room": "2LDK", "lat": 36.345317222200002, "lng": 139.42861, "address": "栃木県足利市五十部町" }, "geometry": { "type": "Point", "coordinates": [ 139.42861, 36.345317222200002 ] } }
+,
+{ "type": "Feature", "id": 445, "properties": { "id": 14235670, "replace": 70000, "room": "2LDK", "lat": 36.324215, "lng": 139.45024694400001, "address": "栃木県足利市田中町" }, "geometry": { "type": "Point", "coordinates": [ 139.45024694400001, 36.324215 ] } }
+,
+{ "type": "Feature", "id": 446, "properties": { "id": 16766347, "replace": 72000, "room": "3LDK", "lat": 36.378908333299997, "lng": 139.07827222200001, "address": "群馬県前橋市南町３丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.07827222200001, 36.378908333299997 ] } }
+,
+{ "type": "Feature", "id": 447, "properties": { "id": 8689520, "replace": 45000, "room": "2LDK", "lat": 36.329463888888888, "lng": 139.2033663888889, "address": "群馬県伊勢崎市寿町" }, "geometry": { "type": "Point", "coordinates": [ 139.2033663888889, 36.329463888888888 ] } }
+,
+{ "type": "Feature", "id": 448, "properties": { "id": 15926602, "replace": 32000, "room": "1K", "lat": 36.291028611111109, "lng": 139.18859111111112, "address": "群馬県伊勢崎市堀口町" }, "geometry": { "type": "Point", "coordinates": [ 139.18859111111112, 36.291028611111109 ] } }
+,
+{ "type": "Feature", "id": 449, "properties": { "id": 15289697, "replace": 65000, "room": "2DK", "lat": 36.307783888899998, "lng": 139.04172583299999, "address": "群馬県高崎市下中居町" }, "geometry": { "type": "Point", "coordinates": [ 139.04172583299999, 36.307783888899998 ] } }
+,
+{ "type": "Feature", "id": 450, "properties": { "id": 15109866, "replace": 46000, "room": "1K", "lat": 36.323961596480004, "lng": 139.01320651001751, "address": "群馬県高崎市旭町" }, "geometry": { "type": "Point", "coordinates": [ 139.01320651001751, 36.323961596480004 ] } }
+,
+{ "type": "Feature", "id": 451, "properties": { "id": 4044399, "replace": 55000, "room": "2DK", "lat": 36.315304722222223, "lng": 139.21430972222223, "address": "群馬県伊勢崎市下植木町" }, "geometry": { "type": "Point", "coordinates": [ 139.21430972222223, 36.315304722222223 ] } }
+,
+{ "type": "Feature", "id": 452, "properties": { "id": 15865540, "replace": 55000, "room": "2LDK", "lat": 36.308283055555556, "lng": 139.2019675, "address": "群馬県伊勢崎市今泉町２丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.2019675, 36.308283055555556 ] } }
+,
+{ "type": "Feature", "id": 453, "properties": { "id": 9177922, "replace": 22000, "room": "1K", "lat": 36.3513816667, "lng": 139.41195527799999, "address": "栃木県足利市山下町" }, "geometry": { "type": "Point", "coordinates": [ 139.41195527799999, 36.3513816667 ] } }
+,
+{ "type": "Feature", "id": 454, "properties": { "id": 16399223, "replace": 50000, "room": "1LDK", "lat": 36.32803, "lng": 139.23505472222223, "address": "群馬県伊勢崎市八寸町" }, "geometry": { "type": "Point", "coordinates": [ 139.23505472222223, 36.32803 ] } }
+,
+{ "type": "Feature", "id": 455, "properties": { "id": 10570979, "replace": 45000, "room": "2DK", "lat": 36.312026111100003, "lng": 138.99637611099999, "address": "群馬県高崎市片岡町２丁目" }, "geometry": { "type": "Point", "coordinates": [ 138.99637611099999, 36.312026111100003 ] } }
+,
+{ "type": "Feature", "id": 456, "properties": { "id": 4373068, "replace": 45000, "room": "2DK", "lat": 36.312956111111113, "lng": 138.99357805555556, "address": "群馬県高崎市片岡町３丁目" }, "geometry": { "type": "Point", "coordinates": [ 138.99357805555556, 36.312956111111113 ] } }
+,
+{ "type": "Feature", "id": 457, "properties": { "id": 6012287, "replace": 80000, "room": "2LDK", "lat": 36.326675833333333, "lng": 139.00747555555554, "address": "群馬県高崎市嘉多町" }, "geometry": { "type": "Point", "coordinates": [ 139.00747555555554, 36.326675833333333 ] } }
+,
+{ "type": "Feature", "id": 458, "properties": { "id": 16597121, "replace": 59000, "room": "1LDK", "lat": 36.336520833333338, "lng": 139.14357777777778, "address": "群馬県前橋市駒形町" }, "geometry": { "type": "Point", "coordinates": [ 139.14357777777778, 36.336520833333338 ] } }
+,
+{ "type": "Feature", "id": 459, "properties": { "id": 16530530, "replace": 55000, "room": "1LDK", "lat": 36.291599722222223, "lng": 139.37114083333333, "address": "群馬県太田市西本町" }, "geometry": { "type": "Point", "coordinates": [ 139.37114083333333, 36.291599722222223 ] } }
+,
+{ "type": "Feature", "id": 460, "properties": { "id": 5045277, "replace": 43000, "room": "3K", "lat": 36.37139280438646, "lng": 139.08374826683101, "address": "群馬県前橋市天川原町１丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.08374826683101, 36.37139280438646 ] } }
+,
+{ "type": "Feature", "id": 461, "properties": { "id": 8012620, "replace": 52000, "room": "2DK", "lat": 36.274871685736443, "lng": 139.18845940533046, "address": "群馬県伊勢崎市福島町" }, "geometry": { "type": "Point", "coordinates": [ 139.18845940533046, 36.274871685736443 ] } }
+,
+{ "type": "Feature", "id": 462, "properties": { "id": 16796240, "replace": 53000, "room": "1LDK", "lat": 36.374443055555552, "lng": 139.012905, "address": "群馬県高崎市菅谷町" }, "geometry": { "type": "Point", "coordinates": [ 139.012905, 36.374443055555552 ] } }
+,
+{ "type": "Feature", "id": 463, "properties": { "id": 4036620, "replace": 54000, "room": "2DK", "lat": 36.364055, "lng": 139.05827388888889, "address": "群馬県前橋市後家町" }, "geometry": { "type": "Point", "coordinates": [ 139.05827388888889, 36.364055 ] } }
+,
+{ "type": "Feature", "id": 464, "properties": { "id": 14546967, "replace": 58000, "room": "2LDK", "lat": 36.442045767507054, "lng": 139.08241719303652, "address": "群馬県前橋市富士見町小沢" }, "geometry": { "type": "Point", "coordinates": [ 139.08241719303652, 36.442045767507054 ] } }
+,
+{ "type": "Feature", "id": 465, "properties": { "id": 4041634, "replace": 49000, "room": "2DK", "lat": 36.333025, "lng": 139.15597805555555, "address": "群馬県伊勢崎市宮子町" }, "geometry": { "type": "Point", "coordinates": [ 139.15597805555555, 36.333025 ] } }
+,
+{ "type": "Feature", "id": 466, "properties": { "id": 14235688, "replace": 58000, "room": "3DK", "lat": 36.272768611099998, "lng": 139.41480305600001, "address": "群馬県太田市龍舞町" }, "geometry": { "type": "Point", "coordinates": [ 139.41480305600001, 36.272768611099998 ] } }
+,
+{ "type": "Feature", "id": 467, "properties": { "id": 15722835, "replace": 46000, "room": "1K", "lat": 36.328045, "lng": 138.979464444, "address": "群馬県高崎市中豊岡町" }, "geometry": { "type": "Point", "coordinates": [ 138.979464444, 36.328045 ] } }
+,
+{ "type": "Feature", "id": 468, "properties": { "id": 4029528, "replace": 32000, "room": "1K", "lat": 36.347403611111112, "lng": 139.02256361111111, "address": "群馬県高崎市浜尻町" }, "geometry": { "type": "Point", "coordinates": [ 139.02256361111111, 36.347403611111112 ] } }
+,
+{ "type": "Feature", "id": 469, "properties": { "id": 4030016, "replace": 52000, "room": "3K", "lat": 36.339683611111113, "lng": 139.01912250000001, "address": "群馬県高崎市飯塚町" }, "geometry": { "type": "Point", "coordinates": [ 139.01912250000001, 36.339683611111113 ] } }
+,
+{ "type": "Feature", "id": 470, "properties": { "id": 12868308, "replace": 70000, "room": "4DK", "lat": 36.372384266793503, "lng": 139.05464489292862, "address": "群馬県前橋市古市町１丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.05464489292862, 36.372384266793503 ] } }
+,
+{ "type": "Feature", "id": 471, "properties": { "id": 16734459, "replace": 55000, "room": "3DK", "lat": 36.321007777799998, "lng": 139.183886667, "address": "群馬県伊勢崎市太田町" }, "geometry": { "type": "Point", "coordinates": [ 139.183886667, 36.321007777799998 ] } }
+,
+{ "type": "Feature", "id": 472, "properties": { "id": 16485768, "replace": 42000, "room": "3DK", "lat": 36.226491666666668, "lng": 139.52415222222223, "address": "群馬県館林市諏訪町" }, "geometry": { "type": "Point", "coordinates": [ 139.52415222222223, 36.226491666666668 ] } }
+,
+{ "type": "Feature", "id": 473, "properties": { "id": 12150998, "replace": 60000, "room": "2LDK", "lat": 36.386118274454809, "lng": 139.09608843013402, "address": "群馬県前橋市西片貝町５丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.09608843013402, 36.386118274454809 ] } }
+,
+{ "type": "Feature", "id": 474, "properties": { "id": 10331655, "replace": 53000, "room": "1SLDK", "lat": 36.383053754287559, "lng": 139.27773840702514, "address": "群馬県みどり市笠懸町鹿" }, "geometry": { "type": "Point", "coordinates": [ 139.27773840702514, 36.383053754287559 ] } }
+,
+{ "type": "Feature", "id": 475, "properties": { "id": 16787793, "replace": 60000, "room": "3DK", "lat": 36.270119166699999, "lng": 139.31211944399999, "address": "群馬県太田市新田木崎町" }, "geometry": { "type": "Point", "coordinates": [ 139.31211944399999, 36.270119166699999 ] } }
+,
+{ "type": "Feature", "id": 476, "properties": { "id": 16944858, "replace": 99000, "room": "3LDK", "lat": 36.324023888888888, "lng": 139.01329166666667, "address": "群馬県高崎市旭町" }, "geometry": { "type": "Point", "coordinates": [ 139.01329166666667, 36.324023888888888 ] } }
+,
+{ "type": "Feature", "id": 477, "properties": { "id": 16680793, "replace": 60000, "room": "2LDK", "lat": 36.372951491116673, "lng": 138.89740903918249, "address": "群馬県高崎市上里見町" }, "geometry": { "type": "Point", "coordinates": [ 138.89740903918249, 36.372951491116673 ] } }
+,
+{ "type": "Feature", "id": 478, "properties": { "id": 16817000, "replace": 46000, "room": "1R", "lat": 36.314011111100001, "lng": 139.19542250000001, "address": "群馬県伊勢崎市三光町" }, "geometry": { "type": "Point", "coordinates": [ 139.19542250000001, 36.314011111100001 ] } }
+,
+{ "type": "Feature", "id": 479, "properties": { "id": 9018051, "replace": 34000, "room": "2LDK", "lat": 36.320901944399999, "lng": 139.20346666699999, "address": "群馬県伊勢崎市平和町" }, "geometry": { "type": "Point", "coordinates": [ 139.20346666699999, 36.320901944399999 ] } }
+,
+{ "type": "Feature", "id": 480, "properties": { "id": 10297350, "replace": 34000, "room": "1K", "lat": 36.327448333299998, "lng": 138.94787861099999, "address": "群馬県高崎市鼻高町" }, "geometry": { "type": "Point", "coordinates": [ 138.94787861099999, 36.327448333299998 ] } }
+,
+{ "type": "Feature", "id": 481, "properties": { "id": 5202776, "replace": 42000, "room": "2K", "lat": 36.374423524698926, "lng": 139.0352056693884, "address": "群馬県前橋市鳥羽町" }, "geometry": { "type": "Point", "coordinates": [ 139.0352056693884, 36.374423524698926 ] } }
+,
+{ "type": "Feature", "id": 482, "properties": { "id": 4041484, "replace": 45000, "room": "2DK", "lat": 36.29013795348137, "lng": 139.18904175011556, "address": "群馬県伊勢崎市堀口町" }, "geometry": { "type": "Point", "coordinates": [ 139.18904175011556, 36.29013795348137 ] } }
+,
+{ "type": "Feature", "id": 483, "properties": { "id": 7798806, "replace": 40000, "room": "2DK", "lat": 36.320980833299998, "lng": 139.21512333300001, "address": "群馬県伊勢崎市宮前町" }, "geometry": { "type": "Point", "coordinates": [ 139.21512333300001, 36.320980833299998 ] } }
+,
+{ "type": "Feature", "id": 484, "properties": { "id": 4023322, "replace": 35000, "room": "1R", "lat": 36.305503611111114, "lng": 139.47350361111111, "address": "栃木県足利市福富町" }, "geometry": { "type": "Point", "coordinates": [ 139.47350361111111, 36.305503611111114 ] } }
+,
+{ "type": "Feature", "id": 485, "properties": { "id": 7623274, "replace": 43000, "room": "1K", "lat": 36.3424213889, "lng": 138.983555556, "address": "群馬県高崎市下小塙町" }, "geometry": { "type": "Point", "coordinates": [ 138.983555556, 36.3424213889 ] } }
+,
+{ "type": "Feature", "id": 486, "properties": { "id": 8693408, "replace": 55000, "room": "2LDK", "lat": 36.355673333299997, "lng": 139.39884138900001, "address": "栃木県足利市大前町" }, "geometry": { "type": "Point", "coordinates": [ 139.39884138900001, 36.355673333299997 ] } }
+,
+{ "type": "Feature", "id": 487, "properties": { "id": 7314204, "replace": 46000, "room": "2DK", "lat": 36.265610525525133, "lng": 139.3161870281929, "address": "群馬県太田市泉町" }, "geometry": { "type": "Point", "coordinates": [ 139.3161870281929, 36.265610525525133 ] } }
+,
+{ "type": "Feature", "id": 488, "properties": { "id": 4034537, "replace": 43000, "room": "1K", "lat": 36.382248888888888, "lng": 139.0916061111111, "address": "群馬県前橋市朝日町３丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.0916061111111, 36.382248888888888 ] } }
+,
+{ "type": "Feature", "id": 489, "properties": { "id": 5117952, "replace": 30000, "room": "1K", "lat": 36.406343888888891, "lng": 139.084515, "address": "群馬県前橋市下細井町" }, "geometry": { "type": "Point", "coordinates": [ 139.084515, 36.406343888888891 ] } }
+,
+{ "type": "Feature", "id": 490, "properties": { "id": 5254610, "replace": 45000, "room": "2LDK", "lat": 36.26535472222222, "lng": 139.10470805555556, "address": "群馬県藤岡市岡之郷" }, "geometry": { "type": "Point", "coordinates": [ 139.10470805555556, 36.26535472222222 ] } }
+,
+{ "type": "Feature", "id": 491, "properties": { "id": 4583900, "replace": 35000, "room": "1DK", "lat": 36.3660952778, "lng": 139.08735944399999, "address": "群馬県前橋市六供町" }, "geometry": { "type": "Point", "coordinates": [ 139.08735944399999, 36.3660952778 ] } }
+,
+{ "type": "Feature", "id": 492, "properties": { "id": 4035683, "replace": 52000, "room": "2SDK", "lat": 36.372343055555554, "lng": 139.09569, "address": "群馬県前橋市朝倉町１丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.09569, 36.372343055555554 ] } }
+,
+{ "type": "Feature", "id": 493, "properties": { "id": 4036339, "replace": 53000, "room": "2LDK", "lat": 36.396783888888891, "lng": 139.11901305555554, "address": "群馬県前橋市上泉町" }, "geometry": { "type": "Point", "coordinates": [ 139.11901305555554, 36.396783888888891 ] } }
+,
+{ "type": "Feature", "id": 494, "properties": { "id": 4025322, "replace": 42000, "room": "2LDK", "lat": 36.359158888888892, "lng": 139.04151333333334, "address": "群馬県高崎市新保田中町" }, "geometry": { "type": "Point", "coordinates": [ 139.04151333333334, 36.359158888888892 ] } }
+,
+{ "type": "Feature", "id": 495, "properties": { "id": 16608120, "replace": 52000, "room": "1R", "lat": 36.311358055555559, "lng": 139.03497, "address": "群馬県高崎市上中居町" }, "geometry": { "type": "Point", "coordinates": [ 139.03497, 36.311358055555559 ] } }
+,
+{ "type": "Feature", "id": 496, "properties": { "id": 12919839, "replace": 45000, "room": "3DK", "lat": 36.30201, "lng": 139.21253222199999, "address": "群馬県伊勢崎市茂呂町２丁目" }, "geometry": { "type": "Point", "coordinates": [ 139.21253222199999, 36.30201 ] } }
+,
+{ "type": "Feature", "id": 497, "properties": { "id": 14235775, "replace": 43000, "room": "1K", "lat": 36.322289166700003, "lng": 139.45083972200001, "address": "栃木県足利市田中町" }, "geometry": { "type": "Point", "coordinates": [ 139.45083972200001, 36.322289166700003 ] } }
+,
+{ "type": "Feature", "id": 498, "properties": { "id": 6070704, "replace": 50000, "room": "2DK", "lat": 36.32089527777778, "lng": 139.00838527777779, "address": "群馬県高崎市宮元町" }, "geometry": { "type": "Point", "coordinates": [ 139.00838527777779, 36.32089527777778 ] } }
+,
+{ "type": "Feature", "id": 499, "properties": { "id": 16173466, "replace": 44000, "room": "1K", "lat": 36.32382888888889, "lng": 139.17559972222222, "address": "群馬県伊勢崎市連取町" }, "geometry": { "type": "Point", "coordinates": [ 139.17559972222222, 36.32382888888889 ] } }
+,
+{ "type": "Feature", "id": 500, "properties": { "id": 4904301, "replace": 42000, "room": "2K", "lat": 36.36659, "lng": 139.04895472199999, "address": "群馬県前橋市箱田町" }, "geometry": { "type": "Point", "coordinates": [ 139.04895472199999, 36.36659 ] } }
+
+]
+}

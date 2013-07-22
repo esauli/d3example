@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+<head>
+<title>D3.js Plot Map</title>
+
+<style>
+	.tipsy {
+		font-size: 16px;
+	}
+</style>
+
+<style>
+ body {
+    background-color: black;
+    color:white;
+ }
+    
+ svg {
+  width:900px;
+  height: 700px;
+  
+ }
+ 
+ .axis path,
+ .axis line {
+ fill: none;
+  stroke:white;
+ }
+ .axis text {
+    fill: white;
+ }
+ 
+ .brush .extent {
+  stroke: #fff;
+  fill:#fff;
+  fill-opacity: 0.2;
+  shape-rendering: crispEdges;
+}
+</style>
+</head>
+
+
+<body>
+<h1>各都道府県の有効求人倍率と充足度</h1>
+<p>散布図の上でドラッグすると範囲を指定できます</p>
+<svg>
+    <g id="map"></g>
+    <g id="plot"></g>
+    
+</svg>
+data by <a href="http://www.e-stat.go.jp/SG1/estat/List.do?bid=000001046052&cycode=0">社会生活統計指標 </a>
+
+
+<script src="../../d3.v3.min.js"></script>
+<script src="../../topojson.v0.min.js"></script>
+<script src="../../d3helper.js"></script>
+<script>
+d3.json("todofuken.topojson", function(json) {
+  d3main(json);
+});
+
+
+function d3main(json){
+    var plotsize = 320;　//散布図の縦横サイズ
+    var baseColor = "#fef4f4"; //地図、circleのベースカラー
+  
+    //塗り分けカラーの設定    
+    var colorList = ["#ce6dbd", "#f7b6d2", "#8ca252", "#ff7f0e", "#de9ed6", "#d62728", "#e377c2", "#e7ba52", "#2ca02c", "#e377c2", "#f7b6d2", "#c7c7c7", "#ffbb78", "#e7cb94", "#dbdb8d", "#8c564b", "#b5cf6b", "#843c39", "#7b4173", "#aec7e8", "#ffbb78", "#8c564b", "#bd9e39", "#dbdb8d", "#c5b0d5", "#7f7f7f", "#9edae5", "#c49c94", "#c49c94", "#393b79", "#9467bd", "#5254a3", "#a55194", "#637939", "#17becf", "#cedb9c", "#1f77b4", "#1f77b4", "#9467bd", "#ff9896", "#ff7f0e", "#9c9ede", "#ad494a", "#ff9896", "#98df8a", "#17becf", "#7f7f7f", "#bcbd22", "#98df8a", "#bcbd22", "#c5b0d5", "#2ca02c", "#8c6d31", "#aec7e8", "#6b6ecf", "#d6616b", "#e7969c", "#c7c7c7", "#d62728", "#9edae5"];
+	
+	//カラースケール
+    var colorScale = d3.scale.ordinal().domain([1,47]).range(colorList); 
+  
+    //dataSetの準備
+    var geodata = topojson.object(json, json.objects.todofuken).geometries; //topojosnデータ
+    //var geodata = json.features; //geojsonを使う場合はこちら
+
+    //データセットの型変換  
+    geodata.forEach(function(d) {
+        d.properties.jobs_ratio = parseFloat(d.properties.jobs_ratio);
+        d.properties.fullness_rate = parseFloat(d.properties.fullness_rate);
+    });
+  
+    //有効求人倍率の最大値取得
+    var jobs_ratioMax = d3.max(geodata, function(d){
+        return d.properties.jobs_ratio;
+    });
+
+    //充足率の最大値取得  
+    var fullness_rateMax = d3.max(geodata, function(d){
+        return d.properties.fullness_rate;
+    });
+
+    //scale関数(正規化)生成  
+    var xScale = d3.scale.linear().domain([2, fullness_rateMax+1]).range([0, plotsize]);
+    var yScale = d3.scale.linear().domain([jobs_ratioMax+0.05,  0.2]).range([0, plotsize]);
+  
+    //axis関数(目盛り)の生成    
+    var xAxis = d3.svg.axis().scale(xScale).orient('bottom');
+    var yAxis = d3.svg.axis().scale(yScale).orient('left');
+
+
+    //地図投影法設定  
+    var projection = d3.geo
+        .mercator()		//投影法の指定
+        .scale(1500)	//スケール（ズーム）の指定
+        .translate([600,350]) //表示位置調整 x,y
+        .center([139.0032936, 36.3219088]); //中心の座標を指定
+
+    //geoデータ→svg path変換関数生成
+    var path = d3.geo.path().projection(projection);
+  
+    //表示ステージ
+    var svg = d3.select("svg");
+
+    //mapを作成するグループ
+    var mapGroup = svg.select('#map');
+  
+    //map表示
+    var map = mapGroup.append("svg:g")
+        .selectAll("path")
+        .data(geodata)
+        .enter()
+        .append("svg:path")
+        .attr('class', function(d){ return d.properties.ObjName } )
+        .attr({
+          "d": function(d){ return path(d)},
+          "fill": baseColor,
+          "fill-opacity": 1,
+          "stroke": "black"
+        })
+        .on('mouseover', function(){
+            d3.selectAll( "."+d3.select(this).attr('class') ) //マウスオーバーしたエリアと同じclass名の要素を選択
+            .attr("fill", "red");
+        })
+        .on('mouseout', function(){
+            d3.selectAll( "."+d3.select(this).attr('class') )
+            .attr("fill", baseColor); //バグあり　あとで直す
+        });
+    
+    
+    
+    //散布図を作成するグループ
+    var plotGroup = svg.select('#plot').attr("transform", "translate(" + [100, 10] + ")");
+
+        
+    /*
+     *circleより下のレイヤーにbrushを表示したいので先に作成する
+     *circleの上にbrushを表示すると、ツールチップを表示するイベントが取得できなくなるため。
+     */	 
+    //brashイベントのコールバック
+    var brushed = function() {
+        var select = brush.extent();
+        var rightBotom = select[0];
+        var leftTop = select[1];
+        circle.attr("fill", fillFnc);      
+        map.attr("fill",fillFnc);
+     
+        //選択範囲内を色塗り 
+        function fillFnc(d,i){
+            if(
+               d.properties.fullness_rate > rightBotom[0]
+               &&  d.properties.jobs_ratio > rightBotom[1]
+               && d.properties.fullness_rate < leftTop[0]
+               &&  d.properties.jobs_ratio < leftTop[1]
+               )  return colorScale(d.properties.jis);
+            return baseColor;
+        }
+    }	 
+	 
+    var brush = d3.svg.brush() //brushオブジェクト作成
+        .x(xScale) //x軸を選択可能範囲に指定
+        .y(yScale)
+        .on("brush", brushed);
+    
+    var brushFGroup = plotGroup.append("g") //brushグループを作成
+        .attr("class", "brush")
+        .call(brush) //brushオブジェクトをグループに適用
+        .selectAll("rect")
+        
+
+
+        
+    //circleを作成するグループ
+    var circlegroup = plotGroup.append('g');
+    
+    //circle表示
+    var circle = circlegroup.selectAll('circle')
+        .data(geodata)
+        .enter()
+        .append('circle')
+        .attr('class', function(d){ return "tipsy " + d.properties.ObjName } )
+        .attr({
+            r:5,
+            cx:function(d){ return  xScale( d.properties.fullness_rate )},
+            cy:function(d){ return yScale( d.properties.jobs_ratio )},
+            fill: baseColor
+        })
+     
+     //ツールチップを表示するためtitle要素を追加 
+    var tooltip = circle.append('title').text(function(d){ return d.properties.pref});  
+
+    
+     //x目盛軸表示
+    var xAxisLine = plotGroup.append("g") 
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + plotsize + ")")
+        .call(xAxis);
+    
+    //x目盛軸タイトル表示
+    var xAxisTitle = xAxisLine.append('text')
+        .attr({
+            y:40,
+            x:Math.floor(plotsize/2)-30
+        })
+        .text('充足率（％）')  
+    
+    //y目盛軸
+    var yAxisLine = plotGroup.append("g") 
+        .attr("class", "y axis")
+        .attr("transform", "translate(0," + 0 + ")")
+        .call(yAxis);
+    
+    //y目盛軸タイトル表示
+    var yAxisTitle = yAxisLine.append('text')
+        .attr({
+            "transform":'rotate(-90 -60, 0) translate(-240)' 
+        })
+        .text('有効求人倍率（％）')           
+     
+
+ 
+}
+</script>
+
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-27276322-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</body>
+</html>

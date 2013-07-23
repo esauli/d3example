@@ -1,0 +1,84 @@
+<html>
+<head>
+<meta charset="utf-8" />
+<title>D3 Chord graph</title>
+
+
+</head>
+<body>
+<h1>Chord graph</h1>
+<svg></svg>
+
+
+<script src="../d3.v3.min.js"></script>
+
+<script>
+var svg = d3.select("svg")
+
+//データセットの作成
+dataLength = 12; 
+var data= d3.range(dataLength).map(function() {
+  return d3.range(dataLength).map(function(){ return Math.floor(Math.random() *dataLength) })
+});
+//console.log(data);
+
+//カラースケール
+var color = d3.scale.category20();
+
+//chordジェネレータ生成
+var chord = d3.layout.chord()
+    .padding(0.1)//データ束間の隙間
+    .matrix(data);
+
+//chord全体
+var chordGroup = svg.append('g')
+    .attr("transform", "translate("+[400, 400]+")" );
+
+//外円
+chordGroup.selectAll("path.groups")
+    .data(chord.groups)
+    .enter().append("path")
+    .attr({
+	"fill": function(d) { return color(d.index); },
+	"stroke": function(d) { return color(d.index); },
+	"d": d3.svg.arc().innerRadius(350).outerRadius(400),
+    });
+ 
+
+//データ間のリンク
+chordGroup.selectAll("path.chord")
+    .data(chord.chords)
+    .enter().append("path")
+    .attr({
+	"fill": function(d) { return color(d.source.index); },
+	"d": d3.svg.chord().radius(400),
+	"opacity": 0.5
+    })
+    .on('mouseover', function(){
+	d3.select(this).attr({
+	    'fill': "red",
+	    "opacity": 1
+	});
+    })
+    .on('mouseout', function(){
+	d3.select(this).attr({
+	    'fill':  function(d) { return color(d.source.index); },
+	    "opacity": 0.5
+	});
+    });
+</script>
+
+
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-27276322-1']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+	var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+</body>
+</html>

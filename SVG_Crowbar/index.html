@@ -5,11 +5,22 @@
 <title>Tweets Wordcloud</title>
 
 <style>
-
+.bookmarklet {
+padding: 3px 8px;
+font-size: 12px;
+font-weight: bold;
+text-decoration: none;
+border-radius: 1em;
+background: #666;
+color: white;
+display: none;
+}
 </style>
 </head>
 <body>
-<h2>Tweets Wordcloud</h2>
+<h2>SvgClover Test</h2>
+<a class="bookmarklet" href="javascript:javascript: (function () { var e = document.createElement('script'); if (window.location.protocol === 'https:') { e.setAttribute('src', 'https://raw.github.com/NYTimes/svg-crowbar/gh-pages/svg-crowbar.js'); } else { e.setAttribute('src', 'http://nytimes.github.com/svg-crowbar/svg-crowbar.js'); } e.setAttribute('class', 'svg-crowbar'); document.body.appendChild(e); })();">Download</a>
+<br><br>
 <svg></svg>
 
 <script src="../d3.v3.min.js"></script>
@@ -44,7 +55,7 @@ d3.csv('ranking.csv', function(data){
 	 
 	d3.layout.cloud().size([w, h])
 		.words(words)
-		.rotate(function() { return Math.round(1-random()) *90; }) //ランダムに文字を90度回転
+		.rotate(function() { return Math.round(1-random()) *0; }) //ランダムに文字を90度回転
 		.font("Impact")
 		.fontSize(function(d) { return d.size; })
 		.on("end", draw) //描画関数の読み込み
@@ -64,7 +75,7 @@ d3.csv('ranking.csv', function(data){
 		.data(words)
 		.enter().append("text")
 		.style({
-			"font-family": "Impact",
+			"font-family": "monospace",
 			"font-size":function(d) { return d.size + "px"; },
 			"fill": function(d, i) { return colorScale(i); }
 		})
@@ -75,8 +86,11 @@ d3.csv('ranking.csv', function(data){
 			}
 		})
 		.text(function(d) { return d.text; });
+		
+		d3.select('.bookmarklet').style("display", "inline");
 	}
-	
+    
+
 });
 </script>
 

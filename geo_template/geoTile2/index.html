@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+<head>
+<title>D3.js  群馬県　画像</title>
+<style>
+svg {
+	width:1200px;
+	height: 1200px;
+}
+
+image {
+    margin: 0px;
+}
+</style>
+</head>
+<body>
+<h1>D3.js 群馬県　画像</h1>
+<svg></svg>
+
+
+
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/d3.geo.tile.v0.min.js"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+<script>
+d3.json("gunma.topojson", function(topology) {
+	d3main(topology);
+});
+
+
+function d3main(topology){
+
+	var svg = d3.select("svg");
+
+
+	var projection = d3.geo.mercator()
+		.center([ 139.0032936,36.3219088])
+		.scale(19000);
+
+	//パスジェネレーター
+	var path = d3.geo.path().projection(projection);
+
+	//参照用のdefs要素を追加
+	 var defs = svg.append("defs");
+
+	//defs要素内に日本地図のpathを記述
+	var land = defs.append("path")
+	.datum(topojson.feature(topology, topology.objects.gunma))
+	.attr({
+		"id": "land",
+		"d": path
+	});
+
+	//日本地図のパスをclipPathとして登録
+	var clipPath = defs.append("clipPath")
+	.attr("id", "clip")
+	.append("use")
+	.attr("xlink:href", "#land");
+	
+	
+	//タイル座標生成関数
+	 var tile  = d3.geo.tile()
+	.scale(projection.scale() * 2 * Math.PI)
+	.translate(projection([0, 0]))
+	.zoomDelta((window.devicePixelRatio || 1) - .5);
+
+	//タイル座標データ生成
+	var tiles = tile();
+
+
+	//ラスタタイルを追加するグーループを生成
+	var img  =    svg.append("g")
+	.attr({
+		"clip-path": "url(#clip)", //クリップパスを指定
+		"transform": "translate("+[0, 50]+")"
+	});
+
+	//ラスタタイルをimage要素として追加
+	img.selectAll("image")
+	.data(tiles) //タイル座標データを指定
+	.enter()
+	.append("image")
+	.attr({
+		"xlink:href": function(d){
+			//return "http://" + ["a", "b", "c", "d"][Math.random() * 4 | 0] + ".tiles.mapbox.com/v3/mapbox.natural-earth-2/" + d[2] + "/" + d[0] + "/" + d[1] + ".png";
+			return "http://s3.amazonaws.com/com.modestmaps.bluemarble/"+ d[2] +"-r"+ d[1] +"-c"+d[0] +".jpg"
+		},
+		"width": Math.round(tiles.scale),
+		"height": Math.round(tiles.scale),
+		"x": function(d) { return Math.round((d[0] + tiles.translate[0]) * tiles.scale); },
+		"y": function(d) { return Math.round((d[1] + tiles.translate[1]) * tiles.scale); }
+	});
+}
+
+</script>
+
+<script type="text/javascript">
+
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-27276322-1']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+</script>
+</body>
+</html>

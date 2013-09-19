@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+<head>
+<title>Japan Map</title>
+<style>
+ svg {
+  width:600px;
+  height: 600px;
+  border: 1px solid black;
+  
+ }
+</style>
+</head>
+
+
+<body>
+<h2>svg上でクリックされた座標の緯度経度を求める</h2>
+<div class="resllut">results:</div>
+<svg></svg>
+
+
+
+<script src="../../d3.v3.min.js"></script>
+<script src="../../topojson.v0.min.js"></script>
+<script src="../../d3helper.js"></script>
+<script> 
+d3.json("japan.topojson", function(json) {
+	d3main(json);
+});
+
+
+function d3main(json){
+
+
+	var geodata = topojson.object(json, json.objects.japan).geometries;
+	//var geodata = json.features;
+
+	projection = d3.geo
+		.mercator()		//投影法の指定
+		.scale(1500)	//スケール（ズーム）の指定
+		.translate([300,350])
+		.center([139.0032936, 36.3219088]); //中心の座標を指定
+
+	var path = d3.geo.path().projection(projection);　//投影
+
+	var svg = d3.select("svg");
+
+	var map =  svg.append("svg:g")
+		.selectAll("path")
+		.data(geodata)
+		.enter()
+		.append("svg:path")
+		.attr({
+			"d": D(path),
+			"fill": "green",
+			"fill-opacity": 0.5,
+			"stroke": "black"
+		});
+		
+		
+	d3.select("svg").on("mousedown.log", function() {
+		d3.select('.resllut').text("results:" + projection.invert(d3.mouse(this)));
+	});
+}
+</script>
+
+<script type="text/javascript">
+
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-27276322-1']);
+_gaq.push(['_trackPageview']);
+
+	(function() {
+	var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') +'.google-analytics.com/ga.js';
+	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+</script>
+</body>
+</html>

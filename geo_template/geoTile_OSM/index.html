@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>D3 & OpenStreet Map Template</title>
+<style>
+html, body, svg {
+    width:100%;
+    height:100%;
+}
+
+body {
+  margin: 0;
+}
+
+path {
+  fill: none;
+  stroke: red;
+  stroke-linejoin: round;
+  stroke-width: 1.5px;
+}
+
+</style>
+</head>
+<body>
+<svg></svg>
+
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/d3.geo.tile.v0.min.js"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+<script>
+(function(){
+var width = Math.max(960, window.innerWidth);
+var height = Math.max(500, window.innerHeight);
+
+//タイル座標取得ジェネレイター
+var tile = d3.geo.tile().size([width, height]);
+
+//ズームレベルの範囲
+var minZoomLevel = 14;
+var maxZoomLevel = 24;
+
+//投影法の設定
+var projection = d3.geo.mercator()
+    .scale((1 << minZoomLevel) / 2 / Math.PI) // 初期scale 2607.5945...
+    .translate([width / 2, height / 2]);
+
+ //初期表示座標
+var center = projection([139.3555791,34.7500396]);
+
+
+//svg要素の取得
+var svg = d3.select("svg")
+    .attr({
+	"width": width,
+	"height": height
+    });
+
+//地図画像用グループ
+var raster = svg.append("g");
+
+//zoom時に呼ばれるコールバック関数
+var zoomed = function() {
+    //タイル位置情報生成
+    var tiles = tile
+	.scale(zoom.scale())
+	.translate(zoom.translate())
+	(); // tile()、関数実行のため
+     
+    //タイル位置情報を束縛   
+    var image = raster
+	.attr("transform", "scale(" + tiles.scale + ")translate(" + tiles.translate + ")")
+	.selectAll("image").data(tiles, function(d) { return d; });
+
+    //必要なくなった地図画像を削除
+    image.exit().remove();
+    
+    //新たな地図画像を追加
+    image.enter().append("image")
+	.attr("xlink:href", function(d) {
+	    return "http://" + ["a", "b", "c"][Math.random() * 3 | 0] +
+	    ".tile.openstreetmap.org/" +
+	    d[2] + "/" + d[0] + "/" + d[1] + ".png";
+	})
+	.attr({
+	    "width": 1,
+	    "height": 1,
+	    "x": function(d) { return d[0]; },
+	    "y": function(d) { return d[1]; }
+	})
+
+}
+
+//ズームビヘイビア生成
+var zoom = d3.behavior.zoom()
+    .scale(projection.scale() * 2 * Math.PI)
+    .scaleExtent([1 << minZoomLevel, 1 << maxZoomLevel])
+    .translate([width - center[0], height - center[1]])
+    .on("zoom", zoomed);
+
+    //projectionを一応初期する
+    projection
+    .scale(1 / 2 / Math.PI)
+    .translate([0, 0]);
+
+    //ズームビヘイビアをsvg要素に束縛
+    svg.call(zoom);
+    zoomed(); //初回だけ実行
+
+})();
+</script>
+</body>
+</html>

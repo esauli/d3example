@@ -1,0 +1,112 @@
+<html>
+<head>
+<meta charset="utf-8" />
+<title>parallel coordinates example1</title>
+
+<style type="text/css">
+html, body { background: #f7f7f7; height: 100%; margin: 0; padding: 6; color: #111; font-family: Ubuntu, Helvetica, sans-serif; font-size: 12px; line-height: 1.35em;}
+a { color: #6be; text-decoration: none; }
+.row, .header, .cell { height: 18px; }
+.row, .header { clear: left; }
+.header { font-weight: bold; }
+.cell { float: left; overflow: hidden; white-space: nowrap; width: 100px; }
+.col-0 { width: 180px; }
+
+#grid { height: 198px; margin-left: 100px; width:1100px}
+.row, .header { clear: left; font-size: 12px; line-height: 18px; height: 18px; }0
+
+.row:hover{
+color:red;
+text-decoration:underline;
+}
+
+.row:nth-child(odd) { background: rgba(0,0,0,0.05); }
+.header { font-weight: bold; }
+.cell { float: left; overflow: hidden; white-space: nowrap; width: 100px; height: 18px; }
+.col-0 { width: 180px; }
+
+</style>
+
+</head>
+<body>
+<h2>parallel coordinates</h2>
+<p>各項目の縦軸(目盛)上をドラッグすると表示範囲の絞り込みができます。データセットは毎回ランダムに生成されます。</p>
+
+
+
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="../divgrid.js"></script>
+<script src="../d3.parcoords.js"></script>
+<link rel="stylesheet" type="text/css" href="../d3.parcoords.css">
+<div id="example" class="parcoords" style="width:360px;height:150px"></div>
+<br>
+<div id="grid"></div>
+
+<script>
+(function(){
+
+//ランダムデータセット生成
+var dataSet = d3.range(180).map(function() {
+    return {
+	  '年齢': 19 + ~~(Math.random() * 30),
+	  '家族':  ~~(Math.random() * 2) + ~~(Math.random() * 2)+ ~~(Math.random() * 3),
+	  '身長':160 +  ~~(Math.random() * 30),
+	  '体重':40 + ~~(Math.random() * 50),
+	  'BMI(％)': 7 + ~~(Math.random() * 10) + ~~(Math.random() * 10)+ ~~(Math.random() * 10)+ ~~(Math.random() * 10),
+	  '年収(万円)':300 +  ~~(Math.random() * 600)
+      };
+});
+
+
+//パラレルコーディネート用ステージ
+var example = d3.select('#example')
+    .style({
+	width:1200,
+	height:400
+    });
+
+// カラースケール
+var blue_to_brown = d3.scale.linear()
+    .domain([300, 799,800, 900])
+    .range(['blue', 'blue', 'red', 'red'])
+    .interpolate(d3.interpolateLab);
+
+//パラレルコーディネート生成
+var pc = d3.parcoords()('#example')
+    .data(dataSet)
+    .color(function(d) { return blue_to_brown(d['年収(万円)']); })
+    .alpha(0.4)
+    .composite('lighter')
+    .render()
+    .ticks(3) 
+    .createAxes()
+    .brushable(); //絞り込み可能にする
+
+//データテーブル作成
+var grid = d3.divgrid();
+d3.select('#grid')
+  .datum(dataSet.slice(0,10)) //表示件数の指定
+  .call(grid)
+  .selectAll('.row')
+  .on({
+      'mouseover': function(d) { pc.highlight([d]) },
+      'mouseout': pc.unhighlight
+  });
+    
+// データテーブルの更新
+pc.on('brush', function(d) {
+  d3.select('#grid')
+    .datum(d.slice(0,10))
+    .call(grid)
+    .selectAll('.row')
+    .on({
+	'mouseover': function(d) { pc.highlight([d]) },
+	'mouseout': pc.unhighlight
+    });
+});    
+
+})();
+
+</script>
+</body>
+</html>

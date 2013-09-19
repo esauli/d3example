@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Zoomable Treemap</title>
+<style>
+div#wrap {
+  display: block;
+  margin: auto;
+  margin-top: 40px;
+  width: 1480px;
+  height: 800px;
+}
+
+
+svg {
+    border: 1px solid #aaa;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+text {
+    font-size: 12px;
+    fill:white;
+}
+
+rect {
+  fill: none;
+}
+
+ 
+li {
+    list-style-type:none
+}
+
+</style>
+<div id="wrap">
+<svg></svg>
+<ul id="list">
+
+</ul>
+</div>
+
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script>
+
+var w = 1480 - 80,
+    h = 800 - 180,
+    xScale = d3.scale.linear().range([0, w]),
+    yScale = d3.scale.linear().range([0, h]),
+    color = d3.scale.category20c(),
+    root,
+    node;
+
+var treemap = d3.layout.treemap()
+    .round(false)
+    .size([w, h])
+    .sticky(true)
+    .value(function(d) { return d.value; });
+
+var svg = d3.select("svg")
+    .attr("width", w)
+    .attr("height", h)
+  .append("svg:g")
+    .attr("transform", "translate(.5,.5)");
+
+d3.json("budget.json", function(data) {
+  node = root = data;
+  
+  var list = d3.select('#list').selectAll('li')
+  .data(root.children)
+  .enter()
+  .append('li')
+  .text(function(d){ return d.name })
+  .style("color", function(d){ return d.color })
+
+  var nodes = treemap.nodes(root)
+      .filter(function(d) { return !d.children; });
+
+  var cell = svg.selectAll("g")
+      .data(nodes)
+    .enter().append("svg:g")
+      .attr("class", "cell")
+      .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
+      .on("click", function(d) { return zoom(node == d.parent ? root : d.parent); });
+
+  cell.append("svg:rect")
+      .attr("width", function(d) { return d.dx - 1; })
+      .attr("height", function(d) { return d.dy - 1; })
+      .attr('rx', 2)
+      .attr('ry', 2)      
+      .style("fill", function(d) { return d.parent.color; })
+      .append('title')
+      .text(function(d){ return d.name + "/" + (d.value*1000)/10000 + "(万円)"});
+
+  cell.append("svg:text")
+      .attr("x", function(d) { return d.dx / 2; })
+      .attr("y", function(d) { return d.dy / 2; })
+      .attr("dy", ".35em")
+      .attr('class', 'label')
+      .attr("text-anchor", "middle")
+      .text(function(d) { return d.name; })
+      .style("opacity", function(d) { d.w = this.getComputedTextLength(); return d.dx > d.w ? 1 : 0; })
+      .append('title')
+    .text(function(d){ return d.name + "/" + (d.value*1000)/10000 + "(万円)"});
+
+
+      
+  d3.select(window).on("click", function() { zoom(root); });
+
+});
+
+
+function zoom(obj) {
+
+  var kx = w / obj.dx, ky = h / obj.dy;
+  xScale.domain([obj.x, obj.x + obj.dx]);
+  yScale.domain([obj.y, obj.y + obj.dy]);
+
+  var t = svg.selectAll("g.cell").transition()
+      .duration(d3.event.altKey ? 7500 : 750)
+      .attr("transform", function(d) { return "translate(" + xScale(d.x) + "," + yScale(d.y) + ")"; });
+
+  t.select("rect")
+      .attr("width", function(d) { return kx * d.dx - 1; })
+      .attr("height", function(d) { return ky * d.dy - 1; })
+
+  t.select(".label")
+      .attr("x", function(d) { return kx * d.dx / 2; })
+      .attr("y", function(d) { return ky * d.dy / 2; })
+      .style("opacity", function(d) {
+	d.w = this.getComputedTextLength(); 
+	return (d.dx > d.w  || obj.name !='root') ? 1 : 0;
+    });
+
+
+
+  node = obj;
+  d3.event.stopPropagation();
+}
+
+</script>

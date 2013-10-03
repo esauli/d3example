@@ -58,7 +58,7 @@ function d3main(json){
 			"stroke": "black"
 		});
 		
-		
+	//クリックした位置の緯度経度を取得	
 	d3.select("svg").on("mousedown.log", function() {
 		d3.select('.resllut').text("results:" + projection.invert(d3.mouse(this)));
 	});

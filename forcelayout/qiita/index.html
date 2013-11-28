@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Qiita Graph</title>
+<script src="d3.v3.min.js"></script>
+<style>
+path {
+  fill: none;
+  stroke: blue;
+  stroke-width: 3px;
+    stroke-opacity: .5;
+}
+
+marker#licensing {
+  fill: blue;
+}
+
+text.shadow {
+  stroke: #fff;
+  stroke-width: 2px;
+  stroke-opacity: .8;
+}
+</style>
+
+</head>
+<body>
+<svg>
+<clipPath id="cut-off-circle">
+  <circle cx=0 cy=0 r=15 />
+</clipPath>    
+<defs>
+    <marker id="suit" viewBox="0 -5 10 10" refX="15" refY="-1.5" markerWidth="6" markerHeight="6" orient="auto">
+	<path d="M0,-5L10,0L0,5"></path>
+    </marker>
+    <marker id="licensing" viewBox="0 -5 10 10" refX="15" refY="-1.5" markerWidth="6" markerHeight="6" orient="auto">
+	<path d="M0,-5L10,0L0,5"></path>
+    </marker>
+    <marker id="resolved" viewBox="0 -5 10 10" refX="15" refY="-1.5" markerWidth="6" markerHeight="6" orient="auto">
+	<path d="M0,-5L10,0L0,5"></path>
+    </marker>
+</defs>
+</svg>
+
+<script>    
+d3.json('links.json', function(d){
+	var links = d;
+	var nodes = {};
+
+	links.forEach(function(link) {  
+		link.source = nodes[link.node1] || (nodes[link.node1] = {name: link.node1});
+		link.target = nodes[link.node2] || (nodes[link.node2] = {name: link.node2, pref: link.node2_prf});
+	});
+
+	nodes['_shimizu']['pref'] = {url_name: "_shimizu", profile_image_url:"https://si0.twimg.com/profile_images/604833171/twitter_bigger_normal.jpg"};
+
+	var graph = {nodes:nodes, links:links};
+
+	d3draw(graph);
+});
+
+
+function d3draw(graph) {
+
+	var w = 1200;
+	var h = 1200;
+
+	var force = d3.layout.force()
+		.nodes(d3.values(graph.nodes))
+		.links(graph.links)
+		.size([w, h])
+		.gravity(0)
+		.linkDistance(300)
+		.linkStrength(1)
+		.charge(-50)
+		.on("tick", tick)
+		.start();
+
+	var svg = d3.select("svg")
+		.attr({
+			"width": w,
+			"height": h
+		});
+
+	//フォロー状態を示すpathを追加
+	var path = svg.append("g").selectAll("path")
+		.data(force.links())
+		.enter()
+		.append("path")
+		.attr({
+			"class": "link licensing",
+			"marker-end": "url(#licensing)"
+		});
+
+	//ユーザーイメージ追加
+	var userImg = svg.append("g").selectAll("a")
+		.data(force.nodes())
+		.enter()
+		.append("a")
+		.attr({
+			"xlink:href": function(d){ return "http://qiita.com/" + d.pref.url_name },
+			"target":"_blank"
+		})
+		.append("image")
+		.attr({
+			"class": "userImg",
+			"xlink:href": function(d){ return d.pref.profile_image_url }, //ノード用画像の設定
+			"x": "-15px",
+			"y": "-15px",
+			"width": "30px",
+			"height": "30px",
+			"clip-path": "url(#cut-off-circle)"
+		})
+		.call(force.drag);
+
+	//ユーザー名ラベル追加
+	var label = svg.append("g").selectAll("g")
+		.data(force.nodes())
+		.enter()
+		.append("g");
+
+	label.append("text") //ラベル縁取り
+		.attr({
+			"x": 8,
+			"y": ".51em",
+			"class": "shadow"
+		})
+		.text(function(d) {  return d.name; });
+
+		label.append("text") //ラベル本文
+		.attr({
+			"x": 8,
+			"y": ".51em"
+		})
+		.text(function(d) { return d.name; });
+
+	//アニメーション処理
+	function tick() {
+		path.attr("d", function(d) {
+			var dx = d.target.x - d.source.x;
+			var dy = d.target.y - d.source.y;
+			var dr =  Math.sqrt(dy* dy+ dx*dx);
+			return "M" + d.source.x + "," + d.source.y + "A" + dr + "," + dr + " 0 0,1 " + d.target.x + "," + d.target.y;
+		});
+
+		userImg.attr("transform", function(d) {
+			return "translate(" + d.x + "," + d.y + ")";
+		});
+
+		label.attr("transform", function(d) {
+			return "translate(" + d.x + "," + d.y + ")";
+		});
+	}
+
+}
+</script>
+</body>
+</html>

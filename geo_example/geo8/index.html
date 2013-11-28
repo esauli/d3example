@@ -92,8 +92,8 @@ function d3main(json){
     });
 
     //scale関数(正規化)生成  
-    var xScale = d3.scale.linear().domain([2, fullness_rateMax+1]).range([0, plotsize]);
-    var yScale = d3.scale.linear().domain([jobs_ratioMax+0.05,  0.2]).range([0, plotsize]);
+    var xScale = d3.scale.linear().domain([0, fullness_rateMax+1]).range([0, plotsize]);
+    var yScale = d3.scale.linear().domain([jobs_ratioMax+0.05,  0]).range([0, plotsize]);
   
     //axis関数(目盛り)の生成    
     var xAxis = d3.svg.axis().scale(xScale).orient('bottom');

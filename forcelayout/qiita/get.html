@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Qiita Graph</title>
+<script src="d3.v3.min.js"></script>
+<style>
+path.link {
+  fill: none;
+  stroke: blue;
+  stroke-width: 3px;
+}
+
+marker#licensing {
+  fill: blue;
+}
+
+text.shadow {
+  stroke: #fff;
+  stroke-width: 3px;
+  stroke-opacity: .8;
+}
+</style>
+
+</head>
+<body>
+
+
+<script>
+var api_url = "https://qiita.com/api/v1/users/{target_name}/following_users";
+//var api_url = "https://s3-us-west-2.amazonaws.com/s.cdpn.io/1779/following_users.json";
+var flag = false;
+
+var nodes = [{url_name: "_shimizu", profile_image_url:"https://si0.twimg.com/profile_images/604833171/twitter_bigger_normal.jpg"}];
+var links = [];
+getFollower('_shimizu', 0);
+
+
+function getFollower(target_name, depth){
+  if(depth > 1) return ;
+  target_url = api_url.replace('{target_name}', target_name);
+  d3.json(target_url, function(data){
+    data.forEach(function(d){
+      links.push({node1:target_name, node2:d.url_name , node2_prf:{url_name:d.url_name, profile_image_url: d.profile_image_url} });
+      getFollower(d.url_name, depth+1);
+    });
+  }); 
+}
+
+
+
+function output(){
+  var nodeID = {}; //idの位置(配列のindex)を保存する
+  for(var i=0; i < nodes.length; i++){
+    var url_name = nodes[i].url_name;
+    nodeID[url_name] = i; 
+  }
+  
+  
+  
+  
+  
+  var jsonData = JSON.stringify(links);
+  //console.log(jsonData);   
+  d3.select('body').append('textarea')
+  .attr({
+    cols:50,
+    rows:25
+  })
+  .text(jsonData);
+  
+  
+}
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

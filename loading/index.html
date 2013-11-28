@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8" http-equiv="Content-Language" content="ja" />
+<title></title>
+</head>
+
+<body>
+<div id="info"></div>
+<div id="outputData"></div>
+
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script>
+/*
+d3.json('test.json', function(json){
+    d3.csv('test1.csv', function(csv1){
+        d3.csv('test2.csv', function(csv2){
+            d3.csv('test3.csv', function(csv3){
+                d3main2(json, csv1, csv2, csv3);
+            });
+        });        
+    });
+});
+
+function d3main2(){
+    var data = Array.prototype.slice.call(arguments);
+    console.log(data);
+}    
+*/    
+    
+;(function(){
+    loadDataSet(
+        ['test.json','test1.csv', 'test2.csv', 'test3.csv'],
+        function(){
+            document.getElementById('info').innerHTML = 'Now Loading……';
+        },function(data){
+            document.getElementById('info').innerHTML = 'Success!';
+            d3main(data);
+        }
+    )
+    
+    function d3main(data){
+        document.getElementById('outputData').innerHTML = JSON.stringify(data);
+    }
+    
+    
+    function loadDataSet(){
+        var urlArray = arguments[0] ;
+        var callback = arguments[arguments.length-1]
+        if(!Array.isArray(urlArray)) throw 'TypeError: arg1 is not a array!';
+        if(typeof callback != "function")  throw 'TypeError: callback is not a function!';
+        if(arguments.length > 2){
+            var workinFnArray = Array.prototype.slice.apply(arguments, [1, arguments.length-1]);
+        }
+        
+        var dataStack = [];
+        var fnStack = [];
+        
+        var chain = function(functions) {
+          return functions.reduceRight(function (next, curr) {
+            return function () {
+                if(workinFnArray) workinFnArray.forEach(function(fn){ fn(next); });
+              curr.apply({next: next}, arguments);
+            }
+          });
+        }
+        
+        urlArray.forEach(function(url){
+            fnStack.push(
+                function() {
+                    var that = this;
+                    var exte = url.split('.')[url.split('.').length-1];
+                    var readfile;
+                    switch(exte){
+                        case 'json': case 'geojson': case 'topojson':
+                            readfile = d3.json;
+                        break;
+                        case 'csv':
+                            readfile = d3.csv;
+                        break;
+                        default:
+                            throw 'TypeError: '+ exte +' is not supported';
+                        break;                        
+                    }
+                    
+                    return readfile(url,  function(data){
+                        dataStack.push(data);
+                        that.next();
+                    });
+                }
+            )
+        });
+        
+        fnStack.push(function(){    
+            callback(dataStack);
+        });
+        chain(fnStack)(); 
+        
+    }
+})();
+
+
+
+</script>
+
+</body>
+</html>

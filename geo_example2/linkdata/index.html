@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+<head>
+<title>オープンデータ都市地図</title>
+<style>
+svg {
+    position: absolute;
+    width:1200px;
+    height: 1200px;
+    top: 0;
+    left: 0;
+    z-index: 0;
+}
+
+#info {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index:999;
+    margin-left: 20px;
+}
+#info > a {
+    margin-left: 6px;
+    font-size: 0.8em;
+}
+</style>
+</head>
+
+<body>
+    <svg></svg>
+<div id="info">
+<h1>日本のオープンデータ都市地図</h1>
+<p>オープンデータを公開している自治体に色を塗ってます。<br>ダブルクリックで拡大orデータ公開サイトへ飛びます<p>
+<p>緑：県 赤：市町村</p>
+<a href="http://linkdata.org/work/rdf1s127i">LinkData:日本のオープンデータ都市一覧</a>
+<br>
+<a href="http://www.esrij.com/products/data/japan-shp/">ESRIジャパン:全国市区町村界データ</a>
+</div>
+
+
+
+
+<script src="../../d3.v3.min.js"></script>
+<script src="../../topojson.v0.min.js"></script>
+<script> 
+d3.json("japan.geojson", function(json) {
+	d3main(json);
+});
+
+
+function d3main(json){
+
+
+	//var geodata = topojson.object(json, json.objects.japan).geometries;
+	var geodata = json.features;
+	
+	 var scale = 2400;
+
+	projection = d3.geo
+	    .mercator()		//投影法の指定
+	    .scale(scale)	//スケール（ズーム）の指定
+	    .translate([500,550])
+	    .center([139.0032936, 36.3219088]); //中心の座標を指定
+
+	var path = d3.geo.path().projection(projection);　
+
+	var svg = d3.select("svg");
+
+	var map =  svg.append("svg:g")
+	    .selectAll("path")
+	    .data(geodata)
+	    .enter()
+	    .append("a")
+	    .attr({"class": function(d){ return d.properties.KEN+" "+d.properties.SIKUCHOSON}})
+	    .append("svg:path")
+	    .attr({
+		"class": function(d){ return d.properties.KEN+" "+d.properties.SIKUCHOSON},
+		"d": path,
+		"fill": "white",
+		"fill-opacity": 0.5,
+		"stroke": "#999"
+	    })
+	    
+	    map.append("title")	    
+		.text(function(d){ return d.properties.KEN+"　"+d.properties.SIKUCHOSON + "\n"});
+
+	//ズームイベント設定    
+	var zoom = d3.behavior.zoom().on('zoom', function(){
+	   if(d3.select(this).attr("fill")!=="white") return;
+	   projection.scale(scale * d3.event.scale);       
+	   map.attr('d', path)       
+	});
+	map.call(zoom);	    
+
+	//ドラッグイベント設定
+	drag = d3.behavior.drag().on('drag', function(){
+	   var tl = projection.translate();
+	   projection.translate([tl[0] + d3.event.dx, tl[1] + d3.event.dy]);
+	   map.attr('d', path);
+	});
+	svg.call(drag);
+
+	//「日本のオープンデータ都市一覧」データ取得
+	jsonp("http://linkdata.org/api/1/rdf1s127i/OPENDATA_Japan_rdf.json", function(){
+	    var linkdata = Array.prototype.slice.call(arguments);
+	    var dataSet = parseLD(linkdata);
+	    dataSet.forEach(function(d){
+		var addr = d.label.toString().match(/(.*[都|道|府|県])(.*)/);
+		if(addr[2]){
+		    d3.select("a."+addr[2])
+			.attr({
+			    "xlink:href": d.source,
+			    "target":"_blank"
+			});
+		    d3.select("path."+addr[2]).attr("fill", "red");
+		    d3.select("path."+addr[2]+" > title").append("tspan").text(d.description);
+		}else if(addr[1]){
+		    d3.selectAll("a."+addr[1])
+			.attr({
+			    "xlink:href": d.source,
+			    "target":"_blank"
+			});
+		    d3.selectAll("path."+addr[1]+" > title").append("tspan").text(d.description);
+		    d3.selectAll("path."+addr[1]).attr("fill", "green");
+		}
+	    })
+	})
+}
+
+
+//linkdataから取得したデータを使いやすいようにパース  
+function parseLD(linkdata){
+    var dataSet = [];
+    for(key in linkdata[0]){
+        var tmp = {};
+        tmp['source'] = key;
+        for(ckey in linkdata[0][key]){
+            var i = ckey.split("/")
+            i = i[i.length-1].split("#");
+            tmp[i[i.length-1]] = linkdata[0][key][ckey][0]['value'];
+        }
+        dataSet.push(tmp);
+    }
+    
+    return dataSet;  
+}
+
+//jsonp読み込み
+function jsonp(url, cb) {
+    var script = document.createElement('script');
+    script.async = true;
+    var callb = 'exec'+Math.floor((Math.random()*65535)+1);
+    window[callb] = function(data) {
+        var scr = document.getElementById(callb);
+        scr.parentNode.removeChild(scr);
+        cb(data);
+        window[callb] = null;
+        delete window[callb];
+    }
+    var sepchar = (url.indexOf('?') > -1)?'&':'?';
+    script.src = url+sepchar+'callback='+callb;
+    script.id = callb;
+    document.getElementsByTagName('head')[0].appendChild(script);
+}
+</script>
+
+<script type="text/javascript">
+
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-27276322-1']);
+_gaq.push(['_trackPageview']);
+
+	(function() {
+	var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') +'.google-analytics.com/ga.js';
+	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+</script>
+</body>
+</html>

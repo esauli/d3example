@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Link DATA  parse</title>
+<script src="d3.v3.min.js"></script>
+<script src="d3.jsonp.js"></script>
+<style>
+pre {
+    outline: 1px solid #ccc;
+    padding: 5px;
+    margin: 5px;
+    height: 300px;
+    overflow: auto;
+}
+.string { color: green; }
+.number { color: darkorange; }
+.boolean { color: blue; }
+.null { color: magenta; }
+.key { color: red; }
+
+#LinkDataJSONP {
+    width: 400px;
+}
+
+div.overlay {
+    display:        table;
+    position:       fixed;
+    top:            0;
+    left:           0;
+    width:          100%;
+    height:         100%;
+    z-index: 9999;
+    filter: alpha(opacity=80);
+    -moz-opacity:0.80;
+    opacity:0.80;
+  }
+div.overlay > div {
+    display:        table-cell;
+    width:          100%;
+    height:         100%;
+    color:          white;
+    background:     black;
+    text-align:     center;
+    vertical-align: middle;
+}
+
+
+</style>
+</head>
+<body>
+<h2><a href="http://linkdata.org/">Link DATA</a>  parse</h2>
+RDF/JSON:<input id="LinkDataJSONP" type="text" value="http://linkdata.org/api/1/rdf1s127i/OPENDATA_Japan_rdf.json" />
+<button id="getBtn" />get</button>
+<p>before</P>
+<pre id="before"></pre>
+<p>after</P>
+<pre id="after"></pre>
+<div class="overlay"><div>Loading...</div></div>
+
+
+<script>
+getLinkdata();  
+    
+d3.select("#getBtn").on('click', function(){
+    getLinkdata();  
+
+});
+    
+function getLinkdata() {
+    d3.select('.overlay').transition().style({opacity: 0.8, display: "table"});
+    var url = d3.select('#LinkDataJSONP').property("value");
+    jsonp(url, function() {
+        var linkdata = Array.prototype.slice.call(arguments);
+        var dataSet = parseLD(linkdata);
+      
+        d3.select("#before").html(syntaxHighlight( JSON.stringify(linkdata, undefined, 4) ) );
+        d3.select("#after").html(syntaxHighlight( JSON.stringify(dataSet, undefined, 4) ) );        
+        d3.select('.overlay').transition().style({opacity: 0, display: "none"});
+    });
+}
+    
+    
+function parseLD(linkdata){
+    var dataSet = [];
+    for(key in linkdata[0]){
+        var tmp = {};
+        tmp['source'] = key;
+        for(ckey in linkdata[0][key]){
+            var i = ckey.split("/")
+            i = i[i.length-1].split("#");
+            tmp[i[i.length-1]] = linkdata[0][key][ckey][0]['value'];
+        }
+        dataSet.push(tmp);
+    }
+    
+    return dataSet;  
+}
+
+function syntaxHighlight(json) {
+    if (typeof json != 'string') {
+         json = JSON.stringify(json, undefined, 2);
+    }
+    json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+        var cls = 'number';
+        if (/^"/.test(match)) {
+            if (/:$/.test(match)) {
+                cls = 'key';
+            } else {
+                cls = 'string';
+            }
+        } else if (/true|false/.test(match)) {
+            cls = 'boolean';
+        } else if (/null/.test(match)) {
+            cls = 'null';
+        }
+        return '<span class="' + cls + '">' + match + '</span>';
+    });
+}
+
+function jsonp(url, cb) {
+    var script = document.createElement('script');
+    script.async = true;
+    var callb = 'exec'+Math.floor((Math.random()*65535)+1);
+    window[callb] = function(data) {
+        var scr = document.getElementById(callb);
+        scr.parentNode.removeChild(scr);
+        cb(data);
+        window[callb] = null;
+        delete window[callb];
+    }
+    var sepchar = (url.indexOf('?') > -1)?'&':'?';
+    script.src = url+sepchar+'callback='+callb;
+    script.id = callb;
+    document.getElementsByTagName('head')[0].appendChild(script);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Facebook 「いいね！」グラフ</title>
+<script src="d3.v3.min.js"></script>
+<style>
+html, body {
+    font-family: "メイリオ","Meiryo","ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro","ＭＳ Ｐゴシック",'MS P Gothic','Trebuchet MS',Osaka,verdana,arial,clean,sans-serif;
+}
+    
+.node text {
+    pointer-events: none;
+    font-family: "メイリオ","Meiryo","ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro","ＭＳ Ｐゴシック",'MS P Gothic','Trebuchet MS',Osaka,verdana,arial,clean,sans-serif;
+    font-siz: 10px ;
+}
+
+svg {
+    position: absolute;
+    width:2000px;
+    height: 2000px;
+    top: 0;
+    left: 0;
+    z-index: 0;
+}
+
+#info {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index:999;
+    margin-left: 20px;
+}
+#info > a {
+    margin-left: 6px;
+    font-size: 0.8em;
+}
+
+
+div.overlay {
+    display:        table;
+    position:       fixed;
+    top:            0;
+    left:           0;
+    width:          100%;
+    height:         100%;
+    z-index: 9999;
+    filter: alpha(opacity=80);
+    -moz-opacity:0.80;
+    opacity:0.80;
+  }
+div.overlay > div {
+    display:        table-cell;
+    width:          100%;
+    height:         100%;
+    color:          white;
+    background:     black;
+    text-align:     center;
+    vertical-align: middle;
+}
+
+
+</style>
+
+</head>
+<body>
+
+
+<div id="info">
+<h1>Facebook 「いいね！」グラフ</h1>
+<p>赤：ユーザー 青：Facebookページなど</p>
+</div>
+
+<svg></svg>
+
+<script>
+/*
+d3.csv('nodes.csv', function(nodes){
+    d3.csv('links.csv', function(links){
+	d3main(nodes, links);
+    });
+});
+*/
+
+d3.json('data.json', function(json){
+    d3main(json);	    
+})
+
+function d3main(json){
+    /*
+    var nodeNumber = {};    
+    for(var i=0; i < nodes.length; i++){
+	var index = nodes[i].id;
+	nodeNumber[index] = i; 
+    }
+
+    for(var i=0; i < links.length; i++){
+	links[i]['source'] = nodeNumber[links[i]['node1']];
+	links[i]['target'] = nodeNumber[links[i]['node2']];
+    }
+    */
+    
+    graph = json; //{'nodes': nodes, 'links': links };
+
+      
+    var svg = d3.select('svg');
+    
+    var force = d3.layout.force()
+	.gravity(0.1)
+	.charge(-30)
+	.friction(0.95)
+	.linkDistance(20)
+	.linkStrength(1)
+	.size([1800, 1800])	
+	.nodes(graph.nodes)
+	.links(graph.links)
+	.start();	
+
+
+    var link = svg.selectAll(".link")
+	.data(graph.links)
+	.enter()
+	.append("line")
+	.attr({
+	    "class": function(d){ return "link l" + d.node2},
+	    "stroke-width": 0.5,
+	    "stroke": "#ccc",
+	    "fill": "none"
+	});
+    
+    var node = svg.selectAll(".node")
+	.data(graph.nodes)
+	.enter()
+	.append("g")
+	.attr("class", "node")
+	.attr("id", function(d){ return d.id })
+	.on('click', function(){
+	    console.log(d3.select(this).attr("id"));
+            d3.selectAll(".link").attr("stroke", "#ccc")
+	    var id = d3.select(this).attr('id');
+            d3.selectAll(".l"+id).attr("stroke", "red")
+ 
+        })
+	.on("mouseup", function(){
+		force.stop();
+        })
+	.call(force.drag);
+
+    node.append("circle")
+        .attr({
+	    "r": 6,
+	    "fill": function(d){
+		if(d.node_category == "user") return "red";
+		return "steelblue";
+	    } ,
+	    "stroke": "#fff",
+	    "stroke-width": 1.5,
+	})
+	.append('title')
+	.text(function(d) { return d.name });
+
+    
+    node.append("text")
+	.attr("dx", 12)
+	.attr("dy", ".35em")
+	.text(function(d) {
+	    if(d.node_category != "user") return null;
+	    return d.name
+	});
+ 
+
+    force.on("tick", draw);
+    
+    function draw(){
+	node.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+	link.attr({
+	    x1: function(d) { return d.source.x; },
+	    y1: function(d) { return d.source.y; },
+	    x2: function(d) { return d.target.x; },
+	    y2: function(d) { return d.target.y; }
+	});	
+    }
+
+function flatten(root) { // <-A
+var nodes = [];
+function traverse(node, depth) {
+if (node.children) {
+node.children.forEach(function(child) {
+child.parent = node;
+traverse(child, depth + 1);
+});
+}
+node.depth = depth;
+nodes.push(node);
+}
+traverse(root, 1);
+return nodes;
+}   
+    
+}
+
+
+</script>
+</body>
+</html>

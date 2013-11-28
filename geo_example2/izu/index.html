@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>大島町 土砂災害危険箇所MAP</title>
+<style type="text/css">
+#map {
+	width: 800px;
+	height: 800px;
+}
+
+.SvgOverlay {
+	position: relative;
+	width: 800px;
+	height: 800px;           
+}
+
+.SvgOverlay svg {
+	position: absolute;
+	top: -4000px;
+	left: -4000px;
+	width: 8000px;
+	height: 8000px;        
+}
+
+.SvgOverlay path {
+	stroke: black;
+	stroke-width: 1px;
+	fill-opacity: .6;
+}
+
+path:hover{
+	fill:blue;
+	
+}
+
+</style>
+</head>
+<body>
+<h2>大島町 土砂災害危険箇所MAP</h2>
+<p>
+データ元：<br>
+<a href="http://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A26.html">国土数値情報　土砂災害危険箇所データ(平成22年版)</a><br>
+<a href="http://www.google.org/intl/ja/crisisresponse/howwerespond.html">Google</a>
+</p>
+
+<p>
+赤い部分が土砂災害危険個所です。
+</p>
+<div id="map"></div>
+by <a href="https://twitter.com/_shimizu">@_shimizu</a>
+※IE ver.8以下だと正しく表示されません。
+<br>
+
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/topojson.v0.min.js"></script>
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false&libraries=weather"></script>
+<script type="text/javascript">
+d3.json("landslide.geojson", function(error, json) {
+	main(json);
+})
+
+
+function main(json) {
+	var SedimentDisastersProneAreaCd = {
+		1:"土石流危険渓流",
+		2:"土石流危険区域",
+		3:"土石流危険渓流主流路",
+		4:"土石流危険渓流氾濫開始点",
+		5:"急傾斜地崩壊危険箇所",
+		6:"急傾斜地崩壊危険区域",
+		7:"地すべり危険箇所",
+		8:"地すべり危険区域",
+		9:"地すべり氾濫区域",
+		10:"地すべり湛水域",
+		11:"雪崩危険箇所"		
+	}
+	
+	
+	//Google Map 初期化
+	var map = new google.maps.Map(document.getElementById('map'), {
+			zoom:13,
+			mapTypeId: google.maps.MapTypeId.ROADMAP,
+			center: new google.maps.LatLng(34.737098, 139.39933700000006),       
+		});
+
+	//kmlレイヤ追加
+	var kmzLayer = new google.maps.KmlLayer('http://shimz.me/example/d3js/geo_example2/izu/photos.kml');
+	kmzLayer.setMap(map);
+	
+       //天気レイヤ追加
+        var weatherLayer = new google.maps.weather.WeatherLayer(); 
+        weatherLayer.setMap(map);
+        
+        //雲レイヤ追加
+        var cloudLayer = new google.maps.weather.CloudLayer(); 
+        cloudLayer.setMap(map);
+         	
+		
+	 	
+	var overlay = new google.maps.OverlayView(); //OverLayオブジェクトの作成
+	
+	var layer;
+	overlay.onAdd = function () {
+
+		//this.getPanes().overlayLayer.parentNode.style['zIndex'] = 1001;
+		layer = d3.select(this.getPanes().overlayLayer).append("div").attr("class", "SvgOverlay");
+		var svg = layer.append("svg");
+		var d3layer = svg.append("g").attr("class", "AdminDivisions");
+		var markerOverlay = this;
+		var overlayProjection = markerOverlay.getProjection();
+
+		
+		var googleMapProjection = function (coordinates) {
+			var googleCoordinates = new google.maps.LatLng(coordinates[1], coordinates[0]);
+			var pixelCoordinates = overlayProjection.fromLatLngToDivPixel(googleCoordinates);
+			return [pixelCoordinates.x + 4000, pixelCoordinates.y + 4000];
+		}
+
+		path = d3.geo.path().projection(googleMapProjection);
+
+            
+		overlay.draw = function () {			
+				
+			//地図描く
+			d3layer.selectAll("path")
+				.data(json.features)
+				.attr("d", path) 
+				.enter().append("svg:path")
+				.attr("d", path)
+				.attr({
+					"fill": "red",
+					"fill-opcity": 0.1
+				})
+				.attr("class", function(d) { return "gunma" + d.id; })
+				.append('title')
+				.text(function(d){ return SedimentDisastersProneAreaCd[d.properties.A26_001] + "[" +d.properties.A26_002 + "]" } );
+				
+		};
+
+	};
+
+	//作成したSVGを地図にオーバーレイする
+	overlay.setMap(map);
+	
+	
+	
+	//*/
+};
+
+</script>
+</body>
+</html>

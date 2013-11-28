@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+<head>
+<style>
+html, body {
+	padding: 0;
+	margin: 0;
+	background-color: black;
+}
+svg {
+	width:400px;
+	height: 370px;
+	background-image: url(bg.jpeg);
+}
+
+
+</style>
+</head>
+<body>
+<svg></svg>
+
+
+
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://shimz.me/example/d3js/d3helper.js"></script>
+<script src="http://d3js.org/topojson.v0.min.js"></script>
+<script>
+d3.json("gunma2.topojson", function(json) {
+	d3main(json);
+});
+
+
+function d3main(json){
+
+	var path, map, xy;
+
+	var geodata = topojson.object(json, json.objects.gunma).geometries;
+	//var geodata = json.features;
+
+	projection = d3.geo
+		.mercator()		//投影法の指定
+		.scale(15000)	//スケール（ズーム）の指定
+		.translate([300,300])
+		.center([139.40, 36.15]); //中心の座標を指定
+
+	path = d3.geo.path().projection(projection);　//投影
+
+	var svg = d3.select("svg");
+	
+	svg.append('text')
+	.attr({
+		x:10,
+		y:20,
+		fill: 'white'
+	})
+	.text('グンママワル')
+	
+	
+
+	var map = svg.append("svg:g").attr("id", "map")
+		
+	map.selectAll("path")
+		.data(geodata)
+		.enter()
+		.append("svg:path")
+		.attr({
+		"d": D(path),
+		"fill": "green",
+		"fill-opacity": 0.5,
+		"stroke": "#ddd"
+		});
+	var tmid,rt = 8;	
+	
+	d3.select('body').on('click', toggle(start, stop));
+	
+	
+	function start(){
+		tmid = setInterval(function(){
+			if (rt >= 360) rt=0;
+			map.attr('transform', 'rotate('+rt+' ,190 ,190)')
+			rt += 8;
+		}, 1000/60);		
+	}
+	
+	function stop(){
+		clearInterval(tmid);
+	}
+	
+	
+	function toggle(){
+		var fn = arguments;
+		var l = Array.prototype.slice.call(fn,1).length;
+		var i = 0;
+		return function(){
+			if(l < i) i=0;
+			fn[i++]();            
+		}
+	}	
+
+}
+</script>
+
+<script type="textjavascript">
+
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-27276322-1']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+</script>
+</body>
+</html>

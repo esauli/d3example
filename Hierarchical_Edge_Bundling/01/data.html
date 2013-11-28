@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+.node {
+  font: 300 11px "Helvetica Neue", Helvetica, Arial, sans-serif;
+  fill: #bbb;
+}
+
+.node:hover {
+  fill: #000;
+}
+
+.link {
+  stroke: steelblue;
+  stroke-opacity: .4;
+  fill: none;
+  pointer-events: none;
+}
+
+.node:hover,
+.node--source,
+.node--target {
+  font-weight: 700;
+}
+
+.node--source {
+  fill: #2ca02c;
+}
+
+.node--target {
+  fill: #d62728;
+}
+
+.link--source,
+.link--target {
+  stroke-opacity: 1;
+  stroke-width: 2px;
+}
+
+.link--source {
+  stroke: #d62728;
+}
+
+.link--target {
+  stroke: #2ca02c;
+}
+
+</style>
+<body>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script>
+d3.json('links.json', function(d){
+
+	var links = d;
+	var nodes = {};
+/*
+	links.forEach(function(link) {  
+		link['name'] = link.node1;
+	});
+*/
+
+	var nested_data = d3.nest()
+		.key(function(d) { return d.node2; })
+	.entries(links);
+
+	
+	//nodes['_shimizu']['pref'] = {url_name: "_shimizu", profile_image_url:"https://si0.twimg.com/profile_images/604833171/twitter_bigger_normal.jpg"};
+	
+	
+	d3.json("test2.json", function(classes) {
+		var diameter = 960,
+		radius = diameter / 2,
+		innerRadius = radius - 120;
+
+		var cluster = d3.layout.cluster()
+		.size([360, innerRadius])
+		.sort(null)
+		.value(function(d) { return 10; });
+	
+	
+		console.log( packageImportsO(cluster.nodes(packageHierarchyO(classes))) );
+		console.log( packageImports(cluster.nodes(packageHierarchy(nested_data))) );
+	});
+});
+
+function packageHierarchyO(classes) {
+  var map = {};
+
+  function find(name, data) {
+    var node = map[name], i;
+    if (!node) {
+      node = map[name] = data || {name: name, children: []};
+      if (name.length) {
+        node.parent = find(name.substring(0, i = name.lastIndexOf(".")));
+        node.parent.children.push(node);
+        node.key = name.substring(i + 1);
+      }
+    }
+    return node;
+  }
+
+  classes.forEach(function(d) {
+    find(d.name, d);
+  });
+
+  return map[""];
+}
+
+
+
+function packageHierarchy(classes) {
+  var map = {};
+
+  function find(name, data) {
+    var node = map[name], i;
+    if (!node) {
+      node = map[name] = data || {name: name, children: []};
+      if (name.length) {
+        node.parent = find(name.substring(0, i = name.lastIndexOf(".")));
+        node.parent.children.push(node);
+        node.key = name.substring(i + 1);
+      }
+    }
+    return node;
+  }
+
+  classes.forEach(function(d) {
+    find(d.key, d);
+  });
+
+  return map[""];
+}
+
+// Return a list of imports for the given array of nodes.
+function packageImportsO(nodes) {
+  var map = {},
+      imports = [];
+
+  // Compute a map from name to node.
+  nodes.forEach(function(d) {
+    map[d.name] = d;
+  });
+  console.table(map);
+  
+  // For each import, construct a link from the source to target node.
+  nodes.forEach(function(d) {
+    if (d.imports) d.imports.forEach(function(i) {
+      imports.push({source: map[d.name], target: map[i]});
+    });
+  });
+
+  return imports;
+}
+
+function packageImports(nodes) {
+  var map = {},
+      values = [];
+
+  // Compute a map from name to node.
+  nodes.forEach(function(d) {
+    map[d.key] = d;
+  });
+  console.table(map);
+  
+
+  // For each import, construct a link from the source to target node.
+  nodes.forEach(function(d) {
+    if (d.values) d.values.forEach(function(i) {
+      values.push({source: map[d.key], target: map[i.node1]});
+    });
+  });
+
+  return values;
+}
+
+</script>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>D3&Fabric Path</title>
+<style>
+canvas {
+   width: 600px;
+   height: 600px;
+   border: 1px solid black;
+}
+</style>
+</head>
+<body>
+<canvas id="canvas" width="600" height="600"></canvas>
+
+
+
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.1.0/fabric.all.min.js"></script>
+
+<script>
+var w = 600;
+var h = 600;
+var margin = 200;    
+var canvas = new fabric.Canvas('canvas');
+
+
+var svg = d3.select("svg");
+
+var data = [
+        {x:10, y:20},
+        {x:30, y:10},
+        {x:48, y:60},
+        {x:89, y:5},
+        {x:120, y:100},
+        {x:160, y:40},
+        {x:200, y:83}
+    ];
+
+var xMax = d3.max(data, function(d){ return d.x } );    
+var yMax = d3.max(data, function(d){ return d.y } );
+
+var xScale = d3.scale.linear().domain([0, xMax]).range([0, w-margin]);
+var yScale = d3.scale.linear().domain([0, yMax]).range([0, h-margin]);
+    
+var line = d3.svg.line()
+    .x(function(d){ return xScale(d.x) })
+    .y(function(d){ return yScale(d.y) })
+    .interpolate("cardinal")
+    
+var path = new fabric.Path(line(data));
+    path.set({ fill: 'none', stroke: 'red', opacity: 1, "stroke-width": 4});
+    canvas.add(path);    
+
+
+</script>
+</body>
+</html>

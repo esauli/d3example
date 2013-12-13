@@ -23,10 +23,10 @@ canvas {
 </head>
 <body>
 
-<h2>Clickで転写 d3.js(SVG) -> fabric.js(canvas)</h2>
+<h2>d3.js(SVG) -> fabric.js(canvas)</h2>
 <p>SVG</p>
 <div id="wrapSVG">
-	<svg id="svg"></svg>        
+    <svg id="svg"></svg>        
 </div>
 <p>canvas</p>
 <canvas id="canvas" ></canvas>    
@@ -52,24 +52,21 @@ map = d3.select("svg"); //地図用のステージ(SVGタグ)を作成
 
 
 var gunma = d3.json("gunma.geojson", function(json) {
-		map.append("svg:g")
-				.attr("class", "gunma")
-				.selectAll("path")
-				.data(json.features)
-				.enter()
-				.append("svg:path")
-				.attr("d", path)  //dataに投影法を適応
-				.attr("fill-opacity", 1)
-				.attr("fill", "green")
-				.attr("stroke", "#222")
-				.attr("transform", "translate (" +[-350 ,-50] + ")")
+    map.append("svg:g")
+	.attr("class", "gunma")
+	.selectAll("path")
+	.data(json.features)
+	.enter()
+	.append("svg:path")
+	.attr("d", path)  //dataに投影法を適応
+	.attr("fill-opacity", 1)
+	.attr("fill", "green")
+	.attr("stroke", "#222")
+	.attr("transform", "translate (" +[-350 ,-50] + ")")
 
+    canvasDraw();	
 });
 
-
-d3.select('body').on('click', function(){
-		canvasDraw();		
-})
 
 //fabric.jsを使ってcanvasに転写
 function canvasDraw(){

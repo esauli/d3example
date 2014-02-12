@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+.node {
+  font: 300 11px "Helvetica Neue", Helvetica, Arial, sans-serif;
+  fill: #bbb;
+}
+
+.node:hover {
+  fill: #000;
+}
+
+.link {
+  stroke: steelblue;
+  stroke-opacity: .4;
+  fill: none;
+  pointer-events: none;
+}
+
+.node:hover,
+.node--source,
+.node--target {
+  font-weight: 700;
+}
+
+.node--source {
+  fill: green;
+}
+
+.node--target {
+  fill: red;
+}
+
+.link--source,
+.link--target {
+  stroke-opacity: 1;
+  stroke-width: 2px;
+}
+
+.link--source {
+  stroke: green;
+}
+
+.link--target {
+  stroke: red;
+}
+
+</style>
+<body>
+<svg id="graph"></svg>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script>
+(function(){
+    var diameter = 960,	//グラフの直径(px)
+	radius = diameter / 2,	//半径
+	innerRadius = radius - 120; //内半径 
+    
+    //曲線を生成するジェネレーター    
+    var cluster = d3.layout.cluster()
+	.size([360, innerRadius])
+	.sort(null)
+	.value(function(d) { return 10; });
+    
+    // バンドルレイアウトジェネレーター
+    var bundle = d3.layout.bundle();
+    
+    var line = d3.svg.line.radial()
+	.interpolate("bundle")
+	.tension(.85)
+	.radius(function(d) { return d.y; })
+	.angle(function(d) { return d.x / 180 * Math.PI; });
+    
+    // ステージ設置
+    var svg = d3.select("#graph")
+	.attr("width", diameter)
+	.attr("height", diameter)
+	.append("g")
+	.attr("transform", "translate(" + radius + "," + radius + ")");
+    
+	
+    // link, nodeグループ要素作成    
+    var link = svg.append("g").selectAll(".link"),
+	node = svg.append("g").selectAll(".node");
+    
+    //データセットの読み込み
+    d3.json("index.json", function(error, classes) {
+	var nodes = cluster.nodes(packageHierarchy(classes));
+	var links = packageImports(nodes);
+	    console.log("nodes", nodes);
+	    console.log("links", links);
+    
+	link = link
+	    .data(bundle(links))
+	    .enter()
+	    .append("path")
+	    .each(function(d) { d.source = d[0], d.target = d[d.length - 1]; })
+	    .attr({
+		"class": "link",
+		"d": line,
+		"stroke-width": function(d){ return d.source.size } //link pathの太さ指定
+	    });
+	    console.log("bundle", bundle(links));
+    
+	node = node
+	    .data(nodes.filter(function(n) { return !n.children; }))
+	    .enter()
+	    .append("text")
+	    .attr({
+		"class": "node",
+		"dx": function(d) { return d.x < 180 ? 8 : -8; },
+		"dy": ".31em",
+		"transform": function(d) { return "rotate(" + (d.x - 90) + ")translate(" + d.y + ")" + (d.x < 180 ? "" : "rotate(180)"); }
+	    })	    
+	    .style("text-anchor", function(d) { return d.x < 180 ? "start" : "end"; })
+	    .text(function(d) { return d.key; })
+	    .on("mouseover", mouseovered)
+	    .on("mouseout", mouseouted);
+	 
+	    console.log("node.filter", nodes.filter(function(n) { return !n.children; })); 
+	 
+    });
+    
+    //マウスオーバー時のアップデート
+    function mouseovered(d) {
+	node
+	    .each(function(n) { n.target = n.source = false; });
+	
+	link
+	    .classed("link--target", function(l) { if (l.target === d) return l.source.source = true; })
+	    .classed("link--source", function(l) { if (l.source === d) return l.target.target = true; })
+	    .filter(function(l) { return l.target === d || l.source === d; })
+	    .each(function() { this.parentNode.appendChild(this); });
+	
+	node
+	    .classed("node--target", function(n) { return n.target; })
+	    .classed("node--source", function(n) { return n.source; });
+    }
+    
+    //マウスアウト時のアップデート
+    function mouseouted(d) {
+	link
+	    .classed("link--target", false)
+	    .classed("link--source", false);
+	
+	node
+	    .classed("node--target", false)
+	    .classed("node--source", false);
+    }
+    
+    d3.select(self.frameElement).style("height", diameter + "px");
+    
+    // クラス名からパッケージ改装を組み立てる
+    function packageHierarchy(classes) {
+      var map = {};
+    
+	function find(name, data) {
+	    var node = map[name], i;
+	    if (!node) {
+		node = map[name] = data || {name: name, children: []};
+		if (name.length) {
+		    node.parent = find(name.substring(0, i = name.lastIndexOf(".")));
+		    node.parent.children.push(node);
+		    node.key = name.substring(i + 1);
+		}
+	    }
+	    return node;
+	}
+    
+	classes.forEach(function(d) {
+	    find(d.name, d);
+	});
+    
+	return map[""];
+    }
+    
+    // node用のパッケージインポートリスト
+    function packageImports(nodes) {
+	var map = {};
+	var imports = [];
+    
+	// nameプロパティからノードへのマップを計算します。
+	nodes.forEach(function(d) {
+	    map[d.name] = d;
+	});
+    
+	// 各インポートの場合は、ノードをソースからターゲットへのリンクを作成。
+	nodes.forEach(function(d) {
+	    if (d.imports) d.imports.forEach(function(i) {
+		imports.push({source: map[d.name], target: map[i]});
+	    });
+	});
+    
+	return imports;
+    }
+})();
+</script>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+<head>
+<title>SVG Filter Map</title>
+<style>
+svg {
+    width:600px;
+    height: 600px;
+}
+</style>
+</head>
+
+
+<body>
+<svg></svg>
+
+
+
+
+<script src="../../d3.v3.min.js"></script>
+<script src="../../topojson.v0.min.js"></script>
+<script> 
+d3.json("japan.topojson", function(json) {
+	d3main(json);
+});
+
+
+function d3main(json){
+
+
+    projection = d3.geo
+	    .mercator()		//投影法の指定
+	    .scale(1500)	//スケール（ズーム）の指定
+	    .translate([300,350])
+	    .center([139.0032936, 36.3219088]); //中心の座標を指定
+
+    var path = d3.geo.path().projection(projection);　//投影
+
+    
+    var svg = d3.select("svg")
+	.style({
+	    "background-color": "white"    
+	});
+
+    //参照先の要素をまとめるdefs要素を追加
+    var defs = svg.append("defs");
+    
+    //
+    var fillglow = defs.append("filter")
+      .attr("id","fillglow");
+      fillglow.append("feColorMatrix") 
+	.attr("in","SourceGraphic")
+	.attr("type", "matrix")
+	.attr("values", "0 0 0 0 0   0 0 0 0 0   0 0 0 0 0   0 0 0 1 0")
+	.attr("result","mask");
+      fillglow.append("feMorphology")
+	.attr("in","mask")
+	.attr("radius","1")
+	.attr("operator","dilate")
+	.attr("result","mask");
+      fillglow.append("feColorMatrix")
+	.attr("in","mask")
+	.attr("type", "matrix")
+	.attr("values", "0 0 0 0 0.6 0 0 0 0 0.5333333333333333 0 0 0 0 0.5333333333333333  0 0 0 1 0")
+	.attr("result","r0");	
+      fillglow.append("feGaussianBlur")
+	.attr("in","r0")
+	.attr("stdDeviation","4")
+	.attr("result","r1");
+      fillglow.append("feComposite")
+	.attr("operator","out")
+	.attr("in","r1")
+	.attr("in2","mask")
+	.attr("result","comp");
+	
+    var frMerge = fillglow.append("feMerge");
+    frMerge.append("feMergeNode")
+      .attr("in","SourceGraphic");
+    frMerge.append("feMergeNode")
+	.attr("in","r1");
+    
+    var lineglow = defs.append("filter")
+      .attr("id","lineglow");
+    lineglow.append("feColorMatrix")
+	.attr("in","SourceGraphic")
+	.attr("type", "matrix")
+	.attr("values", "0 0 0 0 0   0 0 0 0 0   0 0 0 0 0   0 0 0 500 0")
+	.attr("result","mask");
+    lineglow.append("feMorphology")
+	.attr("in","mask")
+	.attr("radius","1")
+	.attr("operator","erode")
+	.attr("result","r1");
+    lineglow.append("feGaussianBlur")
+	.attr("in","r1")
+	.attr("stdDeviation","4")
+	.attr("result","r2");
+    lineglow.append("feColorMatrix")
+	.attr("in","r2")
+	.attr("type", "matrix")
+	.attr("values", "1 0 0 0 0.5803921568627451 0 1 0 0 0.3607843137254902 0 0 1 0 0.10588235294117647 0 0 0 -1 1")
+	.attr("result","r3");
+    lineglow.append("feComposite")
+	.attr("operator","in")
+	.attr("in","r3")
+	.attr("in2","mask")
+	.attr("result","comp");
+    var frMerge = lineglow.append("feMerge");
+      frMerge.append("feMergeNode")
+	.attr("in","SourceGraphic");
+      frMerge.append("feMergeNode")
+	.attr("in","comp");
+		
+    //国土(背景)  
+    var landbg = svg.insert("path", ".graticule")
+        .datum(topojson.object(json, json.objects.japan))
+	.style("filter","url(#fillglow)")
+        .attr({
+            "class": "land",
+            "d": path,
+            "fill": "#fcfcfc"    
+        });
+    //国土（表面)	
+    var land = svg.insert("path", ".graticule")
+        .datum(topojson.object(json, json.objects.japan))
+	.style("filter","url(#lineglow)")
+        .attr({
+            "class": "land",
+            "d": path,
+            "fill": "#fcfcfc"    
+        });
+     
+     
+    //都道府県境追加
+    var boundary = svg.insert("path", ".graticule")
+        .datum(topojson.object(json, json.objects.japan, function(a, b) { return a !== b; }))
+        .attr({
+            "class": "boundary",
+            "d": path,
+            "fill": "none",
+            "stroke": "#999",
+	    "stroke-dasharray": "1, 2",
+            "stroke-width": 1
+        });
+}
+</script>
+
+<script type="text/javascript">
+
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-27276322-1']);
+_gaq.push(['_trackPageview']);
+
+	(function() {
+	var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') +'.google-analytics.com/ga.js';
+	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+</script>
+</body>
+</html>

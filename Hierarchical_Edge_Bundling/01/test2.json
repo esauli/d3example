@@ -1,6 +1,0 @@
-[
-{"name":"A","size":3938,"imports":["B","C","D"]},
-{"name":"B","size":3812,"imports":["A"]},
-{"name":"C","size":6714,"imports":["A"]},
-{"name":"D","size":743,"imports":[]}
-]

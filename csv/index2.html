@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>2012年熱中症発生数</title>
+<style>
+text {
+	text-anchor: middle;
+	dominant-baseline: hanging;
+}
+
+</style>
+
+
+
+</head>
+<body>
+<p>2012年熱中症発生数（救急搬送）：総数 クリックでソート</p>
+
+
+<script src="../d3.v3.min.js"></script>
+<script> 
+d3.csv("Heatstroke.csv", function(data) {
+	
+	var svg = d3.select('body').append('svg');
+	var margin = 60;
+	var textmargin = 10
+	var interval = 110;
+	var sort = Sort();
+	var rows = sort(data)
+	
+	var dmax =  d3.max(rows.map(function(d) { return parseInt(d['指標値(単位:人)']); }))
+	var dmin =  d3.min(rows.map(function(d) { return parseInt(d['指標値(単位:人)']); }))
+	var scaleX = d3.scale.pow().domain([dmin, dmax]).range([30, 120]);
+
+
+
+	svg.selectAll('.circle')
+	   .data(rows)
+	   .enter()
+	   .append('circle')
+	   .attr('class', 'circle')
+
+	svg.selectAll('.name')
+	   .data(rows)
+	   .enter()
+	   .append('text')
+	   .attr('class', 'name')
+
+	svg.selectAll('.count')
+	   .data(rows)
+	   .enter()
+	   .append('text')
+	   .attr('class', 'count')
+	   
+	   
+	draw(rows)
+	
+	d3.select('body')
+	   .on('click', function(){
+		draw(sort(rows));
+	   })
+
+	function Sort(){
+		var sortNext = 0;
+		return function (data){
+			switch(sortNext){
+				case 0:
+					data.sort(function(a,b){return a['地方自治体コード'] - b['地方自治体コード'] });
+					break;
+				case 1:
+					data.sort(function(a,b){return a['指標値(単位:人)'] - b['指標値(単位:人)']});
+					break;
+				
+			}
+			sortNext++;
+			if(sortNext > 1) sortNext = 0;
+			return data;
+		}
+
+	}
+		   
+		   
+	function draw(data){	
+		console.log(data);
+		svg.selectAll('.circle')
+		   .data(rows, function(d){ return d['都道府県名']})
+		   .transition()
+		   .attr('opacity',0.6)
+		   .attr('fill', 'red')
+		   .attr('r', function(d){ return Math.floor(scaleX(parseInt(d['指標値(単位:人)']))) })
+		   .attr('cx', function(d, i) { return (i % 10) * interval + margin})
+		   .attr('cy', function(d, i){ return Math.floor(i / 10) * interval + margin})
+		
+		svg.selectAll('.name')
+		   .data(rows, function(d){ return d['都道府県名']})
+		   .transition()
+		   .attr('x', function(d, i) { return (i % 10) * interval + margin})
+		   .attr('y', function(d, i){ return Math.floor(i / 10) * interval + margin - textmargin})
+		   .text(function(d){ return d['都道府県名'] })
+			   
+		svg.selectAll('.count')
+		   .data(rows, function(d){ return d['都道府県名']})
+		   .transition()
+		   .attr('x', function(d, i) { return (i % 10) * interval + margin})
+		   .attr('y', function(d, i){ return Math.floor(i / 10) * interval + margin + textmargin})
+		   .text(function(d){ return d['指標値(単位:人)'] + "人" })
+
+	 
+	}	
+});
+	
+	
+</script>
+</body>
+</html>

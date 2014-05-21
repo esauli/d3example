@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="content-language" content="ja">
+<title>Hello PathGL</title>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://adnanwahab.com/pathgl/dist/pathgl.js" charset="utf-8"></script>
+</head>
+<body>
+<canvas width="600" height="600"></vanvas>
+
+<script>
+d3.select ( 'canvas' ).call ( pathgl ) 
+.append ( 'circle' ) 
+.attr ( 'r' ,  100 ) 
+.attr ( 'cx' ,  50 ) 
+.attr ( 'cy' ,  50 )
+
+/*
+d3.select('canvas').call(pathgl)
+.selectAll("circle")
+.data(d3.range(2e5))
+.enter().append("circle")
+.attr('fill', function () { return "hsl(" + Math.random() * 360 + ",100%, 50%)" })
+.attr('cx', function (d, i) { return d / 1e8 })
+.attr('cy', function (d, i) { return (2e5  -  d) / 20000 })
+.attr('r', function (d, i) { return d  % 1000 })
+.shader({ cx: 'resolution.x / 2. + cos(pos.z + clock * pos.x) * pos.z * 10.;'
+        , cy: 'resolution.y / 2. + sin(pos.z + clock * pos.x) * pos.z * 10.;'
+        , stroke: 'vec4(unpack_color(stroke) * .5 + vec3(mouse.x / resolution.x, mouse.y / resolution.y, 1.), 1.);'
+        , radius: 'pos.y + pos.y * max(distance(x, mouse.x) / resolution.x, distance(y, mouse.y) / resolution.y)'
+        });
+*/
+</script>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+<head>
+<title>隣接市区町村表示</title>
+<style>
+body {
+	padding: 10px;
+}
+svg {
+    width:960px;
+    height: 700px;
+	border: 1px solid black;
+}
+
+path {
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.land {
+  fill: #bbb;
+}
+
+.land :hover {
+  fill: red;
+}
+
+.land .neighbor {
+  fill: orange;
+}
+
+.border {
+  pointer-events: none;
+  fill: none;
+  stroke: #fff;
+}
+
+.border--map {
+  stroke-width: .5px;
+}
+
+.border--state {
+  stroke-width: 1.5px;
+}
+.tooltip {
+  border: 1px solid black;
+  background-color: white;
+  padding: 5px 8px 4px 8px;
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+}
+</style>
+</head>
+
+
+<body>
+<h1>隣接市区町村表示</h1>
+<svg></svg>
+
+
+
+
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+<script> 
+d3.json("japan2.topojson", function(json) {
+	draw(json);
+});
+
+
+function draw(json){
+	var tooltip = d3.select("body")
+		.append("div")
+		.attr("class", "tooltip")
+		.style("position", "absolute")
+		.style("z-index", "10")
+		.style("visibility", "hidden")
+		
+	var geodata = json.objects.japan;
+	var neighbors = topojson.neighbors(geodata.geometries);
+
+	var projection = d3.geo
+		.mercator()		
+		.scale(6000)	
+		.translate([600,350])
+		.center([139.0032936, 36.3219088]); 
+
+	var path = d3.geo.path().projection(projection);　
+
+	var svg = d3.select("svg");
+	
+	
+	var map = svg.append("g")
+		.attr("class", "land")
+		.selectAll("path")
+		.data(topojson.feature(json, geodata).features)
+		.enter()
+		.append("path")
+		.attr("d", path)
+		.attr("stroke", "red")
+
+
+	map.each(function(d, i) { d.neighbors = d3.selectAll(neighbors[i].map(function(j) { return map[0][j]; })); })
+		.on("mouseover", function(d) {
+			d.neighbors.classed("neighbor", true);
+			tooltip.style("visibility", "visible");
+		})
+		.on("mouseout", function(d) {
+			d.neighbors.classed("neighbor", false);
+			tooltip.style("visibility", "hidden");		
+		})
+		.on("mousemove", function(d){
+			var content = "<center>"+d.properties.SIKUCHOSON+"</center><br/>";
+			content += "隣接市区町村<ul>";
+			d.neighbors.each(function(nd){ content += "<li>"+nd.properties.SIKUCHOSON+"</li>"  })
+			tooltip
+			 .style("top", (d3.event.pageY-10)+"px")
+			 .style("left",(d3.event.pageX+10)+"px")
+			 .html(content);
+		})
+
+
+}
+</script>
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-27276322-1', 'shimz.me');
+  ga('send', 'pageview');
+</script>
+
+</body>
+</html>

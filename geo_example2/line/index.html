@@ -93,7 +93,8 @@ function d3main(json){
             "fill": "none",
             "stroke": "red",
             "stroke-width": 1.5
-        });
+        })
+
  
     //都市ポイント追加      
     var point = svg.selectAll(".point")
@@ -109,8 +110,13 @@ function d3main(json){
         });
  
     /***Y軸回転させる***************************************/
-    rotateY=0;
-    setInterval(function(){
+
+	d3.select('body').on('click', function(){
+		rotateY=0;
+		setInterval(mapRotate,100);
+	});
+
+	function mapRotate(){
         //projection 更新
         rotateY++;
         if (rotateY >= 360) rotateY=0
@@ -125,7 +131,7 @@ function d3main(json){
             "cx":function(d) {  return projection(d)[0]; },
             "cy":function(d) { return projection(d)[1]; },
         })
-    },100); 
+    }
        
 }
 </script>

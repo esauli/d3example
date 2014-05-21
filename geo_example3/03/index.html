@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="content-language" content="ja">
+<title>Bounds Box (Japan)</title>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+<style>
+html, body, svg{
+	width: 100%;
+	height: 100%;
+}
+svg {
+	position: absolute;
+	top: 0px;
+}
+.elmenthover {
+	stroke: blue;
+	stroke-width:3;
+	fill: blue;
+}
+.tooltip {
+  border: 1px solid black;
+  background-color: white;
+  padding: 5px 8px 4px 8px;
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+}	
+</style>
+</head>
+<body>
+<h1>Bounds Box (Japan)</h1>
+<svg></svg>
+
+<script>
+d3.json("japan.topojson", function(json){
+	d3draw(json);
+});
+
+function d3draw(json) {
+
+	//ツールチップ要素の追加
+	var tooltip = d3.select("body")
+		.append("div")
+		.attr("class", "tooltip")
+		.style("position", "absolute")
+		.style("z-index", "10")
+		.style("visibility", "hidden");
+		
+	
+	var geodata = json.objects.japan;
+	var feature = topojson.feature(json, geodata).features;
+
+	var projection = d3.geo
+		.mercator()		//投影法の指定
+		.scale(2000)	//スケール（ズーム）の指定
+		.translate([500 , 500]) //表示位置調整
+		.center([139.0032936, 36.3219088]); //中心の座標を指定
+
+	var path = d3.geo.path().projection(projection);　//パスジェネレーター
+	
+	
+	var svg = d3.select('svg');
+
+	//地形の描画
+	var land = svg.selectAll('.land')
+		.data(feature)
+		.enter()
+		.append('path')
+		.attr({
+			"class": function(d){ return d.properties.PREF },
+			"d": path,
+			"stroke": "white",
+			"fill": "#ccc"
+		});
+
+	//境界情報の取得
+	var drawBounds = function(d){
+			var b = path.bounds(d);
+			return "M" + b[0] + "H" + b[1][0] + "V" + b[1][1] + "H" + b[0][0] + "Z";
+		}
+
+	//境界BOXの描画
+	var bounds = svg.selectAll('.bounds')
+		.data(feature)
+		.enter()
+		.append('path')
+		.attr({
+			"class": function(d){ return d.properties.PREF },
+			"d": drawBounds,
+			"stroke": "red",
+			"fill-opacity": 0
+		})
+		.on("mouseover", function(d) {
+			tooltip.style("visibility", "visible");
+			currentClass = d3.select(this).attr("class");
+			d3.selectAll("."+currentClass).classed("elmenthover", true);
+		})
+		.on("mouseout", function(d) {
+			tooltip.style("visibility", "hidden");		
+			d3.selectAll("path").classed("elmenthover", false);			
+		})
+		.on("mousemove", function(d){
+			var content = "<center>"+d.properties.PREF+"</center><br/>";
+			tooltip
+			 .style("top", (d3.event.pageY-10)+"px")
+			 .style("left",(d3.event.pageX+10)+"px")
+			 .html(content);
+		});
+
+	
+	//ズームイベント設定    
+	var zoom = d3.behavior.zoom().on('zoom', function(){
+	   projection.scale(3000 * d3.event.scale);       
+	   land.attr('d', path);       
+	   bounds.attr('d', drawBounds); 
+	});
+	svg.call(zoom);	 
+		
+	//ドラッグイベント設定
+	var drag = d3.behavior.drag().on('drag', function(){
+		   var tl = projection.translate();
+			projection.translate([tl[0] + d3.event.dx, tl[1] + d3.event.dy]);
+			land.attr('d', path);       
+			bounds.attr('d', drawBounds);       
+		});
+	svg.call(drag);
+
+		
+}
+</script>
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-27276322-1', 'shimz.me');
+  ga('send', 'pageview');
+</script>
+
+</body>
+</html>

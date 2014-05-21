@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+<head>
+<title>D3 Map line</title>
+<link rel="stylesheet" href="http://shimz.me/libs/jquery-tipr/tipr/tipr.css" >
+</head>
+
+
+<body>
+<svg></svg>
+
+
+<script src="d3.v3.min.js"></script>
+<script src="topojson.v0.min.js"></script>
+<script>
+d3.json("conuntries.topojson", function(json) {
+    d3main(json);
+});
+ 
+ 
+function d3main(json){
+    var width = 960;
+    var height = 480;
+     
+    var svg = d3.select("svg")
+    .attr("width", width)
+    .attr("height", height);
+ 
+    //投影法設定
+    var projection = d3.geo.equirectangular()
+    .scale(153)
+    .translate([width / 2, height / 2])
+    .rotate([-180,0,0])
+    .precision(.1);
+ 
+    //パスジェネレーター
+    var path = d3.geo.path().projection(projection);
+ 
+    //グリッド情報ジェネレーター
+    var graticule = d3.geo.graticule();
+ 
+    //グリッド線追加    
+    var grid = svg.append("path")
+        .datum(graticule)
+        .attr({
+            "class": "graticule",
+            "d": path,
+            "fill": "none",
+            "stroke": "#777",
+            "stroke-width": ".5px",
+            "stroke-opacity": .5
+        });
+ 
+    //国土追加  
+    var land = svg.insert("path", ".graticule")
+        .datum(topojson.object(json, json.objects.conuntries))
+        .attr({
+            "class": "land",
+            "d": path,
+            "fill": "green"    
+        });
+     
+    //国境線追加
+    var boundary = svg.insert("path", ".graticule")
+        .datum(topojson.object(json, json.objects.conuntries, function(a, b) { return a !== b; }))
+        .attr({
+            "class": "boundary",
+            "d": path,
+            "fill": "none",
+            "stroke": "white",
+            "stroke-width": .5
+        });
+ 
+    //都市　位置情報
+    var pointdata = {"type": "LineString", "coordinates": [
+        [139.69170639999993, 35.6894875], //東京
+        [-122.41941550000001, 37.7749295], //サンフランシスコ
+        [149.1242241, -35.30823549999999], //キャンベラ
+        [77.22496000000001, 28.635308], //ニューデリー
+        [-47.92916980000001,  -15.7801482], //ブラジリア
+        [116.40752599999996,  39.90403], //北京
+    ]}
+     
+    //都市間ライン追加
+    var line = svg.selectAll(".line")
+        .data([pointdata])
+        .enter()
+        .append("path")
+        .attr({
+            "class":"line",
+           // "d": function(d){console.log(d); return path(d) },
+            "fill": "none",
+            "stroke": "red",
+            "stroke-width": 1.5
+        })
+		
+		var d0 = "M0,0c100,0 0,100 100,100c100,0 0,-100 100,-100";
+		
+		line.transition()
+		.duration(2000)
+		.attr("d", function(d){
+			console.log(d)
+			var coordinates =[];
+			coordinates.push(d.coordinates[0]);
+			coordinates.push(d.coordinates[1]);
+			return path({type: "LineString", coordinates: coordinates}) ;
+		} )
+		//.call(transition, path, path);
+ 
+    //都市ポイント追加      
+    var point = svg.selectAll(".point")
+        .data(pointdata.coordinates)
+        .enter()
+        .append("circle")
+        .attr({
+            "cx":function(d) { return projection(d)[0]; },
+            "cy":function(d) { return projection(d)[1]; },
+            "r":6,
+            "fill":"red",
+            "fill-opacity":1
+        });
+ 
+    /***Y軸回転させる***************************************/
+
+	d3.select('body').on('click', function(){
+		rotateY=0;
+		setInterval(mapRotate,100);
+	});
+
+	function mapRotate(){
+        //projection 更新
+        rotateY++;
+        if (rotateY >= 360) rotateY=0
+        projection.rotate([-180,rotateY,0]);
+ 
+        //各要素を更新
+        grid.attr("d", path);
+        land.attr("d", path);
+        boundary.attr("d", path);
+        line.attr("d", path);       
+        point.attr({
+            "cx":function(d) {  return projection(d)[0]; },
+            "cy":function(d) { return projection(d)[1]; },
+        })
+    }
+	
+function transition(path, d0, d1) {
+  path.transition()
+      .duration(2000)
+      .attrTween("d", pathTween(d1, 4))
+      .each("end", function() { d3.select(this).call(transition, d1, d0); });
+}
+	 
+function pathTween(d1, precision) {
+  return function() {
+    var path0 = this,
+        path1 = path0.cloneNode(),
+        n0 = path0.getTotalLength(),
+        n1 = (path1.setAttribute("d", d1), path1).getTotalLength();
+ 
+    // Uniform sampling of distance based on specified precision.
+    var distances = [0], i = 0, dt = precision / Math.max(n0, n1);
+    while ((i += dt) < 1) distances.push(i);
+    distances.push(1);
+ 
+    // Compute point-interpolators at each distance.
+    var points = distances.map(function(t) {
+      var p0 = path0.getPointAtLength(t * n0),
+          p1 = path1.getPointAtLength(t * n1);
+      return d3.interpolate([p0.x, p0.y], [p1.x, p1.y]);
+    });
+ 
+    return function(t) {
+      return t < 1 ? "M" + points.map(function(p) { return p(t); }).join("L") : d1;
+    };
+  };
+}
+       
+}
+</script>
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-27276322-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script> 
+</body>
+</html>

@@ -18,6 +18,7 @@ svg {
 <script src="http://d3js.org/topojson.v1.min.js"></script>
 <script>
 d3.json("gunma.topojson", function(json) {
+	console.log(json)
 	d3main(json);
 });
 
@@ -26,7 +27,7 @@ function d3main(json){
 
 	var path, map, xy;
 
-	var geodata = topojson.object(json, json.objects.gunma).geometries;
+	var geodata = topojson.feature(json, json.objects.gunma).features;
 	//var geodata = json.features;
 	
 

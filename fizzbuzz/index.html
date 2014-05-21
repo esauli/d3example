@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="content-language" content="ja">
+<title>D3 FizzBuzz</title>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<style>
+body {
+	background-color:black;
+}
+h1 {
+	color:white;
+}
+
+td {
+	padding:2px;
+	text-align:center;
+	background-color:#e9d9e9;
+	border-radius:4px;
+	border: 1px solid white;
+}
+
+.Fizz {
+	background-color:#9999ff;
+}
+.Buzz {
+	background-color:#99ff99;
+}
+.FizzBuzz {
+	background-color:#ff9999;
+}
+</style>
+
+</head>
+<body>
+<h1>D3 FizzBuzz Table</h1>
+<script>
+(function(){
+	var START = 1,END = 1000;
+
+	var FizzBuzz = function(num){
+		if(num%15==0) return 'FizzBuzz';
+		if(num%5==0) return 'Buzz';
+		if(num%3==0) return 'Fizz';
+		return num;   
+	}
+
+	var list = d3.range(START,END+1).map(FizzBuzz);
+
+
+
+	//リストを10個づつの配列に分割
+	var fbDataSet = [];
+	for(var i=0; i < END; i+=10){
+		fbDataSet.push( list.slice(i, i+10) );
+	}
+
+
+
+	//table要素作成
+	var table = d3.select('body').append('table');
+
+	//tr要素作成
+	tr = table.selectAll('tr')
+		.data(fbDataSet)
+		.enter()
+		.append('tr');
+		
+
+	//td要素作成
+	var td = tr.selectAll('td')
+		.data(function(d){ return d })
+		.enter()
+		.append('td')
+		.attr({
+			class:function(d){ 
+				return (typeof d=='string') ? d : null;
+			}
+		})
+		.text(function(d){ return d } );
+})();
+</script>
+</body>
+</html>

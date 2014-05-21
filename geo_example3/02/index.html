@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+<head>
+<title>隣接都道府県表示</title>
+<style>
+svg {
+    width:960px;
+    height: 700px;
+	border: 1px solid black;
+}
+
+path {
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.land {
+  fill: #bbb;
+}
+
+.land :hover {
+  fill: red;
+}
+
+.land .neighbor {
+  fill: orange;
+}
+
+</style>
+</head>
+
+
+<body>
+<h1>隣接都道府県表示</h1>
+<svg></svg>
+
+
+
+
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+<script> 
+d3.json("ken.topojson", function(json) {
+	draw(json);
+});
+
+
+function draw(json){
+	//geoデータ
+	var geodata = json.objects.ken;
+	
+	//geometrieから隣接するパスのインデックス情報を取得
+	var neighbors = topojson.neighbors(geodata.geometries);
+
+	var projection = d3.geo
+		.mercator()		//投影法の指定
+		.scale(2000)	//スケール（ズーム）の指定
+		.translate([500,450]) //表示位置調整
+		.center([139.0032936, 36.3219088]); //中心の座標を指定
+
+	var path = d3.geo.path().projection(projection);　//パスジェネレーター
+
+	var svg = d3.select("svg");
+		
+	//地図描画
+	var map = svg.append("g")
+		.attr("class", "land")
+		.selectAll("path")
+		.data(topojson.feature(json, geodata).features)
+	    .enter().append("path")
+		.attr("d", path)
+		.attr("stroke", "red")
+
+	map.each(function(d, i) {
+			//隣接するパスのインデックス情報を取得元に、データに隣接パスへの参照を追加
+			d.neighbors = d3.selectAll(
+				neighbors[i].map(function(j) {
+					return map[0][j];
+				})
+			);
+		})
+		.on("mouseover", function(d) {
+			//d.neighbors <- 隣接するパスへの参照
+			d.neighbors.classed("neighbor", true);
+		})
+		.on("mouseout", function(d) {
+			d.neighbors.classed("neighbor", false);
+		});
+}
+</script>
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-27276322-1', 'shimz.me');
+  ga('send', 'pageview');
+</script>
+
+</body>
+</html>

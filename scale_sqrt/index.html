@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="content-language" content="ja">
+<title>Hello D3</title>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<style>
+svg {
+	height: 300px;
+}
+</style>
+</head>
+<body>
+<svg id="svg1"></svg>
+
+<svg id="svg2"></svg>
+
+<script>
+var data = [100, 50];
+var color = ["pink", "skyblue"];
+var r = 150;
+
+var svg1 = d3.select("#svg1");
+var svg2 = d3.select("#svg2");
+
+
+var linearScale = d3.scale.linear().domain([0, 100]).range([0, r]);
+var sqrtScale = d3.scale.sqrt().domain([0, 100]).range([0, r]);
+
+
+svg1.selectAll('circle')
+	.data(data)
+	.enter()
+	.append('circle')
+	.attr({
+		class: function(d,i){ return "circle"+i },
+		cx: function(d, i){ return i*(r*2) + r},
+		cy: 150,
+		r: function(d){ return linearScale(d)},
+		fill: function(d, i){ return color[i]}
+	})
+
+
+svg2.selectAll('circle')
+	.data(data)
+	.enter()
+	.append('circle')
+	.attr({
+		class: function(d,i){ return "circle"+i },
+		cx: function(d, i){ return i*(r*2) + r},
+		cy: 150,
+		r: function(d){ return sqrtScale(d)},
+		fill: function(d, i){ return color[i]}
+	})
+
+
+d3.selectAll('svg').on('click', function(){
+	console.log('click')
+	d3.selectAll('.circle1')
+		.attr("transform", function(){
+			return "translate("+[-r*2, r/2]+")"
+		})
+})
+
+
+
+</script>
+</body>
+</html>

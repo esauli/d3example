@@ -1,0 +1,87 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+<head>
+<title>隣接都道府県表示</title>
+<style>
+svg {
+    width:960px;
+    height: 700px;
+	border: 1px solid black;
+}
+
+path {
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.land {
+  fill: #bbb;
+}
+
+.land :hover {
+  fill: red;
+}
+
+.land .neighbor {
+  fill: orange;
+}
+
+</style>
+</head>
+
+
+<body>
+<h1>D3 map + canvas</h1>
+<canvas></canvas>
+
+
+
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+<script src="cartogram.js"></script>
+<script>
+//topojson（地理）データ読み込み
+d3.json("ken.topojson", function(json) {
+	draw(json);
+});
+
+
+function draw(json){
+	//geoデータ
+	var topo = json.objects.ken;
+
+
+	//プロジェクション設定
+	var projection = d3.geo
+		.mercator()		//投影法の指定
+		.scale(2000)	//スケール（ズーム）の指定
+		.translate([500,450]) //表示位置調整
+		.center([139.0032936, 36.3219088]); //中心の座標を指定
+
+	
+	//コンテキストを取得
+	var context = d3.select("canvas")
+		.attr({
+			width:"900px",
+			height:"900px",
+		})
+		.node().getContext("2d");
+	
+	//パスジェネレーターの生成	
+	var path = d3.geo.path()
+		.projection(projection)
+		.context(context) //コンテキストを指定
+		
+		
+	//canvasに地図を描画する描画
+	path(topojson.feature(json, topo));
+	context.stroke();
+		
+		
+}
+</script>
+
+</body>
+</html>

@@ -4,10 +4,16 @@
 <head>
 <title>SVG Filter Map</title>
 <style>
-svg {
-    width:600px;
-    height: 600px;
+body {
+	background-color:rgb(221, 220, 194);
 }
+svg {
+    width:900px;
+    height: 900px;
+	background-color:rgb(221, 220, 194);
+}
+
+
 </style>
 </head>
 
@@ -31,17 +37,17 @@ function d3main(json){
 
     projection = d3.geo
 	    .mercator()		//投影法の指定
-	    .scale(1500)	//スケール（ズーム）の指定
-	    .translate([300,350])
+	    .scale(2000)	//スケール（ズーム）の指定
+	    .translate([500,450])
 	    .center([139.0032936, 36.3219088]); //中心の座標を指定
 
     var path = d3.geo.path().projection(projection);　//投影
 
     
     var svg = d3.select("svg")
-	.style({
-	    "background-color": "white"    
-	});
+
+
+
 
     //参照先の要素をまとめるdefs要素を追加
     var defs = svg.append("defs");
@@ -143,6 +149,33 @@ function d3main(json){
 	    "stroke-dasharray": "1, 2",
             "stroke-width": 1
         });
+	
+	
+	/*
+	 * ↓めっちゃ重い。
+	 */
+		
+	//ズームイベント設定    
+	var zoom = d3.behavior.zoom().on('zoom', function(){
+	   projection.scale(3000 * d3.event.scale);
+	   landbg.attr('d', path);       
+	   land.attr('d', path);       
+	   boundary.attr('d', path); 
+	});
+	svg.call(zoom);	 
+		
+	//ドラッグイベント設定
+	var drag = d3.behavior.drag().on('drag', function(){
+		   var tl = projection.translate();
+			projection.translate([tl[0] + d3.event.dx, tl[1] + d3.event.dy]);
+			landbg.attr('d', path);       
+			land.attr('d', path);       
+			boundary.attr('d', path);       
+		});
+	svg.call(drag);
+		
+		
+		
 }
 </script>
 

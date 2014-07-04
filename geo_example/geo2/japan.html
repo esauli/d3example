@@ -31,7 +31,7 @@ path = d3.geo.path().projection(xy);　//投影
 map = d3.select("body").append("svg:svg").attr("width", 960).attr("height", 600); //地図用のステージ(SVGタグ)を作成
 
 
-var gunma = d3.json("japan.geojson", function(json) {
+var gunma = d3.json("../../_geodata/japan.geojson", function(json) {
   return map.append("svg:g")
             .attr("class", "gunma")
             .selectAll("path")

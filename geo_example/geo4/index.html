@@ -45,7 +45,7 @@ clipAngle<input id="clipAngle" type="range" min="0" max="360" value="200"  step=
 var path, map, xy;
 var map = d3.select("body").append("svg:svg").attr("width", 960).attr("height", 600); //地図用のステージ(SVGタグ)を作成
 
-d3.json("japan.geojson", function(json) {
+d3.json("../../_geodata/japan.geojson", function(json) {
    map.selectAll("path")
             .data(json.features)
             .enter()

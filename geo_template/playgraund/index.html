@@ -1,0 +1,119 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="content-language" content="ja">
+<title>D3 geo paths Test </title>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src= "http://d3js.org/d3.geo.projection.v0.min.js"  charset= "utf-8" ></script>
+<style>
+html, body{
+	width: 100%;
+	height: 100%;
+}
+
+svg {
+	width:600px;
+	height:200px;
+	background-color:white;
+	border: 1px solid black;
+}
+</style>
+</head>
+<body>
+<h1>D3 geo projection Playgraund Demo</h1>
+<a href="index.html">->Demo</a> <a href="japan.html">->Japan</a> <a href="world.html">->World</a>
+
+<hr>
+geojsonデータ
+<br>
+<textarea wrap="off" cols="80" rows="15" id="geojson">
+var geojson = {
+	"type": "Feature",
+	"geometry": {
+		"type": "Polygon",
+		"coordinates": [
+			[ 
+				[100.0, 0.0], [101.0, 0.0], [101.0, 1.0],
+				[100.0, 1.0], [100.0, 0.0] 
+			]
+		]
+	}
+}
+</textarea>
+
+<br>
+
+投影法の指定＆path関数の生成(<a href="https://github.com/mbostock/d3/wiki/Geo-Projections">Geo Projections</a>)
+<br>
+<textarea wrap="off" cols="80" rows="8" id="pathgen">
+var projection = d3.geo
+	.mercator()
+	.scale(2000)
+	.rotate([0,0,0])
+	.translate([0 , 0])
+	.center([100.0, 1.0]);
+
+var path = d3.geo.path().projection(projection);
+</textarea>
+
+<br>
+
+geojsonデータをパスデータに変換
+<br>
+<textarea  wrap="off" cols="80" rows="1" id="run">
+path(geojson)
+</textarea>
+
+<br>
+<button id="btn">実行</button>
+<hr>
+出力<a href="http://www.hcn.zaq.ne.jp/___/SVG11-2nd/paths.html#PathData">パスデータ</a>
+<br>
+<textarea  wrap="off" cols="80" rows="1" id="output">
+</textarea>
+<br>
+svg出力
+<br>
+<svg>
+<path fill="none" stroke="red"></path>
+</svg>
+
+
+<script>
+start();
+
+function start(){
+	d3.select("#btn").on('click', function(){
+		eval(document.querySelector("#geojson").value);
+		eval(document.querySelector("#pathgen").value);
+		var reslut = eval(document.querySelector("#run").value);
+		d3.select("#output").text(reslut);
+		d3.select("path").attr("d", reslut)
+		
+	});
+}
+
+
+window.onerror = function( errorMsg, url, lineNumber ) {
+	alert(errorMsg);
+}
+</script>
+
+
+<script type="text/javascript">
+
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-27276322-1']);
+_gaq.push(['_trackPageview']);
+
+	(function() {
+	var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') +'.google-analytics.com/ga.js';
+	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+</script>
+
+</body>
+</html>

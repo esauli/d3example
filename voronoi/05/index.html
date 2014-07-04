@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>D3.js GoogleMap Voronoi label2</title>
+<style type="text/css">
+	
+html, body {
+	width: 100%;
+	height: 100%;
+	padding: 0px;
+	margin: 0px;
+}
+	
+#map {
+	margin: 0px;
+	width: 100%;
+	height: 100%;
+}
+
+.SvgOverlay {
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+
+.SvgOverlay svg {
+	position: absolute;
+	top: -4000px;
+	left: -4000px;
+	width: 8000px;
+	height: 8000px;        
+}
+
+#display_change {
+	margin-right: 8px;
+	background-color: white;
+	padding:0px 4px 0px 4px;
+	border: 1px solid black;
+	box-shadow: 1px 1px 1px  rgba(0,0,0,0.4);
+}
+.cell:hover{
+	fill:red;
+}
+
+.label {
+  font: 11px sans-serif;
+}
+
+.label--top {
+  text-anchor: middle;
+}
+
+.label--right {
+  text-anchor: start;
+}
+
+.label--bottom {
+  text-anchor: middle;
+}
+
+.label--left {
+  text-anchor: end;
+}
+</style>
+</head>
+<body>
+
+<div id="map"></div>
+	
+<div id="display_change">
+	ボロノイ図
+	<input name="volonoi_togle" type="radio" value="true" checked="checked">表示
+	<input name="volonoi_togle"  type="radio" value="false">非表示
+</div>
+	
+
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script type="text/javascript">
+d3.json('../TakaMaeAed.geojson', function(pointjson){
+	main(pointjson); 
+});
+
+function main(pointjson) {
+ 
+   var style_array_from_above_here = [{"featureType":"landscape","stylers":[{"saturation":-100},{"lightness":65},{"visibility":"on"}]},{"featureType":"poi","stylers":[{"saturation":-100},{"lightness":51},{"visibility":"simplified"}]},{"featureType":"road.highway","stylers":[{"saturation":-100},{"visibility":"simplified"}]},{"featureType":"road.arterial","stylers":[{"saturation":-100},{"lightness":30},{"visibility":"on"}]},{"featureType":"road.local","stylers":[{"saturation":-100},{"lightness":40},{"visibility":"on"}]},{"featureType":"transit","stylers":[{"saturation":-100},{"visibility":"simplified"}]},{"featureType":"administrative.province","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"labels","stylers":[{"visibility":"on"},{"lightness":-25},{"saturation":-100}]},{"featureType":"water","elementType":"geometry","stylers":[{"hue":"#ffff00"},{"lightness":-25},{"saturation":-97}]}];
+ 
+        
+	//Google Map 初期化
+	var map = new google.maps.Map(document.getElementById('map'), {
+		zoom: 15,
+		mapTypeId: google.maps.MapTypeId.ROADMAP,
+		center: new google.maps.LatLng(36.3894816, 139.0634281),
+		styles: style_array_from_above_here
+	});
+
+	  
+    //カスタムコントロール設置 (検索フォーム)     
+    var search_block = gneCustomControl(map, 'display_change', google.maps.ControlPosition.RIGHT_TOP);
+
+		
+	var overlay = new google.maps.OverlayView(); //OverLayオブジェクトの作成
+
+	//オーバレイ追加
+	overlay.onAdd = function () {
+
+		var layer = d3.select(this.getPanes().overlayMouseTarget).append("div").attr("class", "SvgOverlay");
+		var svg = layer.append("svg");
+		var svgoverlay = svg.append("g").attr("class", "AdminDivisions");
+		var markerOverlay = this;
+		var overlayProjection = markerOverlay.getProjection();
+
+		//Google Mapの投影法設定
+		var googleMapProjection = function (coordinates) {
+			var googleCoordinates = new google.maps.LatLng(coordinates[1], coordinates[0]);
+			var pixelCoordinates = overlayProjection.fromLatLngToDivPixel(googleCoordinates);
+			return [pixelCoordinates.x + 4000, pixelCoordinates.y + 4000];
+		}
+		
+			
+			
+		//再描画時に呼ばれるコールバック    
+		overlay.draw = function () {
+			svgoverlay.selectAll("g").remove();
+
+			//母点位置情報
+			var pointdata = pointjson.features;
+			
+			//ピクセルポジション情報
+			var positions = [];
+
+			pointdata.forEach(function(d) {
+				var point = googleMapProjection(d.geometry.coordinates);
+				positions.push({x:point[0], y:point[1]}); //位置情報→ピクセル
+			});
+	
+	
+			//ボロノイ変換関数
+			var voronoi = d3.geom.voronoi()
+				.x(function(d){ return d.x } )
+				.y(function(d){ return d.y } );
+				
+			var vor	= voronoi(positions);
+		
+			var pathAttr = {
+				"class":"cell",
+				"d":function(d, i) { return "M" + vor[i].join("L") + "Z"},
+				stroke:"#FF1493",
+				fill:"white",
+				"fill-opacity": 0.4
+			};
+			
+			var cell =  svgoverlay
+				.append("g")
+				.selectAll("g")
+				.data(pointdata)
+				.enter()
+				.append("g");
+
+			//境界表示
+			cell.append("svg:path")
+				.attr("class", "cell")
+				.attr(pathAttr)
+				.append("title")
+				.text(function(d, i){ return d.properties.name   })
+			
+			//ラベル表示		
+			svgoverlay.append("g")
+				.attr("class", "label")
+				.selectAll("text")
+				.data(pointdata.filter(function(d, i){
+					if(map.zoom > 13) return d
+				}))
+				.enter()
+				.append("text")
+				.attr("class", function(d, i) {
+					d3.geom.polygon(vor[i]); //ポリゴンオブジェクトへ変換
+					var centroid = vor[i].centroid();	//中心を取得
+					var point = [vor[i].point.x, vor[i].point.y];	//point配列に変換
+					var angle = Math.round(Math.atan2(centroid[1] - point[1], centroid[0] - point[0]) / Math.PI * 2);
+					return "label--" + (d.orient = angle === 0 ? "right"
+					: angle === -1 ? "top"
+					: angle === 1 ? "bottom"
+					: "left");
+				})
+				.attr({
+					"fill": "blue",
+					"transform": function(d, i) { return "translate(" + [vor[i].point.x, vor[i].point.y] + ")" },
+					"dy": function(d) { return d.orient === "left" || d.orient === "right" ? ".35em" : d.orient === "bottom" ? ".71em" : null; },
+					"x":  function(d) { return d.orient === "right" ? 6 : d.orient === "left" ? -6 : null; },
+					"y":  function(d) { return d.orient === "bottom" ? 6 : d.orient === "top" ? -6 : null; }
+				})
+				.text(function(d, i) { return d.properties.name.slice(0, 15) ; });			
+	
+				
+			var circleAttr = {
+				    "cx":function(d, i) { return positions[i].x; },
+				    "cy":function(d, i) { return positions[i].y; },
+				    "r":3,
+				    fill:"#FF1493"			
+			}
+	
+			//母点表示
+			svgoverlay.selectAll("circle")
+				.data(pointdata)
+				.attr(circleAttr)
+				.enter()
+				.append("svg:circle")
+				.attr(circleAttr);
+	  
+		};
+		
+	};
+
+	//作成したSVGを地図にオーバーレイする
+	overlay.setMap(map);
+	
+	var volonoi_togle = function(){
+		if(this.value === "true"){
+			d3.selectAll(".cell").attr("opacity", 1)
+		}else{
+			d3.selectAll(".cell").attr("opacity", 0)			
+		};
+	}
+	
+    //カスタムコントロールが表示されるまで待つ   
+    !(function waiteCustomContorlDisplayed(){
+        setTimeout(function(){
+			var elm = d3.selectAll('input[name=volonoi_togle]');
+			console.log(elm[0]);
+            if(elm[0].length > 0){   //フォーム要素にアクセスできるかチェック
+				elm.on("change", volonoi_togle)                
+            }else{
+               waiteCustomContorlDisplayed(); //フォーム要素にアクセスできるまでループ
+            }
+        }, 500);
+    })(); //即時実行
+	
+	
+    /************************************************************
+     * カスタムコントロール生成
+     ***********************************************************/
+    function gneCustomControl(mapObj, selecter, position) {
+        var controlDiv = document.createElement('div');
+        var search_block = document.getElementById(selecter);
+        controlDiv.appendChild(search_block);
+        mapObj.controls[position].push(controlDiv);
+        return controlDiv;
+    }
+
+		
+};
+
+</script>
+
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-27276322-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+</body>
+</html>
+

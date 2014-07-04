@@ -21,7 +21,7 @@
 
 var svg = d3.select("body").append("svg") //ステージとなるsvgを追加
 
-d3.json("gunma.topojson", function(error, japan) { //topjson読み込み	
+d3.json("../../_geodata/gunma.topojson", function(error, japan) { //topjson読み込み	
 	console.log(japan);
 	//topojsonオブジェクトの作成
 	var gunma = topojson.object(japan, japan.objects.gunma);

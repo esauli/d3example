@@ -54,7 +54,7 @@ window.onload = function(){
     path = d3.geo.path().projection(projection);
     
     //群馬地図データ読み込み
-    d3.json('gunma.geojson?1', function(json){
+    d3.json('gunma.geojson', function(json){
 	
 	svg.selectAll("path") //群馬県地図追加
 	    .data(json.features)

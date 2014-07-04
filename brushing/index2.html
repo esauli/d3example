@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ja>
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="content-language" content="ja">
+<title>駐車場</title>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<style>
+html, body {
+  width:100%;
+  height: 100%;
+}
+svg {
+  font: 10px sans-serif;
+  width:100%;
+  height: 100%;
+}
+
+.brush .extent {
+  stroke: red;
+  fill:red;
+  fill-opacity: .125;
+  shape-rendering: crispEdges;
+}
+
+.selected {
+	fill:blue;
+	fill-opacity: 0.3
+}
+
+</style>
+</head>
+<body>
+	<div style="margin:10px; position: fixed; top:0px;left:0px;">
+		<h1>モックアップ</h1>
+		駐車場使用者：<input id="user" type="text" value="" />　備考<input id="comment" type="text" value=""" />　<button id="set">登録</button>
+		<p>図面上で範囲を選択し、「登録」ボタンを押してください。登録済エリアはクリックすることで詳細情報を確認できます</p>
+	</div>
+<svg>
+	<g id="ImgLayer">
+		<image xlink:href="parking.jpg" x="0" y="0" height="900px" width="900px"/>
+	</g>
+	<g id="BrushLayer"></g>
+	<g id="EngagedLayer"></g>
+	
+</svg>
+
+
+<script>
+var w = 900;
+var h = 900;	
+
+var brush = d3.svg.brush()
+		.x(d3.scale.identity().domain([0, w]))
+		.y(d3.scale.identity().domain([0, h]))
+		.on("brush", function() {
+			/*選択中イベント*/
+		});
+
+d3.select("#BrushLayer")
+	.append("g")
+	.attr("class", "brush")
+	.call(brush);
+
+
+d3.select("#set").on("click", setEngagedArea());
+	
+
+//TODO	
+function setEngagedArea(){	
+	var id=0;	
+	return function(){
+		var name = document.querySelector("#user").value;
+		var comment = document.querySelector("#comment").value;
+		
+			if (name == ""){
+				alert("使用者を入力してください")
+				return;
+			}
+	
+			var ext = brush.extent();
+			var user = {
+				id:++id,
+				name: name,
+				comment: comment,
+				extent: ext
+			};
+			
+			var x = ext[0][0];
+			var y = ext[0][1];
+			var vx = ext[1][0]-ext[0][0];
+			var vy = ext[1][1]-ext[0][1];
+			
+			d3.select("#EngagedLayer").selectAll("circle.user-"+user.id)
+				.data([user])
+				.enter()
+				.append('rect')
+				.attr({
+					"class": "selected user-"+user.id,
+					x:x,
+					y:y,
+					width:vx,
+					height:vy,				
+				})
+				.on("click", function(d){
+					var content = "";
+					content += "ユーザーID:"+d.id+"\n";
+					content += "名前:"+d.name+"\n";
+					content += "備考:"+d.comment+"\n";
+					content += "座標:"+JSON.stringify(d.extent)+"\n";
+					
+					alert(content);
+				});
+	
+			d3.select("#EngagedLayer").selectAll("text.user-"+user.id)
+				.data([user])
+				.enter()
+				.append('text')
+				.attr({
+					"class": "user-"+user.id,
+					"text-anchor": "middle",
+					"font-size": "1.5em",
+					"fill":"black",
+					x:x + ~~(vx/2),
+					y:y + ~~(vy/2),
+				})
+				.text(function(d){ return d.name })			
+	
+				
+			d3.select(".brush").call(brush.clear());
+	}
+}
+
+</script>
+
+</body>
+</html>

@@ -35,7 +35,7 @@ window.onload = function(){
     
     path = d3.geo.path().projection(projection);
         
-    d3.json("conuntries2.topojson", function(json){ //地図情報の読み込み
+    d3.json("../../_geodata/conuntries2.topojson", function(json){ //地図情報の読み込み
         
         var data = topojson.object(json, json.objects.conuntries); //topojson変換
        

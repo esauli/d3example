@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+<head>
+<title>Text Path</title>
+<style>
+svg {
+    width:960px;
+    height: 700px;
+}
+
+path {
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.land {
+  fill: #bbb;
+}
+
+.land :hover {
+  fill: red;
+}
+
+.land .neighbor {
+  fill: orange;
+}
+
+</style>
+</head>
+
+
+<body>
+<h1>Text Path</h1>
+<svg></svg>
+
+
+
+
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+<script> 
+d3.json("../../_geodata/ken.topojson", function(json) {
+	draw(json);
+});
+
+
+function draw(json){
+	var geodata = json.objects.ken;
+	
+	var projection = d3.geo
+		.mercator()		//投影法の指定
+		.scale(1900)	//スケール（ズーム）の指定
+		.translate([500,450]) //表示位置調整
+		.center([139.0032936, 36.3219088]); //中心の座標を指定
+
+	var path = d3.geo.path().projection(projection);　//パスジェネレーター
+
+	var svg = d3.select("svg");　
+	var def = svg.append("def"); //svgの関数のような要素。再利用が可能
+		
+	//地図描画(pathをdef内に作成)
+	var map = def.append("g")
+		.attr("class", "land")
+		.selectAll("path")
+		.data(topojson.feature(json, geodata).features)
+	    .enter().append("path")
+		.attr("d", path)
+		.attr("stroke", "red")
+		.attr("id", function(d){
+			//pathのidとして県名を指定
+			return d.properties.ObjName_1;
+		})
+	
+	//テキスト要素追加	
+	var text = svg.selectAll('text')
+		.data(topojson.feature(json, geodata).features)
+		.enter()
+		.append("text")
+		.append("textPath")
+		.attr("xlink:href", function(d){
+			//defの中に書きこまれたpathをidで呼び出しテキストに適用する
+			return "#"+d.properties.ObjName_1;
+		})　
+		.text(function(d){
+			var a = d3.range(0,50)
+			.map(function(){ return d.properties.ObjName_1 });
+			return a
+		})
+}
+</script>
+
+
+</body>
+</html>

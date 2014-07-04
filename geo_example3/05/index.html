@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="content-language" content="ja">
+<title>Path Animation</title>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<style>
+.japan {
+	fill: white;
+	stroke-width:1;
+	stroke-dasharray: 3000;
+	stroke-dashoffset:3000;
+	animation: DASH 6s ease-in alternate forwards;
+	-webkit-animation:DASH 6s ease-in 0s forwards;
+	-o-animation:DASH 6s ease-in 0s forwards;
+	animation:DASH 6s ease-in 0s forwards;
+}
+@keyframes DASH{
+0%{stroke-dashoffset:3000;}
+100%{stroke-dashoffset:0;fill:green}
+}
+@-moz-keyframes DASH{
+0%{stroke-dashoffset:3000;}
+100%{stroke-dashoffset:0;}
+}
+@-webkit-keyframes DASH{
+0%{stroke-dashoffset:3000;}
+100%{stroke-dashoffset:0;fill:green}
+}
+@-o-keyframes DASH{
+0%{stroke-dashoffset:3000;}
+100%{stroke-dashoffset:0;}
+}
+@-ms-keyframes DASHf{
+0%{stroke-dashoffset:3000;}
+100%{stroke-dashoffset:0;
+}
+</style>
+</head>
+<body>
+<h1>Path Animation</h1>
+<svg></svg>
+
+<script>
+d3.json("../../_geodata/japan_outline.geojson", function(geojson){
+	draw(geojson);
+});
+
+function draw(geojson) {
+
+	projection = d3.geo
+		.mercator()		//投影法の指定
+		.scale(1500)	//スケール（ズーム）の指定
+		.translate([300,350])
+		.center([139.0032936, 36.3219088]); //中心の座標を指定
+
+	var path = d3.geo.path().projection(projection);　//投影
+
+	var svg = d3.select("svg");
+
+	console.log(path(geojson))
+	
+	var map = svg.append("path")
+		.attr({
+			"class": "japan",
+			"d": path(geojson),
+			"stroke": "black"		
+		})
+	
+
+}	
+</script>
+</body>
+</html>

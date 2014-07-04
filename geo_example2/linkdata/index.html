@@ -41,19 +41,20 @@ svg {
 
 
 
-<script src="../../d3.v3.min.js"></script>
-<script src="../../topojson.v0.min.js"></script>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+
 <script> 
-d3.json("japan.geojson", function(json) {
+d3.json("../../_geodata/japan_town.topojson", function(json) {
 	d3main(json);
 });
 
 
 function d3main(json){
 
-
-	//var geodata = topojson.object(json, json.objects.japan).geometries;
-	var geodata = json.features;
+	console.log(json);
+	var geodata = topojson.feature(json, json.objects.japan).features;
+	//var geodata = json.features;
 	
 	 var scale = 2400;
 
@@ -87,11 +88,10 @@ function d3main(json){
 
 	//ズームイベント設定    
 	var zoom = d3.behavior.zoom().on('zoom', function(){
-	   if(d3.select(this).attr("fill")!=="white") return;
 	   projection.scale(scale * d3.event.scale);       
 	   map.attr('d', path)       
 	});
-	map.call(zoom);	    
+	svg.call(zoom);	    
 
 	//ドラッグイベント設定
 	drag = d3.behavior.drag().on('drag', function(){

@@ -231,7 +231,7 @@
 
 
 	//ベースデータ読み込み
-	d3.json('gunma.geojson', function(json) {
+	d3.json('../../_geodata/gunma.geojson', function(json) {
 	  d3.select('#load1').remove();
 	  gunma_map_init(json);
 	});

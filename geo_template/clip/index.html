@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>D3 leaflet sample</title>
+<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css"/>
+<style>
+#map {
+	width: 960px;
+	height: 480px;
+}
+</style>
+</head>
+<body>
+<div id="map"></div>
+
+<script src="http://cdn.leafletjs.com/leaflet-0.7/leaflet.js"></script>
+<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+
+<script>
+d3.json("../../_geodata/ken.geojson", function(json) {
+	mapdraw(json)
+});
+
+function mapdraw(geojson){
+	//Leaflet初期設定
+	var map = L.map('map').setView([39.702053　, 141.15448379999998], 5);
+	var mapLink = '<a target="_blank" href="http://portal.cyberjapan.jp/help/termsofuse.html">国土地理院 地理院地図 標準地図</a>';
+	
+	//Tile Map Serviceの指定
+	L.tileLayer(
+			'http://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png', {
+			attribution: '&copy; ' + mapLink + ' Contributors',
+			maxZoom: 18,
+		}).addTo(map);
+	
+		
+	// Leafletのoverlay paneにsvg要素を追加
+	var svg = d3.select(map.getPanes().overlayPane).append("svg");
+	var g = svg.append("g").attr("class", "leaflet-zoom-hide");
+
+	//緯度経度->パスジェネレーター関数作成
+	var transform = d3.geo.transform({point: projectPoint});
+	var path = d3.geo.path().projection(transform);
+ 
+	featureElement = g.selectAll("path")
+		.data(geojson.features)
+		.enter()
+		.append("path");
+
+	map.on("viewreset", update);
+
+	update();
+
+	//SVG要素をleafletのマップレイヤーにフィットさせる
+	function update() {
+		
+		var bounds = path.bounds(geojson);
+	
+		var topLeft = bounds[0];
+		var bottomRight = bounds[1];
+	
+		svg .attr({
+				"width": bottomRight[0] - topLeft[0],
+				"height": bottomRight[1] - topLeft[1]
+			})
+			.style({
+				"left": topLeft[0] + "px",
+				"top": topLeft[1] + "px"
+			})
+	
+		g .attr("transform", "translate(" + -topLeft[0] + "," + -topLeft[1] + ")");
+	
+		// path要素（地形)追加 
+		featureElement
+			.attr({
+					"d": path,
+					"stroke": "white",
+					"fill": "red",
+					"fill-opacity": 0.7
+			});
+	} 
+
+	//位置→座標変換
+	function projectPoint(x, y) {
+		var point = map.latLngToLayerPoint(new L.LatLng(y, x));
+		this.stream.point(point.x, point.y);
+	}
+
+}
+        
+</script>
+</body>
+</html>

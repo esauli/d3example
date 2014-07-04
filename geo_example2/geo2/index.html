@@ -24,7 +24,7 @@
 <script src="../../d3helper.js"></script>
 <script src="http://d3js.org/d3.geo.projection.v0.min.js"></script>
 <script>
-d3.json("japan.topojson", function(json) {
+d3.json("../../_geodata/conuntries.topojson", function(json) {
 	d3main(json);
 });
 
@@ -40,12 +40,8 @@ function d3main(json){
 	//投影法設定
 	var projection = d3.geo.albers()
 	.center([35.6894875,139.69170639999993])
-	.scale(300)
-
-	
-	
-
-
+	.rotate([-60,0,0])
+	.scale(100)
 
 
 
@@ -69,7 +65,7 @@ function d3main(json){
 
 	//国土追加  
 	var land = svg.insert("path", ".graticule")
-		.datum(topojson.object(json, json.objects.japan))
+		.datum(topojson.object(json, json.objects.conuntries))
 		.attr({
 			"class": "land",
 			"d": path,

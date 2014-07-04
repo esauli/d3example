@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja>
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="content-language" content="ja">
+<title>D3.js Image Brush</title>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<style>
+html, body {
+  width:100%;
+  height: 100%;
+}
+svg {
+  width:500px;
+  height: 281px;
+}
+
+.brush .extent {
+  stroke: #fff;
+  fill:red;
+  fill-opacity: .125;
+  shape-rendering: crispEdges;
+}
+#messege{
+	height: 1.5em;
+}
+
+</style>
+</head>
+<body>
+<h1>D3.js Image Brush</h1>
+<div id="messege">Extent:</div>
+<svg>
+	<image xlink:href="test000014.JPG" x=0 y=0 width="500px" height="281px" />
+	<g id="BrushLayer"></g>	
+</svg>
+
+
+<script>
+var imgW = 500;	//画像の横幅
+var imgH = 281;	//画像の高さ
+var messege = document.querySelector("#messege")
+
+//選択できる範囲を画像の大きさと同じにしてbrushオブジェクトを生成
+var brush = d3.svg.brush()
+  .x(d3.scale.identity().domain([0, imgW])) 
+  .y(d3.scale.identity().domain([0, imgH]))
+  .on("brush", function() {
+	  messege.innerHTML = "Extent:"+JSON.stringify(brush.extent());
+  });
+
+//brush要素を追加
+d3.select("#BrushLayer")
+  .append("g")
+  .attr("class", "brush")
+  .call(brush);
+
+
+</script>
+
+</body>
+</html>

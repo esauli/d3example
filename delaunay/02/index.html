@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>D3.js GoogleMap Voronoi label2</title>
+<title>D3.js GoogleMap Delaunay Triangulation</title>
 <style type="text/css">
 	
 html, body {
@@ -30,10 +30,10 @@ html, body {
 	width: 8000px;
 	height: 8000px;        
 }
+
 .cell:hover{
 	fill:red;
 }
-
 </style>
 </head>
 <body>
@@ -68,6 +68,7 @@ function main(pointjson) {
 
 		var layer = d3.select(this.getPanes().overlayMouseTarget).append("div").attr("class", "SvgOverlay");
 		var svg = layer.append("svg");
+		 var def = svg.append("def"); 
 		var svgoverlay = svg.append("g").attr("class", "AdminDivisions");
 		var markerOverlay = this;
 		var overlayProjection = markerOverlay.getProjection();
@@ -83,10 +84,11 @@ function main(pointjson) {
 			
 		//再描画時に呼ばれるコールバック    
 		overlay.draw = function () {
-			svgoverlay.selectAll("g").remove();
+			svgoverlay.selectAll(".du").remove();
 
 			//母点位置情報
 			var pointdata = pointjson.features;
+			console.log(pointjson)
 			
 			//ピクセルポジション情報
 			var positions = [];
@@ -102,55 +104,26 @@ function main(pointjson) {
 				.x(function(d){ return d.x } )
 				.y(function(d){ return d.y } );
 				
-			var vor	= voronoi(positions);
-		
-			var pathAttr = {
-				"class":"cell",
-				"d":function(d, i) { return "M" + vor[i].join("L") + "Z"},
-				stroke:"#FF1493",
-				fill:"white",
-				"fill-opacity": 0.4
-			};
+			//ドロネー変化
+			var delaunay  = voronoi.triangles(positions)
 			
-			var cell =  svgoverlay
-				.append("g")
-				.selectAll("g")
-				.data(pointdata)
-				.enter()
-				.append("g");
-
-			//境界表示
-			cell.append("svg:path")
-				.attr("class", "cell")
-				.attr(pathAttr)
-				.append("title")
-				.text(function(d, i){ return d.properties.name   })
-			
-			//ラベル表示		
-			svgoverlay.append("g")
-				.attr("class", "label")
-				.selectAll("text")
-				.data(pointdata)
-				.enter()
-				.append("text")
-				.attr("transform", function(d, i) { 
-					d3.geom.polygon(vor[i]); //ポリゴンオブジェクトへ変換
-					var centroid = vor[i].centroid();	//中心を取得
-					var point = [vor[i].point.x, vor[i].point.y];	//point配列に変換
-					
-					//角度計算
-					d.angle = Math.round(Math.atan2(centroid[1] - point[1], centroid[0] - point[0]) * 180 / Math.PI);
-					return "translate(" + point + "), rotate("+d.angle+")"; 
-				})
-				.attr("rotate", function(d){
-					if(d.angle > 90 || d.angle < -90){
-						//return 180;	//これだと駄目。検討中
-					}else{
-						return 0;
-					}
-				})
-				.attr("fill", "blue")
-				.text(function(d, i) { return d.properties.name.slice(0, 15) ; });			
+			//ドロネー図パス描画	
+			var du = svgoverlay.selectAll(".du")
+			.data(delaunay)
+			.enter()
+			.append("path")
+			.attr("class", "du")
+			.attr("d",function(dd, i) {
+					return "M" + dd.map(
+						function(d){
+							return [d.x, d.y]
+						}).join("L")  + "Z";
+			})
+			.attr({
+				stroke:"blue",
+				fill:"none",
+				"stroke-width": 1
+			});	
 	
 				
 			var circleAttr = {

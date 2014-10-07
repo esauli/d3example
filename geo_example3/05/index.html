@@ -6,6 +6,12 @@
 <title>Path Animation</title>
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <style>
+	
+svg {
+	width: 960px;
+	height: 900px;
+}
+	
 .japan {
 	fill: white;
 	stroke-width:1;
@@ -49,7 +55,7 @@ d3.json("../../_geodata/japan_outline.geojson", function(geojson){
 
 function draw(geojson) {
 
-	projection = d3.geo
+	var projection = d3.geo
 		.mercator()		//投影法の指定
 		.scale(1500)	//スケール（ズーム）の指定
 		.translate([300,350])
@@ -59,7 +65,7 @@ function draw(geojson) {
 
 	var svg = d3.select("svg");
 
-	console.log(path(geojson))
+	//console.log(path(geojson))
 	
 	var map = svg.append("path")
 		.attr({

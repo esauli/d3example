@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="content-language" content="ja">
+<title>D3 circle Mask</title>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.4.11/d3.min.js"></script>
+<style>
+	body {
+		background-image : url("p5.png");
+	}
+	svg {
+		width:100%;
+		height: 180px;
+	}
+</style>
+</head>
+<body>
+<p>normal</p>	
+<svg id="svg1"></svg>
+<p>fill-opacity:0.5</p>	
+<svg id="svg2"></svg>
+<p>mask</p>	
+<svg id="svg3"></svg>
+
+<script>
+var dataSet =[
+	{r:20, color:"blue"},
+	{r:40, color:"red"},
+	{r:60, color:"blue"},
+]
+
+/*normal*/
+var svg1 = d3.select("#svg1")
+svg1.selectAll("circle")
+	.data(dataSet.reverse())
+	.enter()
+	.append("circle")
+	.attr({
+		cx:100,
+		cy:60,
+		r:function(d){ return d.r },
+		fill:function(d){ return d.color }
+	});
+
+
+/*fill-opacity:0.5*/
+var svg2 = d3.select("#svg2")
+svg2.selectAll("circle")
+	.data(dataSet.reverse())
+	.enter()
+	.append("circle")
+	.attr({
+		cx:100,
+		cy:60,
+		r:function(d){ return d.r },
+		fill:function(d){ return d.color },
+		"fill-opacity": 0.5
+	});
+
+
+/*mask*/
+var svg3 = d3.select("#svg3")
+svg3.selectAll("circle")
+	.data(dataSet)
+	.enter()
+	.append("circle")
+	.attr({
+		cx:100,
+		cy:60,
+		r:function(d){ return d.r },
+		fill:function(d){ return d.color },
+		"fill-opacity": 0.5,
+		mask:function(d, i){
+			if (i <= 0) return null;
+			return "url(#mask"+i+")";
+		}
+	});
+
+//部品の定義	
+var defs = svg3.append("defs");		
+dataSet.forEach(function(d, i){
+	if (i <= 0) return;
+	
+	//defs内にmask要素を追加
+	var mask = defs.append("mask")
+		.attr({
+			id:function(d){ return "mask"+i }
+		});
+	
+	//mask表示領域の指定	
+	mask.append("circle")
+		.attr({
+			cx:100,
+			cy:60,
+			r:(dataSet[i].r),
+			fill: "white"
+		});
+
+	//mask非表示領域の指定	
+	mask.append("circle")
+		.attr({
+			cx:100,
+			cy:60,
+			r:(dataSet[i-1].r),
+			fill: "black"
+		});
+
+
+});
+
+</script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="content-language" content="ja">
+<title>Hello TOYOTA API</title>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+</head>
+<body>
+<h1>TOYOTA API TEST</h1>
+<p>1秒間に１回取得</p>
+<script>
+var url = "http://shimz.me/example/d3js/post/proxy.php?url=https://api-jp-t-itc.com/GetVehicleInfo&vid=ITCJP_VID_001&infoids=[Posn,VehBehvr]"	
+	
+draw();
+setInterval(draw, 1000);
+	
+function draw(){
+	d3.json(url, function(data){
+		var pos = JSON.stringify(data.vehicleinfo[0].data[0].Posn);
+		var time = data.vehicleinfo[0].data[0].createtime;
+		
+		d3.select("body").append("p")
+		.text(time + " " + pos);
+	});	
+}
+	
+
+</script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="http://d3js.org/d3.v2.min.js"></script>
+<script type="text/javascript" src="polybrush.js"></script>
+<style type="text/css">
+html, body {
+	width:100%;
+	height: 100%;
+}
+svg {
+	font: 10px sans-serif;
+	width:100%;
+	height: 100%;
+}		
+		
+.brush .extent {
+	stroke: red;
+	stroke-width: 2;
+	fill:red;
+	fill-opacity: .125;
+	shape-rendering: crispEdges;
+}
+</style>
+</head>
+<body>
+<h2>モックアップ２</h2>
+<p>多角形選択：クリックで角設置、ダブルクリックで終了</p>
+<svg>
+<g id="ImgLayer">
+<image xlink:href="../parking.jpg" x="0" y="0" height="900px" width="900px"/>
+</g>
+<g id="BrushLayer"></g>
+<g id="EngagedLayer"></g>
+
+</svg>
+  
+<script type="text/javascript">
+var w = 900;
+var h = 900;
+
+var brush = d3.svg.polybrush()
+	.x(d3.scale.identity().domain([0, w]))
+	.y(d3.scale.identity().domain([0, h]))
+	.on("brushstart", function() {
+		console.log("start")
+	})
+	.on("brush", function() {
+		console.log(this);
+	});
+
+
+
+
+d3.select("#BrushLayer")
+	.append("g")
+	.attr("class", "brush")
+	.call(brush);
+
+</script>
+</body>
+</html>

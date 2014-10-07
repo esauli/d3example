@@ -1,0 +1,144 @@
+
+<html>
+<head>  
+        <meta charset="utf-8">  
+        <title>Force-Directed Japan</title>  
+  </head> 
+<style>
+
+.link {
+	stroke: #ccc;
+	stroke-width: 1;
+}
+
+</style>
+<body>
+<h1>Click and drag the map</h1>
+<svg></svg>
+<br />
+by <a href="http://shimz.me/blog/d3-js/3742?utm_medium=twitter&utm_source=twitterfeed">@_shimizu</a>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script>
+d3.json("../../_geodata/japan_light.geojson", function(error, json) {
+	if (error) return console.error(error);
+	draw(json);	
+})	
+	
+function draw(json){	
+	var width  = 1000;
+	var height = 1000;
+	
+	var svg = d3.select("svg")
+	    .attr("width", width)
+	    .attr("height", height)
+	    .append("g")
+	    .attr("transform", "translate(0,0)");
+	
+	var projection = d3.geo.mercator()
+		.center([139.0032936, 36.3219088])
+		.scale(2000)
+		.translate([width/2, height/2]);
+	
+	var path = d3.geo.path().projection(projection);
+						
+	var nodes = [];
+	var links = [];
+	
+	json.features.forEach(function(d, i) {
+		//各領域の中心点取得
+		var centroid = path.centroid(d);
+		centroid.x = centroid[0];
+		centroid.y = centroid[1];
+		centroid.feature = d;
+		nodes.push(centroid);	//ノードデータを生成
+	});
+
+	//ノードデータから、ドロネー三角分割データを生成		
+	var triangles = d3.geom.voronoi().triangles(nodes);
+		
+		triangles.forEach(function(d,i){
+			//各三角形の頂点からソースポイント、ターゲットポイント、２点の距離をリンクデータとして保存
+			links.push( edge( d[0] , d[1] ) );
+			links.push( edge( d[1] , d[2] ) );
+			links.push( edge( d[2] , d[0] ) );
+		});
+		
+		//console.log(nodes);
+		//console.log(links);
+		
+		//力学グラフ生成
+		var force = d3.layout.force().size([width, height]);		
+		force.gravity(0.01)
+			.charge(0.01)
+			.nodes(nodes)
+			.links(links)
+			.linkDistance(function(d){ return d.distance; })
+			.start();
+		
+		//ノード(地形)の描画
+		var node = svg.selectAll("g")
+			.data(nodes)
+			.enter()
+			.append("g")
+			.attr("transform", function(d) { return "translate(" + -d.x + "," + -d.y + ")"; })
+			.call(force.drag) //forceレイアウトのドラッグビヘイビアを設定
+			//地形描画
+			.append("path")
+			.attr({
+				"transform": function(d) { return "translate(" + d.x + "," + d.y + ")"; },
+				"stroke": "#ccc",
+				"stroke-width": 1,
+				"fill": "green",
+				"d": function(d){ return path(d.feature) }
+			});						
+		
+		//ライン(地形を結ぶ線)の描画
+		var link = svg.selectAll("line")
+			.data(links)
+			.enter()
+			.append("line")
+			.attr({
+				"class": "link",
+				"x1":function(d){ return d.source.x },
+				"y1":function(d){ return d.source.y },
+				"x2":function(d){ return d.target.x },
+				"y2":function(d){ return d.target.y },
+			})
+		
+		//力学グラフのアップデート処理
+		 force.on("tick", function() {
+			    link.attr({
+					"class": "link",
+					"x1":function(d){ return d.source.x },
+					"y1":function(d){ return d.source.y },
+					"x2":function(d){ return d.target.x },
+					"y2":function(d){ return d.target.y },
+				});
+			   node.attr("transform", function(d) {
+					return "translate(" + d.x + "," + d.y + ")";
+			   });
+		});
+				
+	function edge(a, b) {
+		var dx = a[0] - b[0], dy = a[1] - b[1];
+		return {
+			source: a,
+			target: b,
+			distance: Math.sqrt(dx * dx + dy * dy)
+		};
+	}
+}
+</script>
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-27276322-1', 'shimz.me');
+  ga('send', 'pageview');
+</script>	
+</body>  
+</html>  

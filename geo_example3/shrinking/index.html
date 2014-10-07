@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="content-language" content="ja">
+<title>群馬県を丸くする</title>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.4.11/d3.min.js"></script>
+<script src="http://polyshrink.s3.amazonaws.com/texas.js"></script>
+
+<style>
+svg,body {
+   background-color: black;
+   margin:0px;
+   position:absolute;
+   height:100%;
+   width:100%;
+   overflow:hidden;
+}
+path.state {
+   stroke: #ffffff;
+   stroke-width: 2px;
+   fill: green;
+   fill-opacity: 0.2;
+   -webkit-transform: translate3d(0px,0px,0px);
+   -moz-transform: translate3d(0px,0px,0px);
+   -ms-transform: translate3d(0px,0px,0px);
+   -o-transform: translate3d(0px,0px,0px);
+   transform: translate3d(0px,0px,0px);
+}
+
+</style>
+
+</head>
+<body>
+<svg></svg>
+
+<script>
+d3.json("gunma.geojson", function(json){
+	draw(json);
+})
+	
+function draw(json){
+	var pageHeight = window.innerHeight;
+	var pageWidth = window.innerWidth;
+	
+
+	var projection = new d3.geo
+		.mercator()
+		.center([139.0032936,36.3219088　])
+		.translate([(pageWidth/2),pageHeight/1.2])
+		.scale(1 << 15); 
+	
+	var path = d3.geo.path().projection(projection);
+	
+	var svg = d3.select("svg"); 
+	
+	
+	var geoData = json.features;
+	
+		
+	//地形を描画する
+	var texas = svg.selectAll("path.state").
+	   data(geoData)
+	   .enter()
+	   .append("path")
+	   .attr({
+			"id": "texas",
+		   "class": "state",
+		   "d": path
+	   });
+	
+	
+	//サークルノード生成
+	CreateNode(geoData[0]);
+	//圧縮トランジション開始
+	shirinkTransition();
+	
+	
+	
+	function CreateNode(data){	
+		var state = path(data);
+		var centroid = path.centroid(data); //地形データの中心を取得
+		var nodes = path(data)
+			.slice(1,-1) //先頭と最後の座標データを削除
+			.split(/L/) // 配列に変換
+			.map(function(d,i) {
+				return d.split(/,/) // x座標とy座標の配列に変換
+				.map(function(d) { // int型に変換
+					return +d;
+				});
+			});
+		
+		//地形データの中心に向かってラインを引く(非表示)
+		var splines = svg.selectAll("path.spline")
+			.data(nodes)
+			.enter()
+			.append("path")
+			.attr({
+				"class":"spline",
+				"stroke": "white"
+			})
+			.attr("d",function(d) {
+				return "M "+centroid[0]+" "+centroid[1]+" L "+d[0]+" "+d[1];
+			})
+			.style("display","none");
+		
+		//中心線からサークルのパスデータを生成
+		var circle = d3.selectAll("path.spline")[0]
+			.map(function (d,i) {
+			var point = d.getPointAtLength(10);
+			return point.x+" "+point.y;
+			}).join(" L ");
+				
+		data.circle =  "M "+circle+" Z"; // データにサークルのパスデータを追加
+		
+		splines.remove(); //不要になったラインを削除
+	}	
+	
+	//圧縮トランジション
+	function shirinkTransition () {
+		var texas = d3.select("path");
+		if (texas.classed("shrunk")) {
+			//地形に戻す
+			texas.classed("shrunk",false)
+				.transition()
+				.ease("elastic")
+				.delay(1000)
+				.duration(2000)
+				.attr("d",path)
+				.each("end",shirinkTransition);　//トランジション終了時に再帰
+
+		} else {
+			//円にする
+			texas.classed("shrunk",true)
+				.transition()
+				.duration(2000)
+				.attr("d",function (d) {
+					return d.circle;
+				})
+				.each("end",shirinkTransition); //トランジション終了時に再帰
+		}
+	}
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="content-language" content="ja">
+<title>Mapbox(leaflet.js) Voronoi Diagram</title>
+<link href='https://api.tiles.mapbox.com/mapbox.js/v1.6.3/mapbox.css' rel='stylesheet' />
+
+<style>
+html, body{
+  height: 100%;
+  padding: 0px;
+  margin: 0px;
+}
+#map {
+  width:600px;
+  height: 600px;
+}
+
+.brush .extent {
+	stroke: red;
+	stroke-width: 2;
+	fill:red;
+	fill-opacity: .125;
+	shape-rendering: crispEdges;
+}
+
+</style>
+</head>
+<body>
+<div id="map"></div>
+
+
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script type="text/javascript" src="polybrush.js"></script>
+<script src="https://api.tiles.mapbox.com/mapbox.js/v1.6.3/mapbox.js"></script>
+
+<script>
+d3.json('../../_geodata/TakaMaeAed.geojson', function(geojson){
+  mapDraw(geojson);
+});
+
+
+function mapDraw(geojson){
+  
+	var pointdata = geojson.features;
+  
+  
+	//Leaflet初期設定
+	var map = L.mapbox.map('map', 'examples.map-i875mjb7');
+	map.setView([36.3894816, 139.0634281], 14);
+	map.on("viewreset moveend", update);
+ 
+   
+	// オーバーレイレイヤ追加
+	map._initPathRoot();
+	var svg = d3.select("#map").select("svg");
+	var pointLayer = svg.append("g").attr("class", "leaflet-zoom-hide");;
+	var brushLayer = svg.append("g").attr("class", "leaflet-zoom-hide brush");;
+
+  
+	//brash初期化
+	brush = d3.svg.polybrush()
+		.x(d3.scale.linear().range([0, 600]))　
+		.y(d3.scale.linear().range([0, 600]))
+		.on("brushstart", function() {
+			svg.selectAll(".selected").classed("selected", false);
+		})
+
+	brushLayer.call(brush);
+
+	update();
+ 
+    
+	function update() {
+		//前サークルを削除
+		d3.selectAll('.AEDpoint').remove();
+		d3.select(".brush").call(brush.clear()); //削除されない？
+
+		//ピクセルポジション情報保存用
+		var positions = [];
+  
+		//位置情報→ピクセルポジション変換
+		pointdata.forEach(function(d) {        
+			var latlng = new L.LatLng(d.geometry.coordinates[1], d.geometry.coordinates[0]);
+			positions.push({
+				x :map.latLngToLayerPoint(latlng).x,
+				y :map.latLngToLayerPoint(latlng).y
+			});
+		});
+        
+    
+		//サークル要素を追加
+		var circle = pointLayer.selectAll("circle")
+			.data(positions)
+			.enter()
+			.append("circle")
+			.attr("class", "AEDpoint")
+			.attr({
+				"cx":function(d, i) { return d.x; },
+				"cy":function(d, i) { return d.y; },
+				"r":2,
+				fill:"red"            
+			});
+
+    } 
+   
+}
+</script>
+</body>
+</html>

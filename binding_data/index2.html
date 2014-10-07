@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="content-language" content="ja">
+<title>D3 enter, update, exit</title>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.4.11/d3.min.js"></script>
+</head>
+<body>
+<h3>順番に実行→</h3>
+<button id="enter_append">binding:dataset1 enter.append</button>
+<button id="update">update</button>
+<button id="binding_dataset2">binding:dataset2 update</button>
+<button id="exit_update">exit.update</button>
+<button id="exit_remove">exit.remove</button>
+<div id="stage">
+	<p>test1</p>
+	<p>test2</p>
+</div>
+
+
+<script>
+var dataSet1 = [
+	{id:1, label:"hoge", value:100},
+	{id:2, label:"hello", value:200},
+	{id:3, label:"wold", value:300},
+	{id:4, label:"fuga", value:400},
+	{id:5, label:"ora", value:500},
+	{id:6, label:"muda", value:600}
+]
+
+var dataSet2 = [
+	{id:1, label:"hoge", value:100},
+	{id:2, label:"hello", value:200},
+	{id:4, label:"fuga", value:400},
+	{id:5, label:"ora", value:500},
+	{id:6, label:"muda", value:600}
+]
+
+
+var div = d3.select("#stage");
+
+
+/*
+ * データセット１に対して足りないエレメントを追加
+ */
+d3.select("#enter_append").on("click", function(){
+	div.selectAll("p")
+		.data(dataSet1)
+		.enter()
+		.append("p")
+		.text(function(d){ return d.label });
+});
+
+/*
+ * 束縛されているデータを元にエレメントのスタイルをアップデート
+ */
+d3.select("#update").on("click", function(){
+		div.selectAll("p")
+		.style("background-color", "red")
+		.style("color", "white")
+		.text(function(d){ return d.label });
+});
+
+
+/*
+ * データセット２をエレメントに束縛しアップデート
+ */
+d3.select("#binding_dataset2").on("click", function(){
+	div.selectAll("p")
+		.data(dataSet2, function(d){ return d.id })
+		.style("background-color", "blue")
+});
+
+
+/*
+ * データセット２に対し多すぎるエレメントのスタイルをアップデーと
+ */
+d3.select("#exit_update").on("click", function(){
+	div.selectAll("p")
+		.data(dataSet2, function(d){ return d.id })
+		.exit()
+		.style("background-color", "green")
+});
+
+/*
+ * データセット２に対し多すぎるエレメントを削除
+ */
+d3.select("#exit_remove").on("click", function(){
+	div.selectAll("p")
+		.data(dataSet2, function(d){ return d.id })
+		.exit()
+		.remove();
+});
+
+
+
+</script>
+</body>
+</html>

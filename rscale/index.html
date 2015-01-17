@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>スケールと要素の面積</title>
+<script src="../d3.v3.min.js"></script>
+<style>
+	svg {
+		width: 800px;
+		height: 300px;
+		border: solid 1px black;
+	}
+	
+	.axis path,
+	.axis line {
+		fill: none;
+		stroke: black;
+		stroke-width: 1;
+	}
+	
+	.tick line{
+		opacity: 0.2;
+		stroke-dasharray:2;
+	}	
+</style>
+</head>
+<body>
+<h1>スケールと要素の面積</h1>	
+<h2>d3.scale.linear</h2>
+<svg id="svg1"></svg>
+<br>
+<h2>d3.scale.sqrt</h2>
+<svg id="svg2"></svg>
+
+<script>
+var svg1 = d3.select("#svg1");
+var svg2 = d3.select("#svg2");
+
+var w = 800;	
+var h = 300;
+var m = 40; //マージン
+var hm = Math.floor(m/2); //ハーフマージン
+var mr = 80; //表示する半径の最大値
+
+
+var data = [10, 25, 50, 100, 200];
+
+/***********************************************************************
+ *x軸の目盛りを表示
+ ***********************************************************************/
+var xScale = d3.scale.linear().domain([0, data.length]).range([0, w-m]);
+var xAxis = d3.svg.axis().scale(xScale).orient('bottom').ticks(5)
+	.tickFormat(function(i){ return data[i] });	//目盛りのラベルをデータの値にする
+
+svg1.append("g")
+	.attr({
+		"class": "x axis",
+		"transform": "translate("+[hm, h-m]+")",
+	}).call(xAxis);
+
+
+svg2.append("g")
+	.attr({
+		"class": "x axis",
+		"transform": "translate("+[hm, h-m]+")", 
+	}).call(xAxis);
+
+	
+/***********************************************************************
+ *円を表示
+ ***********************************************************************/	
+var max = d3.max(data);	//データの最大値
+
+//正規化関数を生成
+var rScale1 = d3.scale.linear().domain([0, max]).range([0, mr]);
+var rScale2 = d3.scale.sqrt().domain([0, max]).range([0, mr]);
+
+
+//円１を表示
+svg1.selectAll("circle")
+	.data(data)
+	.enter()
+	.append("circle")
+	.attr({
+		cx:function(d, i){ return xScale(i)  + hm},
+		cy:h/2,
+		r:function(d){ return rScale1(d) }	// linear scale
+	})
+	.append("title")
+	.text(function(d){
+		var str = rScale1(d) + " × " + rScale1(d) + " × 3.14 = ";
+		var ans = rScale1(d) * rScale1(d) * 3.14;
+		return str + ans ;
+	})
+
+//円１を表示
+svg2.selectAll("circle")
+	.data(data)
+	.enter()
+	.append("circle")
+	.attr({
+		cx:function(d, i){ return xScale(i) + hm},
+		cy:h/2,
+		r:function(d){ return rScale2(d) }	//sqrt scale
+	})	
+	.append("title")
+	.text(function(d){
+		var str = rScale2(d) + " × " + rScale2(d) + " × 3.14 = ";
+		var ans = rScale2(d) * rScale2(d) * 3.14;
+		return str + ans ;
+	})
+</script>
+
+</body>
+</html>

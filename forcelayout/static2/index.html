@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="content-language" content="ja">
+<title>Draggable Static Force Layout</title>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<style>
+html, body, svg {
+	width: 100%;
+	height: 100%;
+}
+</style>
+
+</head>
+<body>
+<svg></svg>
+
+<script>
+var nodes = [
+	{lable:"hello"},
+	{lable:"text"},
+	{lable:"hoge"}
+]
+
+var links = [
+	{ source : 0, target : 1 },
+	{ source : 0, target : 2 },
+	{ source : 1, target : 2 },
+]
+
+var svg = d3.select('svg');
+
+var w = document.querySelector("body").clientWidth;
+var h = document.querySelector("body").clientHeight;
+
+// Force Layoutを設定
+var force = d3.layout.force()
+    .nodes(nodes)
+    .links(links)
+    .size([w, h])
+	.gravity(0.1)
+	.charge(-30)
+	.friction(0.95)
+	.linkDistance(220)
+	.linkStrength(1);
+
+force.start(); //force レイアウトの計算を開始
+for (var i = 10000; i > 0; --i) force.tick(); //ワンステップ進める	
+
+
+
+ 
+  var line = svg.selectAll("line")
+	.data(links)
+	.enter()
+	.append("line")
+	.attr({
+		"stroke": "black",
+		"x1":function(d){ return d.source.x },
+		"y1":function(d){ return d.source.y },
+		"x2":function(d){ return d.target.x },
+		"y2":function(d){ return d.target.y },
+	});
+ 
+  var node = svg.selectAll("circle")
+	.data(nodes)
+	.enter()
+	.append("circle")
+	.attr({
+		class:"node",
+		"r":8,
+		"fill": "black",
+		"cx": function(d){ return d.x },
+		"cy": function(d){ return d.y } 
+	})
+	.call(force.drag); ;
+
+
+	d3.selectAll(".node").each(function(d){ d.fixed = true })
+ 
+	//update
+	force.on("tick", function() {
+		line
+			.attr("x1", function(d) { return d.source.x; }) // ソースとターゲットの要素座標を指定していく
+			.attr("y1", function(d) { return d.source.y; })
+			.attr("x2", function(d) { return d.target.x; })
+			.attr("y2", function(d) { return d.target.y; });
+		node
+			.attr("cx", function(d) { return d.x; })    // ノードの座標を指定していく
+			.attr("cy", function(d) { return d.y; });
+	});
+</script>
+</body>
+</html>

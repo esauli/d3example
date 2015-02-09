@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+<head>
+<meta name="viewport" content="initial-scale=1.0">	
+<title>「形がかっこいい」と思う都道府県順に並べてみた</title>
+<style>
+html,body, svg {
+    width:100%;
+    height: 8000px;
+}
+svg {
+	position: absolute;
+	top:0px;
+}
+path:hover {
+    fill: red;
+}
+
+.tooltip {
+  border: 1px solid black;
+  background-color: white;
+  padding: 5px 8px 4px 8px;
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+}
+</style>
+</head>
+
+
+<body>
+<h1>「形がかっこいい」と思う都道府県順に並べてみた</h1>
+ <a href="http://ranking.goo.ne.jp/ranking/category/056/4ruPipfGNy0v/p1/">by gooランキング</a>
+ <p>クリックすると表示が変わります</p>
+<svg></svg>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
+<script> 
+d3.json("prefrank.geojson", function(json) {
+	d3main(json);
+});
+
+
+function d3main(json){
+
+	var tooltip = d3.select("body")
+		.append("div")
+		.attr("class", "tooltip")
+		.style("position", "absolute")
+		.style("z-index", "10")
+		.style("visibility", "hidden");
+
+	var geodata = json.features;
+
+	projection = d3.geo
+	    .mercator()		
+	    .scale(3000)	
+	    .translate([800,650])
+	    .center([139.0032936, 36.3219088]); 
+
+	var path = d3.geo.path().projection(projection);　
+
+	var svg = d3.select("svg");	
+
+	var japan =  svg.append("svg:g")
+		.selectAll("path")
+		.data(geodata)
+		.enter()
+		.append("g");
+		
+	japan.append("svg:path")
+		.attr({
+			"d": path,
+			"fill": "green",
+			"fill-opacity": 0.5,
+			"stroke": "black"
+		})
+		.on("mouseover", function(){
+			tooltip.style("visibility", "visible");
+		})		
+		.on("mousemove", function(d){
+			tooltip
+			.style("top", (d3.event.pageY-10)+"px")
+			.style("left",(d3.event.pageX+10)+"px")
+			.html(
+				"<h2>" + d.properties.rank + "位 "+ d.properties.ObjName  + "</h2>"
+			);
+		})
+		.on("mouseout", function(){
+			tooltip.style("visibility", "hidden");
+		})			
+		
+		var rankOrder = function(){
+			japan.transition().attr("transform", function(d, i){
+				var center = path.centroid(d); 
+				var x = ~~center[0]; 
+				var y = ~~center[1];
+				var nx = 200; 
+				var ny = d.properties.rank * 160 + 100; 
+				return "translate("+(0-x)+","+(0-y)+"),translate("+nx+","+ny+")";		    
+			}).duration(4000);			
+		}
+		
+		var mapOrder = function(){
+			japan.transition().attr("transform", "translate(0, 0)").duration(4000);		
+		}
+		
+		d3.select("body").on("click", toggle(mapOrder, rankOrder));
+		
+		rankOrder();
+}
+
+function toggle(){
+    var fn = arguments;
+    var l = arguments.length;
+    var i = 0;
+    return function(){
+        if(l <= i) i=0;
+        fn[i++]();            
+    }
+}
+</script>
+
+<script type="text/javascript">
+
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-27276322-1']);
+_gaq.push(['_trackPageview']);
+
+	(function() {
+	var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') +'.google-analytics.com/ga.js';
+	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+</script>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="content-language" content="ja">
+<title>Bounds Box (Japan)</title>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+<style>
+html, body, svg{
+	width: 100%;
+	height: 100%;
+}
+svg {
+	position: absolute;
+	top: 0px;
+}
+.elmenthover {
+	stroke: blue;
+	stroke-width:3;
+	fill: blue;
+}
+.tooltip {
+  border: 1px solid black;
+  background-color: white;
+  padding: 5px 8px 4px 8px;
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+}	
+</style>
+</head>
+<body>
+<h1>Bounds Box (Japan)</h1>
+<div id="#resllut"></div>
+<svg></svg>
+
+<script>
+d3.json("../../_geodata/japan_kanji.geojson", function(json){
+	d3draw(json);
+});
+
+function d3draw(geojson) {
+	
+	var projection = d3.geo
+		.mercator()		//投影法の指定
+		.scale(1000)	//スケール（ズーム）の指定
+		.translate([400 , 300]) //表示位置調整
+		.center([139.0032936, 36.3219088]); //中心の座標を指定
+
+	var path = d3.geo.path().projection(projection);　//パスジェネレーター
+	
+	
+	var svg = d3.select('svg');
+	var mg  = svg.append('g');
+	var bg  = svg.append('g');
+	
+	//地形の描画
+	var land = mg.append('path')
+		.attr({
+			"d": path(geojson),
+			"stroke": "white",
+			"fill": "#ccc"
+		});
+
+
+	//境界情報の取得
+	var drawBounds = function(d){
+			var b = path.bounds(d);
+			return "M" + b[0] + "H" + b[1][0] + "V" + b[1][1] + "H" + b[0][0] + "Z";
+		}
+
+	//境界BOXの描画
+	var b = path.bounds(geojson); 
+	var bounds = bg.append('path')
+		.attr({
+			"d":  function(){  return "M" + b[0] + "H" + b[1][0] + "V" + b[1][1] + "H" + b[0][0] + "Z";} ,
+			"stroke": "red",
+			"fill": "#ccc",
+			"fill-opacity": 0
+		})
+
+		
+	//コーナーのpixcel座標データ	
+	var corner = [
+		{x:b[0][0], y:b[0][1]},
+		{x:b[1][0], y:b[1][1]},
+		{x:b[0][0], y:b[1][1]},
+		{x:b[1][0], y:b[0][1]},
+	]
+	
+	svg.selectAll("circle")
+		.data(corner)
+		.enter()
+		.append("circle")
+		.attr({
+			cx:function(d){ return d.x },
+			cy:function(d){ return d.y },
+			r:10
+		})
+		.append("title")
+		.text(function(d){
+			 return projection.invert([d.x, d.y]); //pixcel座標→緯度経度に変換
+		});
+
+}
+</script>
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-27276322-1', 'shimz.me');
+  ga('send', 'pageview');
+</script>
+
+</body>
+</html>

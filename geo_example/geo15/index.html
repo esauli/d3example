@@ -32,9 +32,8 @@ rect {
 data by <a href="http://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A30b.html">国土数値情報　竜巻等の突風データ(平成24年)</a>
 
 
-<script src="../../d3.v3.min.js"></script>
-<script src="../../topojson.v0.min.js"></script>
-<script src="../../d3helper.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
 <script src="d3.hexbin.v0.min.js"></script>
 
 <script>
@@ -48,7 +47,7 @@ function d3main(json){
 	
 	var svg = d3.select("svg");
 
-	var geodata = topojson.object(json, json.objects.japan).geometries;
+	var geodata = topojson.feature(json, json.objects.japan).features;
 	//var geodata = json.features;
 
 	var projection = d3.geo
@@ -73,7 +72,7 @@ function d3main(json){
 		});
 
 	//竜巻・突風データ読み込み
-	d3.json('tatsumaki.geojson?11', function(json){
+	d3.json('point.geojson', function(json){
 		//母点位置情報
 		var pointdata = json.features;
 	

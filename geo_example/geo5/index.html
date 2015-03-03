@@ -177,8 +177,8 @@
 
 
 
-<script src="../../d3.v3.min.js"></script>
-<script src="../../topojson.v0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
 <script>
 (function(){
     
@@ -277,7 +277,7 @@ function gunma_map_init(json){
 
 
 function gunma_radiroad_init(json){
-		var data = topojson.object(json, json.objects.radiroad).geometries;
+		var data = topojson.feature(json, json.objects.radiroad).features;
 		
 		map.select('#radiroad_group')
 			.selectAll('path')

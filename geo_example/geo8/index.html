@@ -52,9 +52,8 @@
 data by <a href="http://www.e-stat.go.jp/SG1/estat/List.do?bid=000001046052&cycode=0">社会生活統計指標 </a>
 
 
-<script src="../../d3.v3.min.js"></script>
-<script src="../../topojson.v0.min.js"></script>
-<script src="../../d3helper.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
 <script>
 d3.json("../../_geodata/todofuken.topojson", function(json) {
   d3main(json);
@@ -72,7 +71,7 @@ function d3main(json){
     var colorScale = d3.scale.ordinal().domain([1,47]).range(colorList); 
   
     //dataSetの準備
-    var geodata = topojson.object(json, json.objects.todofuken).geometries; //topojosnデータ
+    var geodata = topojson.feature(json, json.objects.todofuken).features; //topojosnデータ
     //var geodata = json.features; //geojsonを使う場合はこちら
 
     //データセットの型変換  

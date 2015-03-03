@@ -30,7 +30,7 @@ window.onload = function(){
 	 * d3.jsonでのファイル読み込みは、デスクトッ上ではブラウザのセキュリティ制限のため動作しません。
 	 * index.htmlとconuntries.geojsonをサーバーにアップロードしてからブラウザでアクセスしてください。
 	 */
-    d3.json("conuntries.geojson", function(geojson){ 
+    d3.json("../../_geodata/conuntries.geojson", function(geojson){ 
         
 		/*featuresプロパティを取り出す*/
 		var data = geojson.features

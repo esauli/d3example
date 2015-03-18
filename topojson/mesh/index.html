@@ -1,0 +1,70 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+<head>
+<title>Topojson メッシュ</title>
+<style>
+svg {
+    width:960px;
+    height: 700px;
+	border: 1px solid black;
+}
+
+
+</style>
+</head>
+
+
+<body>
+<h1>Topojson メッシュ</h1>
+<svg></svg>
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
+<script> 
+d3.json("../../_geodata/ken.topojson", function(json) {
+	draw(json);
+});
+
+
+function draw(json){
+	
+	var projection = d3.geo
+		.mercator()		//投影法の指定
+		.scale(2000)	//スケール（ズーム）の指定
+		.translate([500,450]) //表示位置調整
+		.center([139.0032936, 36.3219088]); //中心の座標を指定
+
+	var path = d3.geo.path().projection(projection);　//パスジェネレーター
+
+	var svg = d3.select("svg");
+				
+	//地形要素追加
+	svg.append("path")
+      .datum(topojson.mesh(json, json.objects.ken, function(a, b) { return a == b; }))
+      .attr({
+		"d": path,
+		"fill": "none",
+		"stroke": "blue"
+	  });
+
+	  //境界要素追加
+	svg.append("path")
+		.datum(topojson.mesh(json, json.objects.ken, function(a, b) { return a !== b; }))
+		.attr({
+		  "d": path,
+		   "fill": "none",
+		   "stroke": "red"
+	  });
+
+}
+</script>
+
+
+
+</body>
+</html>

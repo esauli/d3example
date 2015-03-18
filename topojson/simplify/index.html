@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+<head>
+<title>Topojson マージ</title>
+<style>
+svg {
+    width:960px;
+    height: 700px;
+	border: 1px solid black;
+}
+
+
+</style>
+</head>
+
+
+<body>
+<h1>Topojson マージ</h1>
+<svg></svg>
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
+<script> 
+d3.json("../../_geodata/ken.topojson", function(json) {
+	draw(json);
+});
+
+
+function draw(json){
+	//geoデータ
+	var geodata = json.objects.ken;
+	
+
+	var projection = d3.geo
+		.mercator()		//投影法の指定
+		.scale(2000)	//スケール（ズーム）の指定
+		.translate([500,450]) //表示位置調整
+		.center([139.0032936, 36.3219088]); //中心の座標を指定
+
+	var path = d3.geo.path().projection(projection);　//パスジェネレーター
+
+	var svg = d3.select("svg");
+	var selected = d3.set([
+		"Gunma", "Saitama", "Nigata", "Tokyo", "Kanagawa"
+	]);
+		
+	
+	var mapGloup = svg.append("g");
+
+	//簡素化？　使い方不明
+	console.log(topojson.presimplify(json,  function(a, b) { return a == b; }));
+	
+	//地形
+	mapGloup.append("path")
+      .datum(topojson.mesh(topojson.presimplify(json,   function(a, b) { return a !== b; })))
+      .attr({
+		"d": path,
+		"fill": "#ccc"
+	  });
+
+
+		
+
+}
+</script>
+
+
+
+</body>
+</html>

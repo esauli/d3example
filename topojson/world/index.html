@@ -1,0 +1,118 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+<head>
+<title>Topojson メッシュ</title>
+<style>
+html, body {
+    width:100%;
+    height: 100%;	
+}
+svg {
+    width:100%;
+    height: 100%;
+}
+.graticule {
+  fill: none;
+  stroke: none;
+  stroke-width: .5px;
+  stroke-opacity: .5;
+}
+.fill {
+  fill: #fff;
+}
+.stroke {
+  fill: none;
+  stroke: #000;
+  stroke-width: 3px;
+}
+</style>
+</head>
+
+
+<body>
+<svg></svg>
+
+
+
+
+<script src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
+<script src="http://d3js.org/d3.geo.projection.v0.min.js"></script>
+<script> 
+d3.json("../../_geodata/conuntries.topojson", function(json) {
+	draw(json);
+});
+
+
+function draw(json){
+	
+var projection = d3.geo.eckert4()
+    .scale(175)
+	.rotate([0, 0, 0])
+ //   .translate([width / 2, height / 2])
+    .precision(.1);
+
+	var path = d3.geo.path().projection(projection);　//パスジェネレーター
+
+	var svg = d3.select("svg");
+
+	
+	//graticule
+	var graticule = d3.geo.graticule();
+	svg.append("defs").append("path")
+		.datum({type: "Sphere"})
+		.attr("id", "sphere")
+		.attr("d", path);
+	
+	svg.append("use")
+		.attr("class", "stroke")
+		.attr("xlink:href", "#sphere");
+	
+	svg.append("use")
+		.attr("class", "fill")
+		.attr("xlink:href", "#sphere");
+	
+	var line =  svg.append("path")
+		.datum(graticule)
+		.attr("class", "graticule")
+		.attr("d", path);
+				
+	//地形要素追加
+	var coastline = svg.append("path")
+		.datum(topojson.mesh(json, json.objects.conuntries, function(a, b) { return a == b; }))
+		.attr({
+			"d": path,
+			"fill": "none",
+			"stroke": "blue"
+		});
+
+	  //境界要素追加
+	var border = svg.append("path")
+		.datum(topojson.mesh(json, json.objects.conuntries, function(a, b) { return a !== b; }))
+		.attr({
+			"d": path,
+			 "fill": "none",
+			 "stroke": "red"
+	  });
+		
+		
+	setInterval(update, 500);	
+		
+	var x = 0;	
+	function update(){
+		projection.rotate([++x, 0, 0]);
+		line.attr("d", path);
+		coastline.attr("d", path);
+		border.attr("d", path);	
+	}
+		
+
+}
+</script>
+
+
+
+</body>
+</html>

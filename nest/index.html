@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>D3 nest</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
+
+</head>
+
+<body>
+
+
+<script>
+var dataSet = [
+	{"year":2014, "name":"hoge", "group":"A", "count":200},
+	{"year":2013, "name":"test", "group":"C", "count":110},
+	{"year":2013, "name":"shimizu", "group":"B", "count":310},
+	{"year":2014, "name":"suzuki", "group":"A", "count":260},
+	{"year":2015, "name":"tanaka", "group":"C", "count":180},
+	{"year":2014, "name":"sato", "group":"B", "count":220},
+	{"year":2015, "name":"hello", "group":"B", "count":340},
+	{"year":2012, "name":"yamada", "group":"C", "count":190},
+	{"year":2012, "name":"rin", "group":"C", "count":210},
+	{"year":2013, "name":"len", "group":"B", "count":340},
+	{"year":2015, "name":"miki", "group":"A", "count":220},
+	{"year":2014, "name":"luka", "group":"A", "count":330}
+]	
+	
+//年でまとめる
+var yearNestData = d3.nest()
+  .key(function(d) { return d.year; })
+  .map(dataSet);
+
+console.log("year nest", JSON.stringify(yearNestData, null, "\t") );
+
+
+//グループでまとめる
+var groupNestData = d3.nest()
+  .key(function(d) { return d.group; })
+  .map(dataSet);
+
+console.log("group nest",  JSON.stringify(groupNestData, null, "\t") );
+  	
+	
+//key, value形式でまとめる	
+var yearNestData2 = d3.nest()
+  .key(function(d) { return d.year; })
+  .entries(dataSet);
+
+console.log("year nest",  JSON.stringify(yearNestData2, null, "\t") );
+
+
+//各年の平均値を出す
+
+var dataMean = d3.nest()
+  .key(function(d) { return d.year; })
+	.rollup(function(v) { return d3.mean(v, function(d) { return +d.count; }); })  
+  .map(dataSet);
+
+console.log("year mean",  JSON.stringify(dataMean, null, "\t") );
+  
+</script>    
+</body>
+</html>

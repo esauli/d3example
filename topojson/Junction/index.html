@@ -1,0 +1,92 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+<head>
+<title>Topojson 交差点抽出</title>
+<style>
+svg {
+    width:960px;
+    height: 700px;
+	border: 1px solid black;
+}
+
+
+</style>
+</head>
+
+
+<body>
+<h1>Topojson 交差点抽出</h1>
+<svg></svg>
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
+<script> 
+d3.json("../../_geodata/ken.topojson", function(json) {
+	draw(json);
+});
+
+
+function draw(json){
+
+	var projection = d3.geo
+		.mercator()		//投影法の指定
+		.scale(2000)	//スケール（ズーム）の指定
+		.translate([500,450]) //表示位置調整
+		.center([139.0032936, 36.3219088]); //中心の座標を指定
+
+	var path = d3.geo.path().projection(projection);　//パスジェネレーター
+		
+	var svg = d3.select("svg");
+
+	//地形要素追加
+	svg.append("path")
+      .datum(topojson.mesh(json))
+      .attr({
+		"d": path,
+		"fill": "none",
+		"stroke":"gray"
+	  });	
+
+	var junctionByPoint = d3.map();
+	var arcCountsByPoint = d3.map();
+
+	json.arcs.forEach(function(arc) {	
+		var start = arc[0];
+		var startCount = arcCountsByPoint.get(start) || 0;
+		var end = arc.reduce(function(p, v) { return [p[0] + v[0], p[1] + v[1]]; });
+		var endCount = arcCountsByPoint.get(end) || 0;
+		if (arcCountsByPoint.set(start, startCount + 1) > 1) junctionByPoint.set(start, start);
+		if (arcCountsByPoint.set(end, endCount + 1) > 1) junctionByPoint.set(end, end);
+	});
+
+	svg.selectAll(".junction")
+		.data(junctionByPoint.values())
+		  .enter()
+		  .append("circle")
+		  .attr({
+			  "class": "junction",
+			  "transform": function(d) { return "translate(" + transform(d) + ")"; },
+			  "r":2.5,
+			  "fill": "red"
+		  })
+
+	function transform(point) {
+		  var p = projection([
+			  point[0] * json.transform.scale[0] + json.transform.translate[0],
+			  point[1] * json.transform.scale[1] + json.transform.translate[1]	
+		  ]);
+		  return p;
+	}
+  
+}
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title></title>
+<style>
+html, body, svg {
+	height: 100%;
+	width: 100%;
+}
+</style>
+</head>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
+<body>
+<svg></svg>    
+	
+<script>
+d3.json("../../_geodata/gunma_outline.geojson", function(json) {	
+//プロジェクション設定	
+var projection = d3.geo
+	.mercator()		//投影法の指定
+	.scale(20000)	//スケール（ズーム）の指定
+	.translate([400 , 400])
+	.center([139.0032936, 36.3219088]); //中心の座標を指定
+
+//パスジェネレーター生成
+var path = d3.geo.path().projection(projection);　
+
+
+var svg = d3.select("svg");
+
+var dataSet1 = [
+	[50,250],[100, 250],[150, 250], [300, 250], [600,250]
+]
+
+var dataSet2 =  json.features[0].geometry.coordinates[0].map(projection)
+
+	
+var path = d3.svg.line()
+	.x(function(d){ return d[0]})
+	.y(function(d){ return d[1] })	
+    .interpolate(function(points) {
+		var m = dataSet2.length - points.length;
+		for(var i=0; i < m;i++){
+			points.push([Math.random() * (600 -100) + 100, points[0][1]])
+		}
+		return points;
+	})
+
+	
+svg.append("path")
+	.attr({
+		d:path(dataSet1),
+		stroke:"black",
+		"fill":"none"
+	})
+
+	
+	var triger = toggle(
+		function(){
+			d3.selectAll("path")
+				.transition()
+				.duration(1000)
+				.attr({d:path(dataSet2)})
+		},
+		function(){
+			d3.selectAll("path")
+				.transition()
+				.duration(1000)
+				.attr({d:path(dataSet1)})
+		});				
+					
+	
+d3.select("body").on("click", triger);
+
+});
+
+function toggle(){
+    var fn = arguments;
+    var l = arguments.length;
+    var i = 0;
+    return function(){
+        if(l <= i) i=0;
+        fn[i++]();            
+    }
+}
+
+
+	
+</script>	
+</body>
+</html>

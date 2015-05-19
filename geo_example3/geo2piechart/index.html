@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>The 失敗作</title>
+<style>
+html, body, svg {
+	height: 100%;
+	width: 100%;
+}
+</style>
+</head>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
+<script src="d3.geo2circle.js"></script>
+<body>
+<h1>どうしてこうなった</h1>
+<p>Click! Click!</p>
+<svg></svg>
+
+	
+<script>
+//プロジェクション設定	
+var projection = d3.geo
+	.mercator()		//投影法の指定
+	.scale(25000)	//スケール（ズーム）の指定
+	.center([139.0032936, 36.3219088]); //中心の座標を指定	
+	
+d3.json("../../_geodata/gunma_light.geojson", function(json) {
+	var r = 150;
+	var colorScale = d3.scale.category20c();
+	
+	var svg = d3.select("svg");
+	
+
+	var pie = d3.layout.pie().value(function(d) { return Math.floor(Math.random() * 20) } );        
+	var arc = d3.svg.arc().outerRadius(r).innerRadius(20)
+	
+
+	
+	pie(json.features).forEach(function(d, i){ json.features[i].properties.startCoords =  arc(d);  });
+
+
+	var pathDataSet  = [];
+
+	var calcCoords = function(polygon, properties) {
+
+		var endCoords = polygon.map(projection);
+		var start =  properties.startCoords; //パスの座標点が足らん。
+		var end = "M" + endCoords.join("L") + "Z";
+		return { startPath: start, endPath: end , properties:properties};
+
+	};	
+
+
+	for (var i = 0; i < json.features.length; i++) {
+		var geometry = json.features[i].geometry;
+		var properties =json.features[i].properties;
+		if (geometry.type == "Polygon") {
+			pathDataSet.push(calcCoords(geometry.coordinates[0], properties));			
+		} else if (geometry.type == "MultiPolygon") {
+			geometry.coordinates.forEach(function(coordinates){
+				pathDataSet.push(calcCoords(coordinates[0]));
+			});			
+		}
+	}
+	
+	
+	var map = svg.selectAll("path")
+		.data(pathDataSet )
+		.enter()
+		.append("path")
+		.attr({
+			"fill":function(d,i){ return colorScale(i) },
+			"fill-opacity":0.5,
+			"stroke":"gray",
+		})
+		.attr("transform", "translate(200,150)")
+		.attr("d", function(d){ return d.startPath } )
+		
+	trans = toggle(
+		function(){
+			map.transition()
+				.duration(5000)
+				.attr("transform", "translate(200,150)")
+				.attr("d", function(d){ return d.endPath }); 		
+		},
+		function(){
+			map.transition()
+				.duration(5000)
+				.attr("d", function(d){ return d.startPath });
+		});				
+		
+		d3.select("body").on("click", trans);
+		
+});
+
+function toggle(){
+    var fn = arguments;
+    var l = arguments.length;
+    var i = 0;
+    return function(){
+        if(l <= i) i=0;
+        fn[i++]();            
+    }
+}
+
+
+</script>
+	
+	
+	
+</body>
+</html>

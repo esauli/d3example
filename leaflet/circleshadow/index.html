@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title></title>
+<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+<style>
+#map {
+	width: 500px;
+	height: 500px;	
+}
+#circle {
+	/*
+	background: #999;    
+    border: 2px solid red; 
+    border-radius: 100px;     
+    box-shadow: 0 10px 10px #000 inset;
+	z-index:9999px;
+	*/
+}
+
+</style>
+</head>
+
+
+<body>
+<div id="circle">
+	<div id="map"></div>	
+</div>	
+  
+ <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet-src.js"></script>
+ 
+<script>
+var map = L.map('map').setView([36.3219088　　, 139.0032936], 12);
+var mapLink = '<a target="_blank" href="http://portal.cyberjapan.jp/help/termsofuse.html">国土地理院 地理院地図 標準地図</a>';
+//Tile Map Serviceの指定
+L.tileLayer(
+		'http://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png', {
+		attribution: '&copy; ' + mapLink + ' Contributors',
+		maxZoom: 18,
+	}).addTo(map);
+</script> 
+</body>
+</html>

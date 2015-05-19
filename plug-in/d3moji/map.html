@@ -1,0 +1,90 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>emoji map</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css"/>
+<style>
+html, body{
+	margin: 0px;
+	padding: 0px;
+}
+html, body, #map {
+	width: 100%;
+	height: 100%;
+}
+</style>
+</head>
+<body>
+
+<div id="map"></div>
+
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://shimz.me/libs/d3moji/d3moji.js"></script>
+<script src="http://cdn.leafletjs.com/leaflet-0.7/leaflet.js"></script>
+
+<script>
+ var emojiList = [
+	'fries',
+	'pizza',
+	'hamburger',
+	'cake',
+	'coffee',
+	'beers',
+ ]
+ 
+ 
+var map = L.map('map').setView([36.3219088　　, 139.0032936], 14);
+var mapLink = '<a target="_blank" href="http://portal.cyberjapan.jp/help/termsofuse.html">国土地理院 地理院地図 標準地図</a>';
+
+map._initPathRoot()
+
+
+L.tileLayer(
+		'http://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png', {
+		attribution: '&copy; ' + mapLink + ' Contributors',
+		maxZoom: 18,
+	}).addTo(map);
+	
+var svg = d3.select("#map").select("svg");
+var g = svg.append("g");
+
+d3.json("landprice.geojson", function(point){
+
+	
+	point.features.forEach(function(d){
+		d.LatLngObj = new L.LatLng(d.geometry.coordinates[1], d.geometry.coordinates[0]);
+	});
+	
+
+	var emojiGroup = g.selectAll("g")
+		.data(point.features)
+		.enter()
+		.append("g")
+
+		
+	emojiGroup.append('emoji')
+		.attr('symbol', function(){ return emojiList[Math.round(Math.random()*4)] }) 
+		.attr('width', 40)
+		.attr('height', 40)
+
+
+	map.on("viewreset", update);
+
+	update();
+
+
+	function update() {
+		emojiGroup.attr("transform", function(d) {
+			return "translate("+ 
+			map.latLngToLayerPoint(d.LatLngObj).x +","+ 
+			map.latLngToLayerPoint(d.LatLngObj).y +")";
+		});
+	} 
+
+});
+       
+</script>
+</body>
+</html>

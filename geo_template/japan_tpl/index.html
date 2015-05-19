@@ -33,7 +33,7 @@ function d3main(json){
 	//var geodata = topojson.object(json, json.objects.japan).geometries;
 	var geodata = json.features;
 
-	projection = d3.geo
+	var projection = d3.geo
 		.mercator()		//投影法の指定
 		.scale(1500)	//スケール（ズーム）の指定
 		.translate([300,350])

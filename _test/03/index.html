@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title></title>
+<style>
+html, body, svg {
+	height: 100%;
+	width: 100%;
+}
+</style>
+</head>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
+<body>
+<svg></svg>    
+	
+<script>
+var svg = d3.select("svg");
+
+var dataSet = [
+	{id:1, x:10, y:10},
+	{id:2, x:10, y:600}
+]
+
+var path = d3.svg.line()
+	.x(function(d){ return d.x })
+	.y(function(d){ return d.y })
+
+	
+svg.append("path")
+	.attr({
+		d:path(dataSet),
+		stroke:"black",
+		"fill":"none"
+	})
+
+d3.select("body").on("click", function(){
+	
+	var dataSet2 =  [
+	{id:1, x:200, y:10},
+	{id:2, x:50, y:30},
+	{id:3, x:200, y:600}
+]
+	
+	dataSet.push()
+	
+	d3.selectAll("path")
+	.transition()
+	.duration(1000)
+	.attr({d:path(dataSet2)})
+	
+	
+})
+	
+	
+</script>	
+</body>
+</html>

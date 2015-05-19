@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>線グラフを群馬県にする</title>
+<style>
+.axis path,
+.axis line {
+	fill: none;
+	stroke: black;
+	stroke-width: 1;
+}	
+</style>
+</head>
+
+<body>
+<h2>線グラフを群馬県にする</h2>
+<p>Click! Click!</p>
+<svg></svg>
+<br>
+by <a href="http://shimz.me/blog/">@_shimizu</a>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
+<script>
+(function(){
+	"use strict";
+	
+	d3.json("../../_geodata/gunma_outline.geojson", function(json) {
+		var projection = d3.geo
+			.mercator()		
+			.scale(20000)
+			.translate([400 , 300])
+			.center([139.0032936, 36.3219088]); 
+		
+			
+		var dataSet1 = [
+			{date:"2012/11", val:1000}, 
+			{date:"2012/12", val:800}, 
+			{date:"2013/1", val:1200}, 
+			{date:"2013/2", val:600}, 
+			{date:"2013/3", val:1110}, 
+			{date:"2013/4", val:810}, 
+			{date:"2013/5", val:1010}, 
+			{date:"2013/6", val:1230}, 
+			{date:"2013/7", val:910}, 
+			{date:"2013/8", val:760}, 
+			{date:"2013/9", val:820}, 
+			{date:"2013/10", val:700}, 
+			{date:"2013/11", val:630}, 
+			{date:"2013/12", val:600}, 
+			{date:"2014/1", val:930}
+		];
+		 
+		 
+		var dataSet2 =  json.features[0].geometry.coordinates[0].map(projection)
+		
+		
+		var margin = {
+			top: 30, right: 20,
+			bottom: 30, left: 50
+		}
+		 
+		var stageW = 900 - margin.left - margin.right;
+		var stageH = 500 - margin.top - margin.bottom;
+		 
+		var stage = d3.select('svg')
+			.attr({
+				width: stageW + margin.left + margin.right,  
+				height: stageH + margin.top + margin.bottom,
+			})
+			.append("g") 
+			.attr("transform", "translate(" + [margin.left, margin.top] + ")");
+		 
+		
+		var xScale = d3.time.scale().range([0, stageW]);　　
+		var yScale = d3.scale.linear().range([stageH, 0]);
+		 
+		
+		var parseDate = d3.time.format("%Y/%m").parse;
+		 
+		
+		dataSet1.forEach(function(d){
+			d.date = parseDate(d.date);
+		});
+		 
+		 
+		xScale.domain(d3.extent(dataSet1, function(d){
+			return d.date;
+		}));
+		yScale.domain([0, d3.max(dataSet1, function(d){
+		  return d.val;
+		})]);
+		 
+		 
+		var xAxis = d3.svg.axis().scale(xScale).orient('bottom').ticks(5);
+		
+		var xAxisPath = stage.append("g")
+			.attr({
+				"class": "x axis",
+				"transform": "translate("+[0, stageH]+")",
+			}).call(xAxis);
+		 
+		var yAxis = d3.svg.axis().scale(yScale).orient('left').ticks(5);
+		
+		var yAxisPath = stage.append("g")
+			.attr({
+				"class": "y axis",
+			}).call(yAxis);	
+		
+		
+		var lineChartPathGen = d3.svg.line()
+			.x(function(d){ return xScale(d.date) })
+			.y(function(d){ return yScale(d.val) })
+	
+		 
+		  
+		var middleLinePathGen1 = d3.svg.line()
+			.x(function(d){ return xScale(d.date) })
+			.y(function(d){ return yScale(d.val) })
+			 .interpolate(function(points) {
+				var newPoints = [];
+				for(var i=0; i < points.length-1; i++){
+					newPoints.push([points[i][0],　stageH/2 ])
+				}		
+				return newPoints;
+			})
+		
+		
+		var middleLinePathGen2 = d3.svg.line()
+			.x(function(d){ return xScale(d.date) })
+			.y(function(d){ return yScale(d.val) })
+			.interpolate(function(points) {
+				var npoint = [];
+				for(var i=0; i < dataSet2.length;i++){
+					npoint.push([Math.random() * (stageW-margin.left) , stageH/2 ])
+				}
+				return npoint;
+			})
+		 
+		var geoLinePathGen = d3.svg.line()
+			.x(function(d){ return d[0]})
+			.y(function(d){ return d[1] })
+		
+		
+		var valuePath = stage.append("path")
+			.attr({
+				"d": lineChartPathGen(dataSet1),
+				"fill": "skyblue",
+				"fill-opacity": 0,
+				"stroke": "steelblue",
+				"stroke-width": 2
+			});
+	
+			
+		var triger = toggle(
+			function(){
+				xAxisPath.transition().duration(1000).style("opacity", 0);
+				yAxisPath.transition().duration(1000).style("opacity", 0);
+				
+				valuePath.transition()
+					.duration(1000)
+					.attr({d:middleLinePathGen1(dataSet1)})
+					.call(endall, function() { 
+						valuePath.attr({d:middleLinePathGen2(dataSet1)});
+						valuePath.transition()
+						.duration(1000)
+						.attr({"fill-opacity":0.2, "d":geoLinePathGen(dataSet2)})					
+					}); 				
+			},
+			function(){
+				xAxisPath.transition().duration(1000).style("opacity", 1);
+				yAxisPath.transition().duration(1000).style("opacity", 1);
+				
+				valuePath.transition()
+					.duration(1000)
+					.attr({d:middleLinePathGen2(dataSet1)})
+					.call(endall, function() {
+						valuePath.attr({"fill-opacity":0, d:middleLinePathGen1(dataSet1)});
+						valuePath.transition()
+							.duration(1000)
+							.attr({"d":lineChartPathGen(dataSet1)})					
+					}); 				
+			});				
+						
+		
+		d3.select("body").on("click", triger);	
+		
+	
+	});
+	
+	function toggle(){
+		var fn = arguments;
+		var l = arguments.length;
+		var i = 0;
+		return function(){
+			if(l <= i) i=0;
+			fn[i++]();            
+		}
+	}
+	
+	function endall(transition, callback) { 
+		var n = 0; 
+		transition 
+			.each(function() { ++n; }) 
+			.each("end", function() { if (!--n) callback.apply(this, arguments); }); 
+	};
+})();	
+	
+</script>
+
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-27276322-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</body>
+</html>

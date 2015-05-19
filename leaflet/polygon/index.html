@@ -3,7 +3,7 @@
 <head>
 <title>Leaflet + D3 polygon</title>
 <meta charset="utf-8" />
-<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css"/>
+<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
 <style>
 html, body{
 	margin: 0px;
@@ -19,67 +19,67 @@ html, body, #map {
 
 <div id="map"></div>
 
-<script src="http://d3js.org/d3.v3.min.js"></script>
-<script src="http://cdn.leafletjs.com/leaflet-0.7/leaflet.js"></script>
+<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
 
 <script>
- 
-//Leaflet初期設定
-var map = L.map('map').setView([39.702053　, 141.15448379999998], 5);
-var mapLink = '<a target="_blank" href="http://portal.cyberjapan.jp/help/termsofuse.html">国土地理院 地理院地図 標準地図</a>';
+d3.json("ken.geojson", function(json) {
+	mapdraw(json)
+});
 
-//Tile Map Serviceの指定
-L.tileLayer(
-		'http://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png', {
-		attribution: '&copy; ' + mapLink + ' Contributors',
-		maxZoom: 18,
-	}).addTo(map);
 
+function mapdraw(json){
+
+	//地形データ取得	
+	if (json.type === "Topology"){
+		//読み込みファイルがtopojsonの場合(json.objects.△△)　「△△」は変換時のgeojsonファイル名に合わせる
+		var geojson = topojson.feature(json, json.objects.ken)
+	} else {
+		var geojson = json;		
+	}
+
+
+	//Leaflet初期設定
+	var map = L.map('map').setView([39.702053　, 141.15448379999998], 5);
+	var mapLink = '<a target="_blank" href="http://portal.cyberjapan.jp/help/termsofuse.html">国土地理院 地理院地図 標準地図</a>';
 	
-// Leafletのoverlay paneにsvg要素を追加
-var svg = d3.select(map.getPanes().overlayPane).append("svg");
-var g = svg.append("g").attr("class", "leaflet-zoom-hide");
+	//Tile Map Serviceの指定
+	L.tileLayer(
+			'http://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png', {
+			attribution: '&copy; ' + mapLink + ' Contributors',
+			maxZoom: 18,
+		}).addTo(map);
+	
+	
+	//Leafletに用意されたsvgを使う 
+	map._initPathRoot();	
+		
+	// svg要素を選択
+	var svg = d3.select("#map").select("svg");
+	var g = svg.append("g");
 
-d3.json("ken.geojson", function(geojson) {
-  
+	//緯度経度->パスジェネレーター関数作成
 	var transform = d3.geo.transform({point: projectPoint});
 	var path = d3.geo.path().projection(transform);
  
-	d3_features = g.selectAll("path")
+	featureElement = g.selectAll("path")
 		.data(geojson.features)
 		.enter()
-		.append("path");
+		.append("path")
+		.attr({
+			"stroke": "red",
+			"fill": "green",
+			"fill-opacity": 0.4
+		});
 
 	map.on("viewreset", update);
 
 	update();
 
-	//SVG要素をleafletのマップレイヤーにフィットさせる
-	function update() {
-		
-		var bounds = path.bounds(geojson);
-	
-		var topLeft = bounds[0];
-		var bottomRight = bounds[1];
-	
-		svg .attr({
-				"width": bottomRight[0] - topLeft[0],
-				"height": bottomRight[1] - topLeft[1]
-			})
-			.style({
-				"left": topLeft[0] + "px",
-				"top": topLeft[1] + "px"
-			})
-	
-		g .attr("transform", "translate(" + -topLeft[0] + "," + -topLeft[1] + ")");
-	
-		// path要素（地形)追加 
-		d3_features.attr("d", path)
-			.attr({
-				"fill-opacity": 0.4,
-				"fill": "green",
-				"stroke": "red"
-			});
+	//pathのd属性を更新
+	function update() {		
+		featureElement.attr("d", path);
 	} 
 
 	//位置→座標変換
@@ -88,8 +88,8 @@ d3.json("ken.geojson", function(geojson) {
 		this.stream.point(point.x, point.y);
 	}
 
-})
-        
+}
+      
 </script>
 </body>
 </html>

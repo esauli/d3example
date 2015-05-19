@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title></title>
+</head>
+
+<body>
+<svg></svg>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
+<script>
+var margin = {
+	top: 30, right: 20,
+	bottom: 30, left: 50
+}
+
+var a,b;
+ 
+var stageW = 900 - margin.left - margin.right;
+var stageH = 500 - margin.top - margin.bottom;
+ 
+var stage = d3.select('svg')
+	.attr({
+		width: stageW + margin.left + margin.right,  
+		height: stageH + margin.top + margin.bottom,
+	})
+	.append("g") 
+	.attr("transform", "translate(" + [margin.left, margin.top] + ")");	
+	
+d3.json("../../_geodata/gunma_outline.geojson", function(json) {
+	var projection = d3.geo
+		.mercator()		
+		.scale(20000)
+		.translate([400 , 300])
+		.center([139.0032936, 36.3219088]);
+
+	var geodata =  json.features[0].geometry.coordinates[0].map(projection)
+	
+	var rectData = [[0,0],[200, 0],[100,100],[0,100],[50, 200], [0,0]];
+
+	var rectPathGen = d3.svg.line()
+		.x(function(d){ return d[0] })
+		.y(function(d){ return d[1] })
+
+	var middlePathGen= d3.svg.line()
+		.x(function(d){ return d[0] })
+		.y(function(d){ return d[1] })
+		.interpolate(function(points) {
+			points = increase(points, geodata.length);
+			console.log(points.length, geodata.length)
+			
+			return points.sort(function(a, b) {return a[0] - b[0] || a[1] - b[1]});	   
+	   })
+		
+		
+	var geoPathGen = d3.svg.line()
+		.x(function(d){ return d[0] })
+		.y(function(d){ return d[1] })
+			 
+	var rect = stage.append("path")
+		.attr({
+			"d": rectPathGen(rectData),
+			"fill": "skyblue",
+			"fill-opacity": 0,
+			"stroke": "steelblue",
+			"stroke-width": 2
+		});				
+			
+		var triger = toggle(
+			function(){
+				rect.attr({d:middlePathGen(rectData)});
+				rect.transition()
+					.duration(1000)
+					.attr({"d":geoPathGen(geodata)})
+			},
+			function(){				
+				rect.transition()
+					.duration(1000)
+					.attr({"d":middlePathGen(rectData)}).call(endall, function(){
+						rect.attr({d:rectPathGen(rectData)});
+					})
+					
+			});				
+						
+		
+		d3.select("body").on("click", triger);	
+
+	
+});
+
+function increase(array, maxLength){
+	var len = array.length-2;
+	for(var i=0,max=maxLength-array.length ;i  < max;i++){
+		var rmdIdx = Math.floor(Math.random() * len)+1;
+
+		var p1 = array[rmdIdx];
+		var p2 = array[rmdIdx+1];		
+		var mp = [p1[0]+(p2[0]-p1[0])/2, p1[1]+(p2[1]-p1[1])/2];
+		array.splice(rmdIdx+1, 0, mp);
+	}
+
+	
+	return array;
+}
+
+function toggle(){
+	var fn = arguments;
+	var l = arguments.length;
+	var i = 0;
+	return function(){
+		if(l <= i) i=0;
+		fn[i++]();            
+	}
+}
+
+function endall(transition, callback) { 
+	var n = 0; 
+	transition 
+		.each(function() { ++n; }) 
+		.each("end", function() { if (!--n) callback.apply(this, arguments); }); 
+};
+</script>    
+</body>
+</html>

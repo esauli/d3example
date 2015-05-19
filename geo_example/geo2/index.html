@@ -14,19 +14,16 @@ path {
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
 <script>
-var path, map, xy;
-
-xy = d3.geo
+//プロジェクション設定	
+var projection = d3.geo
 	.mercator()		//投影法の指定
 	.scale(16000)	//スケール（ズーム）の指定
 	.center([139.0032936, 36.3219088]); //中心の座標を指定
 
+//パスジェネレーター生成
+var path = d3.geo.path().projection(projection);　
 
-
-
-path = d3.geo.path().projection(xy);　//投影
-
-map = d3.select("body").append("svg:svg").attr("width", 960).attr("height", 600); //地図用のステージ(SVGタグ)を作成
+var map = d3.select("body").append("svg:svg").attr("width", 960).attr("height", 600); //地図用のステージ(SVGタグ)を作成
 
 
 var gunma = d3.json("../../_geodata/gunma.geojson", function(json) {

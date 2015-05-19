@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+<title>Japan Scatter</title>	
+<link href='http://fonts.googleapis.com/css?family=Indie+Flower' rel='stylesheet' type='text/css'>
+<head>
+<style>
+body {
+	font-family: 'Indie Flower', cursive;
+
+}
+
+h1{
+	color:gray;
+}
+.tooltip {
+  border: 1px solid black;
+  background-color: white;
+  padding: 5px 8px 4px 8px;
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+}
+ 
+ .axis path,
+ .axis line {
+ fill: none;
+  stroke:black;
+ }
+ .axis text {
+    fill: black;
+ }
+.grid .tick {
+    stroke: lightgrey;
+    stroke-opacity: 0.7;
+    shape-rendering: crispEdges;
+}
+.grid path {
+          stroke-width: 0;
+}
+</style>
+</head>
+
+<body>
+<h1>Japan Scatter</h1>
+<p>Click! Click!</p>
+<svg>
+	
+</svg>
+<br>
+by <a href="http://shimz.me/blog/">@_shimizu</a>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
+<script src="d3.geo2circle.js"></script>
+<script>
+var margin = {
+	top: 30, right: 20,
+	bottom: 30, left: 50
+}
+ 
+var stageW = 900 - margin.left - margin.right;
+var stageH = 600 - margin.top - margin.bottom;
+		
+	
+var projection = d3.geo
+	.mercator()	
+	.scale(1500)
+	.translate([400 , 350])
+	.center([139.0032936, 36.3219088]); 
+
+
+var path = d3.geo.path().projection(projection);　
+
+
+
+d3.json('todofuken.geojson', function(json) {
+
+	var svg = d3.select('svg')
+		.attr({
+			width: stageW + margin.left + margin.right,  
+			height: stageH + margin.top + margin.bottom,
+		});
+		
+	var stage = 	svg.append('g').attr('transform', 'translate(' + [margin.left, margin.top] + ')');
+
+
+
+	var xScale =d3.scale.linear().range([0, stageW]);　　
+	var yScale = d3.scale.linear().range([stageH, 0]);
+		 
+			 
+	xScale.domain([0,1]);
+	yScale.domain([0, 1]);
+		 
+		 
+	var xAxisGen = d3.svg.axis().scale(xScale).orient('bottom').ticks(5);
+		
+	var xAxis = stage.append('g')
+		.attr({
+			'class': 'x axis',
+			'opacity':0,
+			'transform': 'translate('+[0, stageH]+')',
+		}).call(xAxisGen);
+		 
+	var yAxisGen = d3.svg.axis().scale(yScale).orient('left').ticks(5);
+	
+	var yAxis = stage.append('g')
+		.attr({
+			'class': 'y axis',
+			'opacity':0,
+		}).call(yAxisGen);	
+
+     
+
+
+	var calcCoords = function(polygon, properties) {
+		var geoCoords = polygon.map(projection);
+		var scatterCoords = d3.geo2circle(geoCoords, 6);
+		var scatterPathString = 'M' + scatterCoords.join('L') + 'Z';
+		var geoPathString = 'M' + geoCoords.join('L') + 'Z';
+		return { scatterPath: scatterPathString, geoPath: geoPathString , properties:properties};
+	};	
+
+	var pathDataSet  = [];
+	for (var i = 0; i < json.features.length; i++) {
+		var geometry = json.features[i].geometry;
+		var properties =json.features[i].properties;
+		properties.geometry = geometry;
+		if (geometry.type == 'Polygon') {
+			pathDataSet.push(calcCoords(geometry.coordinates[0], properties));			
+		} else if (geometry.type == 'MultiPolygon') {
+			geometry.coordinates.forEach(function(coordinates){
+				pathDataSet.push(calcCoords(coordinates[0], properties));
+			});			
+		}
+	}
+
+	var chart = svg.selectAll('path')
+		.data(pathDataSet )
+		.enter()
+		.append('path')
+		.attr({
+			'stroke':'green',
+			'fill':'#ccffcc',
+			'fill-opacity':0.4
+		})
+		.attr('d', function(d){ return d.geoPath } )
+
+
+	var click_flag = true;
+					
+	var trigger = toggle(
+		function(){
+			if (!click_flag) return;
+			click_flag = false;
+			xAxis.transition().delay(1000).duration(1000).attr('opacity', 1);
+			yAxis.transition().delay(1000).duration(1000).attr('opacity', 1);
+			chart.transition()
+				.delay(function(d){ return (+d.properties.jis-1) * 100 })
+				.duration(500)
+				.attr('d', function(d){ return d.scatterPath } ).call(endall, function(){
+					chart.transition()
+						.duration(function(d){ return (+d.properties.jis-1) * 100 })
+						.attr('transform', function(d, i){
+							var center = path.centroid(d.properties.geometry);
+							var x = ~~center[0]; 
+							var y = ~~center[1];
+							var nx = xScale(Math.random()) + margin.left; 
+							var ny = yScale(Math.random()) + margin.top; 
+								return 'translate('+(0-x)+','+(0-y)+'),translate('+nx+','+ny+')';		    
+						});
+					click_flag = true;						
+				})
+
+		},
+		function(){
+			if (!click_flag) return;
+			click_flag = false;
+			xAxis.transition().delay(1000).duration(1000).attr('opacity', 0);
+			yAxis.transition().delay(1000).duration(1000).attr('opacity', 0);
+			chart.transition()
+				.delay(function(d){ return (+d.properties.jis-1) * 100 })
+				.duration(500)
+				.attr('d', function(d){ return d.geoPath } ).call(endall, function(){
+					chart.transition()
+						.delay(function(d){ return (+d.properties.jis-1) * 100 })
+						.duration(500)
+						.attr('transform','translate(0,0)');
+					click_flag = true;										
+				});
+		});				
+		
+		d3.select('body').on('click', trigger);			
+
+});
+
+function toggle(){
+    var fn = arguments;
+    var l = arguments.length;
+    var i = 0;
+    return function(){
+        if(l <= i) i=0;
+        fn[i++]();            
+    }
+}
+
+
+function endall(transition, callback) { 
+	var n = 0; 
+	transition 
+		.each(function() { ++n; }) 
+		.each('end', function() { if (!--n) callback.apply(this, arguments); }); 
+};
+</script>
+
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-27276322-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</body>
+</html>

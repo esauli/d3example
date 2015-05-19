@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title></title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
+<style>
+html, body, svg {
+	width: 100%;
+	height: 100%;
+}
+	
+.tooltip {
+  border: 1px solid black;
+  background-color: white;
+  padding: 5px 8px 4px 8px;
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+}
+</style>
+</head>
+
+<body>
+<svg></svg>
+
+<script>
+var tooltip = d3.select("body")
+	.append("div")
+	.attr("class", "tooltip")
+	.style("position", "absolute")
+	.style("z-index", "10")
+	.style("visibility", "hidden")
+			
+	
+var dataSet = [10, 20, 25, 30, 50, 75, 100];
+
+
+var svg = d3.select("svg");
+var extent = d3.extent(dataSet);
+
+
+var scale = d3.scale.sqrt().domain(extent).range([10, 50]);
+
+
+var circle = svg.selectAll("circle")
+	.data(dataSet)
+	.enter()
+	.append("circle")
+	.attr({
+		"cx":function(d){ return scale(d) * 10},
+		"cy":function(d){ return scale(d) * 10},
+		"r":function(d){ return scale(d) },
+	})
+
+
+circle.on("mouseover", function(d) {
+	tooltip.style("visibility", "visible");
+})
+.on("mouseout", function(d) {
+	tooltip.style("visibility", "hidden");		
+})
+.on("mousemove", function(d){
+	var content = "value:" + d;
+	tooltip
+	 .style("top", (d3.event.pageY-10)+"px")
+	 .style("left",(d3.event.pageX+10)+"px")
+	 .html(content);
+});
+
+
+	
+</script>    
+	
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+<title>Bubbly Gunma</title>	
+<link href='http://fonts.googleapis.com/css?family=Indie+Flower' rel='stylesheet' type='text/css'>
+<head>
+<style>
+body {
+	font-family: 'Indie Flower', cursive;
+}
+
+h1{
+	color:gray;
+}
+.tooltip {
+  border: 1px solid black;
+  background-color: white;
+  padding: 5px 8px 4px 8px;
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+}
+</style>
+</head>
+
+<body>
+<h1>Bubbly Gunma</h1>
+<svg>
+    <defs>
+        <radialGradient id="gradient" cx="50%" cy="50%" r="100%" fx="20%" fy="20%">
+            <stop offset="0%" style="stop-color:blue;stop-opacity:0"/>
+            <stop offset="100%" style="stop-color:rgb(255,255,255);stop-opacity:1"/>
+        </radialGradient>
+    </defs>		
+</svg>
+<br>
+by <a href="http://shimz.me/blog/">@_shimizu</a>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
+<script src="d3.geo2circle.js"></script>
+<script>
+var tooltip = d3.select("body")
+	.append("div")
+	.attr("class", "tooltip")
+	.style("position", "absolute")
+	.style("z-index", "10")
+	.style("visibility", "hidden")
+			
+	
+//プロジェクション設定	
+var projection = d3.geo
+	.mercator()		//投影法の指定
+	.scale(25000)	//スケール（ズーム）の指定
+	.translate([300 , 380])
+	.center([139.0032936, 36.3219088]); //中心の座標を指定
+
+//パスジェネレーター生成
+var path = d3.geo.path().projection(projection);　
+
+var svg = d3.select("svg").attr("width", 960).attr("height", 600); //地図用のステージ(SVGタグ)を作成
+
+
+d3.json("../../_geodata/gunma_light.geojson", function(json) {
+	
+	var pathDataSet  = [];
+
+	var calcCoords = function(polygon, properties) {
+		var endCoords = polygon.map(projection);
+		var startCoords = d3.geo2circle(endCoords);
+		var start = "M" + startCoords.join("L") + "Z";
+		var end = "M" + endCoords.join("L") + "Z";
+		return { startPath: start, endPath: end , properties:properties};
+	};	
+
+
+	for (var i = 0; i < json.features.length; i++) {
+		var geometry = json.features[i].geometry;
+		var properties =json.features[i].properties;
+		if (geometry.type == "Polygon") {
+			pathDataSet.push(calcCoords(geometry.coordinates[0], properties));			
+		} else if (geometry.type == "MultiPolygon") {
+			geometry.coordinates.forEach(function(coordinates){
+				pathDataSet.push(calcCoords(coordinates[0]));
+			});			
+		}
+	}
+
+	var map = svg.selectAll("path")
+		.data(pathDataSet )
+		.enter()
+		.append("path")
+		.attr({
+			"fill":"url(#gradient)",
+			"stroke":"blue",
+			"stroke-opacity": 0.1
+		})
+		.attr("transform", "translate(0,0)")
+		.attr("d", function(d){ return d.startPath } )
+		.on("mouseover", function(d) {
+			tooltip.style("visibility", "visible");
+		})
+		.on("mouseout", function(d) {
+			tooltip.style("visibility", "hidden");		
+		})
+		.on("mousemove", function(d){
+			var p = d.properties;
+			var content = p["N03_004"];
+			tooltip
+			 .style("top", (d3.event.pageY-10)+"px")
+			 .style("left",(d3.event.pageX+10)+"px")
+			 .html(content);
+		});
+
+					
+	var trans = toggle(
+		function(){
+			map.transition()
+				.duration(10000)
+				.attr("d", function(d){ return d.endPath } ).call(endall, trans); 		
+		},
+		function(){
+			map.transition()
+				. ease("bounce")
+				.duration(1000)
+				.attr("d", function(d){ return d.startPath } ).call(endall, trans);
+		});				
+					
+		trans();
+});
+
+function toggle(){
+    var fn = arguments;
+    var l = arguments.length;
+    var i = 0;
+    return function(){
+        if(l <= i) i=0;
+        fn[i++]();            
+    }
+}
+
+//transiton終了時にコールバックを呼ぶ
+function endall(transition, callback) { 
+	var n = 0; 
+	transition 
+		.each(function() { ++n; }) 
+		.each("end", function() { if (!--n) callback.apply(this, arguments); }); 
+};
+</script>
+
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-27276322-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</body>
+</html>

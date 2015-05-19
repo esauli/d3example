@@ -14,25 +14,29 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
 <script>
 window.onload = function(){
-    var stage,path, map, xy;
+	 /*地図を表示するステージを追加*/
+    var stage = d3.select("body")
+		.append("svg:svg")
+		.attr({
+			"width": 960,
+			 "height":600
+		});
     
-    stage = d3.select("body").append("svg:svg").attr("width", 960).attr("height", 600); //地図を表示するステージ
-    
-    //海　実はただのcircle
-    stage.append('circle')
-        .attr({
-            fill:"blue",
-            cx:480,
-            cy:250,
-            r:245
-        })
-    
-    projection = d3.geo.orthographic() //投影法を指定
-        .scale(245) //大きさ
-        .rotate([0,0,0]) //x,y,z回転
-        .clipAngle(90); //表示する角度 180度を指定すると裏側の大陸まで表示される
-    
-    path = d3.geo.path().projection(projection);
+	/*プロジェクション設定*/
+	projection = d3.geo.orthographic() //投影法を指定
+		.scale(245) //大きさ
+		.rotate([0,0,0]) //x,y,z回転
+		.clipAngle(90); //表示する角度 180度を指定すると裏側の大陸まで表示される
+	
+	/*パスジェネレーター生成*/
+	path = d3.geo.path().projection(projection);
+
+
+	/*海描画*/
+	var sea = stage.append("path")
+		.datum({type: "Sphere"})
+		.attr("fill", "blue")
+		.attr("d", path);    
         
     d3.json("../../_geodata/conuntries2.topojson", function(json){ //地図情報の読み込み
         
@@ -40,7 +44,7 @@ window.onload = function(){
        
         stage.append("svg:g").attr({"class":"earth"}); //g要素追加(グループ化)
        
-       //地図表示
+       /*地図表示*/
         map = stage
             .selectAll("path")
             .data(data) 
@@ -67,16 +71,19 @@ window.onload = function(){
 	    
     });
     
-    
-    setInterval(update, 100); //定期的に回転させる
-    
-    var i=0;
-    function update(){
-        i = i+0.5;
-        projection.rotate([i,0,0]);  //rotateの値を増やして
-        path = d3.geo.path().projection(projection);    //path関数をアップデート
-        map.attr("d", path); //paht関数をmapオブジェクトに適用
-    }
+	/*地形を回転させる*/ 
+	update = function(){
+		var i = 0;
+		return function(){
+			i = i+0.5;
+			projection.rotate([i,0,0]);  //rotateの値を増やして
+			path = d3.geo.path().projection(projection);    //path関数をアップデート
+			map.attr("d", path); //paht関数をmapオブジェクトに適用
+			
+		}
+	}
+	
+	setInterval(update(), 100); //定期的に回転させる
 }
 </script>
 

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Leaflet&D3 手書き風地図</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+<style>
+html, body{
+	margin: 0px;
+	padding: 0px;
+}
+html, body, #map {
+	width: 100%;
+	height: 100%;
+}
+.range {position: absolute; width: 100%; top: -2px; z-index: 9999}
+input[type='range']{-webkit-appearance: none; -moz-appearance:none; background-color: #a59aca;}
+
+.changeWriting {
+	position: absolute;
+	top:40px;
+	left: 10px;
+	background-color: white;
+	 z-index: 9999;
+	 font-size: 12px;
+	 padding: 8px;
+	 
+}
+
+</style>
+</head>
+<body>
+<input id='range' class='range' type='range' value="5" min='0', max='30' step='1'/>
+<div class="changeWriting">
+	<input type="radio" class="type" name="writetype" value="basis"  checked/> あなろぐ風　／ <input  type="radio"  class="type" name="writetype" value="step-before"/> でじたる風	
+</div>
+
+<div id="map"></div>
+
+<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
+
+<script>
+d3.json("ken.geojson", function(json) {
+	mapdraw(json)
+});
+
+
+function mapdraw(geojson){
+	var range = document.querySelector('.range');
+	
+	//Leaflet初期設定	
+	var map = L.map('map', {
+		center: [39.702053　, 141.15448379999998],
+		zoom: 6,
+		zoomControl: false
+	});	
+	new L.Control.Zoom({ position: 'bottomright' }).addTo(map);
+	
+	//Leafletに用意されたsvgを使う 
+	map._initPathRoot();	
+		
+	// svg要素を選択
+	var svg = d3.select("#map").select("svg");
+	var g = svg.append("g");
+
+	
+	//緯度経度->パスジェネレーター関数作成
+	var transform = d3.geo.transform({point: projectPoint});
+	var path = d3.geo.path().projection(transform);
+ 
+	//地形のpath要素(透明)を追加→ベースマップとする
+	var basemap = g.selectAll(".base")
+		.data(geojson.features)
+		.enter()
+		.append("path")
+		.attr({
+			"class":function(d, i){ return "base No" + i },
+			"stroke": "red",
+			"fill": "none",
+			"stroke-opacity": 0
+		});
+
+	map.on("viewreset", update);
+
+	update();
+
+
+	function update() {
+		//ベースマップ(透明)をアップデーと
+		basemap.attr("d", path);
+		
+		//手書き風マップを削除
+		d3.selectAll(".handDrawingGroup").remove();
+		
+		//ベースマップからpath要素のd属性の値を抽出→配列化する
+		var basePathArray =Array.apply(null, document.querySelectorAll(".base"))
+			.map(function(p){ return d3.select(p).attr("d").split("M").filter(function(P, i){
+				return i != 0;
+			}).map(function(p){
+				return	p.replace(/Z/g, "").split("L").map(function(s){ return s.split(",") })  })
+			});
+		
+		//補完方法を選択(basis or step-before)
+		var writetype = document.querySelector('[name="writetype"]:checked').value;
+		//パスジェネレーターを生成
+		var countryDraw = d3.svg.line().x(function(d){ return d[0]}).y(function(d){return d[1]})
+			.interpolate(writetype);	
+		
+		//各手書き風pathの親要素	
+		var hw = svg.selectAll(".handDrawingGroup")
+			.data(basePathArray)
+			.enter()
+			.append("g")
+			.attr("class", "handDrawingGroup")
+		
+		//手書き風地図を描画する	
+		hw.selectAll("handDrawingPath")
+			.data(function(d){ return d})
+			.enter()
+			.append("path")
+			.attr({
+				"class":"handDrawingPath",
+				"stroke":"black",
+				"stroke-width":2,
+				"fill": "none",
+				d:function(d){return countryDraw(d) + "Z";  }
+			})
+				
+		
+	} 
+
+	//緯度→座標変換
+	function projectPoint(x, y) {		
+		var point = map.latLngToLayerPoint(new L.LatLng(y, x));
+		//座標にランダムにノイズを加える
+		var pointX = (point.x + Math.random() * range.value - range.value /2);
+		var pointY = (point.y + Math.random() * range.value - range.value /2);
+		this.stream.point(pointX, pointY);
+	}
+
+	//イベントリスナー
+	range['oninput' in range ? 'oninput' : 'onchange'] = update;
+	d3.selectAll(".type").on("click", update);
+
+}
+      
+</script>
+</body>
+</html>

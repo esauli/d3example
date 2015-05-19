@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>path</title>
+<style>
+svg {
+	width: 960px;
+	height: 150px;
+	border: 1px solid black;
+	margin-top: 10px;
+}
+</style>
+
+</head>
+
+<body>
+<div>
+<h2>座標点３→３(同じ場合)</h2>
+<svg id="svg1"></svg>
+<br>
+<input type="text" id="pahtd1">
+<br>
+<button id="run1">run</button>	
+<button id="reset1">reset</button>	
+</div>
+
+<div>
+<h2>座標点２→３(増える場合)</h2>
+<svg id="svg2"></svg>
+<br>
+<input type="text" id="pahtd2">
+<br>
+<button id="run2">run</button>	
+<button id="reset2">reset</button>	
+</div>
+
+<div>
+<h2>座標点３→２(減る場合)</h2>
+<svg id="svg3"></svg>
+<br>
+<input type="text" id="pahtd3">
+<br>
+<button id="run3">run</button>	
+<button id="reset3">reset</button>	
+</div>
+
+	
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>    
+<script>
+var dataSet1 = [
+	{x:20, y:10},
+	{x:940, y:130},
+]
+
+var dataSet2 = [
+	{x:20, y:10},
+	{x:340, y:130},
+	{x:940, y:10},
+]
+
+var dataSet3 = [
+	{x:20, y:130},
+	{x:340, y:10},
+	{x:940, y:130},
+]
+
+
+var path = d3.svg.line()
+	.x(function(d){ return d.x })
+	.y(function(d){ return d.y })
+
+
+
+/*****************************************************************************
+ * path 1　座標点３→３(同じ場合)
+ ******************************************************************************/
+
+var svg1 = d3.select("#svg1")
+	
+var path1 = svg1.append("path")
+	.attr({
+		d:function(){
+			document.querySelector("#pahtd1").value = path(dataSet2);
+			return path(dataSet2);
+		},
+		stroke:"black",
+		"fill":"none"
+	})	
+
+//実行ボタン	
+d3.select("#run1").on("click", function(){
+	path1.transition().duration(1000).attr("d", function(){
+		document.querySelector("#pahtd1").value = path(dataSet3);
+		return path(dataSet3);
+	})
+});
+
+//リセットボタン
+d3.select("#reset1").on("click", function(){
+	path1.attr("d", function(){
+		document.querySelector("#pahtd1").value = path(dataSet2);
+		return path(dataSet2);
+	})
+});
+
+
+/*****************************************************************************
+ * path 2 座標点２→３(増える場合)
+ ******************************************************************************/
+
+
+var svg2 = d3.select("#svg2")
+	
+var path2 = svg2.append("path")
+	.attr({
+		d:function(){
+			document.querySelector("#pahtd2").value = path(dataSet1);
+			return path(dataSet1);
+		},
+		stroke:"black",
+		"fill":"none"
+	})	
+
+d3.select("#run2").on("click", function(){
+	path2.transition().duration(1000).attr("d", function(){
+		document.querySelector("#pahtd2").value = path(dataSet2);
+		return path(dataSet2);
+	})
+});
+	
+d3.select("#reset2").on("click", function(){
+	path2.attr("d", function(){
+		document.querySelector("#pahtd2").value = path(dataSet1);
+		return path(dataSet1);
+	})
+});
+
+/*****************************************************************************
+ * path 3 座標点３→２(減る場合)
+ ******************************************************************************/
+		
+var svg3 = d3.select("#svg3")
+	
+var path3 = svg3.append("path")
+	.attr({
+		d:function(){
+			document.querySelector("#pahtd3").value = path(dataSet2);
+			return path(dataSet2);
+		},
+		stroke:"black",
+		"fill":"none"
+	})	
+
+d3.select("#run3").on("click", function(){
+	document.querySelector("#pahtd3").value = path(dataSet1);
+	path3.transition().duration(1000).attr("d", path(dataSet1))
+});
+
+d3.select("#reset3").on("click", function(){
+	path3.attr("d", function(){
+		document.querySelector("#pahtd3").value = path(dataSet2);
+		return path(dataSet2);
+	})
+});
+
+
+</script>
+</body>
+</html>
